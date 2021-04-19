@@ -306,7 +306,7 @@ public class AIEnemy : MonoBehaviour
 	{
         hp -= hitPoints;
         if (hp <= 0)
-            OnDestroy();
+            Destroy(gameObject);
 	}
 
     public void OnDestroy()
