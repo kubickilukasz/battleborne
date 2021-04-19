@@ -150,7 +150,7 @@ public class AIEnemy : MonoBehaviour
     {
         Debug.Log("From Player: " + (player.transform.position - transform.position).magnitude + "/" + detectRangePlayer);
 
-        if (ignorePlayerTime < 0 && (player.transform.position - transform.position).magnitude < detectRangePlayer)
+        if (ignorePlayerTime <= 0 && (player.transform.position - transform.position).magnitude < detectRangePlayer)
         {
             Debug.Log("Setting to CHASE");
             SetState(State.CHASE);
