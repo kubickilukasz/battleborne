@@ -7,6 +7,8 @@ public class AIPlayerPlaceholder : MonoBehaviour
     public static AIPlayerPlaceholder instance;
 
     public float speed;
+    [SerializeField]
+    private bool debug = true;
 
     void Awake()
 	{
@@ -21,7 +23,9 @@ public class AIPlayerPlaceholder : MonoBehaviour
     void FixedUpdate()
     {
         //Sterowanie: WSADQE
-        //Zmienilem jump na q/e w input manager
-        transform.Translate(new Vector3(Input.GetAxis("Horizontal") * speed * Time.fixedDeltaTime, Input.GetAxis("Jump") * speed * Time.fixedDeltaTime, Input.GetAxis("Vertical") * speed * Time.fixedDeltaTime));
+        if (debug)
+        {
+            transform.Translate(new Vector3(Input.GetAxis("Horizontal") * speed * Time.fixedDeltaTime, Input.GetAxis("UpDown") * speed * Time.fixedDeltaTime, Input.GetAxis("Vertical") * speed * Time.fixedDeltaTime));
+        }
     }
 }
