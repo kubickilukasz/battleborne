@@ -8,9 +8,15 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class JetMovement : MonoBehaviour
 {
+    [Header("Movement")]
     [SerializeField]
     public float speed;
+    [SerializeField]
+    public float horizontalTurn;
+    [SerializeField] 
+    public float verticalTurn;
 
+    [Header("Physics")]
     Rigidbody rigidbody;
 
     // Start is called before the first frame update
@@ -22,10 +28,10 @@ public class JetMovement : MonoBehaviour
     
     void FixedUpdate()
     {
+        
         rigidbody.velocity = transform.forward * speed;
-        Vector3 torque = new Vector3(Input.GetAxis("Vertical")*10, Input.GetAxis("Horizontal")*10, 0);
+        Vector3 torque = new Vector3(Input.GetAxis("Mouse Y")*verticalTurn,Input.GetAxis("Mouse X")*horizontalTurn, 0);
         rigidbody.AddRelativeTorque(torque * Time.fixedDeltaTime);
-        rigidbody.rotation = Quaternion.Slerp(rigidbody.rotation, Quaternion.Euler(new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0)), .5f);
 
     }
 }
