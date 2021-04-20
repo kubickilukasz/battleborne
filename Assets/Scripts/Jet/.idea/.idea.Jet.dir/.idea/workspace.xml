@@ -20,7 +20,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d2e8a2f-c548-4a0b-98c9-f9f965c4db8a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../../.idea/.idea.battleborne/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../.idea/.idea.battleborne/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Jet.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Jet.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JetMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/JetMovement.cs" afterDir="false" />
     </list>
@@ -35,6 +34,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/../Camera/CameraFollow.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../STUDIA/unity-fv-ip-starboss-master/Assets/_Project/ExampleGameplay/SupernovaSpaceship/Scripts/PlayerSpaceshipController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../STUDIA/unity-fv-ip-starboss-master/Assets/_Project/ExampleGameplay/SupernovaSpaceship/Scripts/SpaceshipData.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/JetMovement.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -76,6 +76,7 @@
       <workItem from="1618841558099" duration="2924000" />
       <workItem from="1618852141658" duration="4079000" />
       <workItem from="1618857792298" duration="6061000" />
+      <workItem from="1618922100335" duration="861000" />
     </task>
     <servers />
   </component>

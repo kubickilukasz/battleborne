@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4999340775421084729}
-  m_LocalRotation: {x: -0.046589307, y: 0.70401365, z: 0.009722341, w: 0.70859}
+  m_LocalRotation: {x: -0.046588708, y: 0.70401525, z: 0.009721017, w: 0.7085885}
   m_LocalPosition: {x: -3.79, y: 2.98, z: 0.5}
   m_LocalScale: {x: 48.55311, y: 25.868288, z: 25.868288}
   m_Children: []
@@ -99,6 +99,8 @@ MonoBehaviour:
   speed: 10
   horizontalTurn: 20
   verticalTurn: 20
+  model: {fileID: 400000, guid: 247766e192f437c4680b63372b7cb017, type: 3}
+  leanValue: 10
 --- !u!95 &4999340775428388857
 Animator:
   serializedVersion: 3
@@ -126,9 +128,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4999340775421084729}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 2
   m_Drag: 0
-  m_AngularDrag: 0.5
+  m_AngularDrag: 0.3
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
