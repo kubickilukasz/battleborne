@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -200,13 +200,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 466046457}
-  m_LocalRotation: {x: 0.025456624, y: 0.53558344, z: -0.04007531, w: 0.84314674}
-  m_LocalPosition: {x: -19.84, y: 5.47, z: -7.88}
-  m_LocalScale: {x: 0.8459, y: 0.8459, z: 0.8459}
+  m_LocalRotation: {x: 0.017751474, y: 0.67986387, z: -0.04403361, w: 0.73179996}
+  m_LocalPosition: {x: -19.844547, y: 7.4391193, z: -0.06317806}
+  m_LocalScale: {x: 0.9183026, y: 0.84420526, z: 0.73864603}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 4.925, y: 64.749, z: -2.319}
+  m_LocalEulerAnglesHint: {x: 9.686, y: -3.6, z: 0.369}
 --- !u!114 &466046461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,8 +220,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 7905374508995447543}
-  smoothSpeed: 0.3
-  offset: {x: -15, y: 2, z: 0}
+  smoothSpeed: 0.02
+  offset: {x: 0, y: -3, z: 14}
 --- !u!1 &1103354592
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,6 +607,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4999340775421084726, guid: f45726a93291119419fb948b76f1e4b8,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4999340775421084726, guid: f45726a93291119419fb948b76f1e4b8,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 4999340775421084727, guid: f45726a93291119419fb948b76f1e4b8,
+        type: 3}
+      propertyPath: speed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4999340775421084727, guid: f45726a93291119419fb948b76f1e4b8,
+        type: 3}
+      propertyPath: rotSpeed
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4999340775421084727, guid: f45726a93291119419fb948b76f1e4b8,
+        type: 3}
+      propertyPath: leanValue
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4999340775421084727, guid: f45726a93291119419fb948b76f1e4b8,
+        type: 3}
+      propertyPath: verticalTurn
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4999340775421084727, guid: f45726a93291119419fb948b76f1e4b8,
+        type: 3}
+      propertyPath: horizontalTurn
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 4999340775421084729, guid: f45726a93291119419fb948b76f1e4b8,
         type: 3}
       propertyPath: m_Name

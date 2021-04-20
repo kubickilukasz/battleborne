@@ -10,11 +10,11 @@ public class JetMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField]
-    public float speed;
+    private float speed;
     [SerializeField]
-    public float horizontalTurn;
+    private float horizontalTurn;
     [SerializeField] 
-    public float verticalTurn;
+    private float verticalTurn;
     
     [Header("Physics")]
     Rigidbody rigidbody;
@@ -24,6 +24,7 @@ public class JetMovement : MonoBehaviour
 
     [SerializeField] 
     public float leanValue;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -34,10 +35,10 @@ public class JetMovement : MonoBehaviour
     {
         
         rigidbody.velocity = transform.forward * speed;
-        Vector3 torque = new Vector3(Input.GetAxis("Mouse Y")*verticalTurn,Input.GetAxis("Mouse X")*horizontalTurn, 0);
+        Vector3 torque = new Vector3(-Input.GetAxis("Mouse Y")*verticalTurn,Input.GetAxis("Mouse X")*horizontalTurn, 0);
         rigidbody.AddRelativeTorque(torque * Time.fixedDeltaTime);
-        model.localEulerAngles = new Vector3(Input.GetAxis("Mouse Y") * leanValue
-            , model.localEulerAngles.y, Input.GetAxis("Mouse X") * leanValue);
+        //model.localEulerAngles = new Vector3(Input.GetAxis("Mouse Y") * leanValue
+        //    , model.localEulerAngles.y, Input.GetAxis("Mouse X") * leanValue);
         
     }
 }

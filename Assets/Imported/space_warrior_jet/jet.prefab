@@ -96,11 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4881db38131094ea66a173e280ac85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  horizontalTurn: 20
-  verticalTurn: 20
+  speed: 100
+  horizontalTurn: 1000
+  verticalTurn: 1000
   model: {fileID: 400000, guid: 247766e192f437c4680b63372b7cb017, type: 3}
-  leanValue: 10
+  leanValue: 1000
 --- !u!95 &4999340775428388857
 Animator:
   serializedVersion: 3
@@ -130,9 +130,9 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 2
   m_Drag: 0
-  m_AngularDrag: 0.3
+  m_AngularDrag: 2
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 64
   m_CollisionDetection: 0
