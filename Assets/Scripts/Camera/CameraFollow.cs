@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
+    [Header("Target")]
     [SerializeField]
-    public Transform target;
+    private Transform target;
     
+    [Header("Camera Values")]
     [SerializeField]
-    public float smoothSpeed;
-    public Vector3 offset;
-
+    private float smoothSpeed;
+    [SerializeField]
+    private Vector3 offset;
+    [SerializeField]
+    private float rotSpeed;
     private Vector3 velocity = Vector3.zero;
 
     void FixedUpdate()
@@ -18,9 +22,9 @@ public class CameraFollow : MonoBehaviour
     
         Vector3 desiredPos = target.position - target.TransformDirection(offset);//target.position + offset;
         Vector3 smoothPos = Vector3.SmoothDamp(transform.position, desiredPos, ref velocity, smoothSpeed);
-        Quaternion smoothRot = Quaternion.Lerp(transform.rotation, target.rotation,0.5f);
+        Quaternion smoothRot = Quaternion.Lerp(transform.rotation, target.rotation,rotSpeed);
         transform.position = smoothPos;
         transform.rotation = smoothRot;
-        //transform.position = ;
+
     }
 }
