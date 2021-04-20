@@ -16,6 +16,9 @@ public class JetMovement : MonoBehaviour
     [SerializeField] 
     private float verticalTurn;
     
+    [Header("Jet Data")]
+    public JetData jetData;
+
     [Header("Physics")]
     Rigidbody rigidbody;
 
@@ -24,15 +27,17 @@ public class JetMovement : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+
     }
 
     
     void FixedUpdate()
     {
-        
-        rigidbody.velocity = transform.forward * speed;
+
+        rigidbody.velocity = transform.forward * speed * Time.fixedDeltaTime;
         Vector3 torque = new Vector3(-Input.GetAxis("Mouse Y")*verticalTurn,Input.GetAxis("Mouse X")*horizontalTurn, 0);
         rigidbody.AddRelativeTorque(torque * Time.fixedDeltaTime);
         
     }
+
 }

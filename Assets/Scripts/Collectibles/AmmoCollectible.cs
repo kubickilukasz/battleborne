@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(BoxCollider))]
 public class AmmoCollectible : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private JetData jetData;
 
-    // Update is called once per frame
-    void Update()
+    
+
+    void OnTriggerEnter(Collider other) 
     {
-        
+        if(other.tag == "Jet"){
+            jetData = other.GetComponent<JetMovement>().jetData;
+            if(jetData != null){
+                jetData.ammo+=20f;
+                Destroy(gameObject);
+            }
+        }    
     }
 }

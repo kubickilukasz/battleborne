@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JetData : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+[CreateAssetMenu(fileName = "JetData", menuName = "battleborne/JetData", order = 0)]
+public class JetData : ScriptableObject 
+{
+    public float ammo;
+    public float health;  
+
+    
+    void OnValidate()
     {
-        
+
+        ammo = 150f;
+        health = 100f;
+
     }
 }
+

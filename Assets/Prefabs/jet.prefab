@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 7179079518423928672}
   - component: {fileID: 7179079518414552238}
   - component: {fileID: 7179079518423928673}
+  - component: {fileID: 7905374508995679962}
   m_Layer: 0
   m_Name: jet
-  m_TagString: Untagged
+  m_TagString: Jet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7179079518423928686}
-  m_LocalRotation: {x: -0.046589307, y: 0.70401365, z: 0.009722341, w: 0.70859}
+  m_LocalRotation: {x: -0.046588708, y: 0.70401525, z: 0.009721017, w: 0.7085885}
   m_LocalPosition: {x: -3.79, y: 2.98, z: 0.5}
   m_LocalScale: {x: 48.55311, y: 25.868288, z: 25.868288}
   m_Children: []
@@ -96,9 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4881db38131094ea66a173e280ac85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 100
+  speed: 1000
   horizontalTurn: 1000
   verticalTurn: 1000
+  jetData: {fileID: 11400000, guid: 932f654d39d15b140ad9ab68bb6187ae, type: 2}
 --- !u!95 &7179079518414552238
 Animator:
   serializedVersion: 3
@@ -134,3 +136,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 64
   m_CollisionDetection: 0
+--- !u!65 &7905374508995679962
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7179079518423928686}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.25291294, y: 0.07473113, z: 0.24329068}
+  m_Center: {x: -9.313226e-10, y: -0.000000020489097, z: 1.6019087e-17}
