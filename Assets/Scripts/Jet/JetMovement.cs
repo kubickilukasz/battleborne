@@ -35,7 +35,12 @@ public class JetMovement : MonoBehaviour
         rigidbody.velocity = transform.forward * speed * Time.fixedDeltaTime;
         Vector3 torque = new Vector3(-Input.GetAxis("Mouse Y")*verticalTurn,Input.GetAxis("Mouse X")*horizontalTurn, 0);
         rigidbody.AddRelativeTorque(torque * Time.fixedDeltaTime);
-        
+
     }
 
+    void LateUpdate(){
+
+       // transform.Rotate(transform.rotation.x,transform.rotation.y,0);
+
+    }
 }
