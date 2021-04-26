@@ -16,8 +16,6 @@ public class JetMovement : MonoBehaviour
     [SerializeField] 
     private float verticalTurn;
     
-    [Header("Jet Data")]
-    public JetData jetData;
 
     [Header("Physics")]
     Rigidbody rigidbody;

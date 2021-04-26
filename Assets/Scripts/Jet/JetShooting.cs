@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class JetShooting : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField]
+    private float ammunition = 150f;
     void Start()
     {
         
@@ -14,5 +15,10 @@ public class JetShooting : MonoBehaviour
     void Update()
     {
         
+    }
+
+
+    public void AddAmmo(float ammo){
+        ammunition+=ammo;
     }
 }

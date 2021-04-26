@@ -3,21 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(BoxCollider))]
 public class AmmoCollectible : MonoBehaviour
 {
-    private JetData jetData;
+
+    [Header("AmmoData")]
+    public AmmoData ammoData;
 
     
 
     void OnTriggerEnter(Collider other) 
     {
         if(other.tag == "Jet"){
-            jetData = other.GetComponent<JetMovement>().jetData;
-            if(jetData != null){
-                jetData.ammo+=20f;
+                JetShooting jetShot = other.GetComponent<JetShooting>();
+                jetShot.AddAmmo(ammoData.ammo);
                 Destroy(gameObject);
             }
         }    
-    }
 }
