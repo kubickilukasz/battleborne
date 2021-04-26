@@ -11,12 +11,13 @@ GameObject:
   - component: {fileID: 4293506391016075078}
   - component: {fileID: 881090094393385187}
   - component: {fileID: 3161163601922626601}
+  - component: {fileID: 2660161012172693296}
   m_Layer: 0
   m_Name: city2_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4293506391016075078
 Transform:
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3521333305730512380}
   m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
   m_LocalPosition: {x: 12.86, y: 0.9999819, z: 0.06179142}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2660161012172693296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3521333305730512380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e68d53a61a14d440b8fd79d9e2db86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: e2676996347e1134a981cd4437d48313, type: 2}
