@@ -19,11 +19,16 @@ public class JetShooting : MonoBehaviour
 
     void Shoot(){
         if(Input.GetMouseButtonDown(0)){
-
+            if(ammunition > 0){
             GameObject bulletTrans = Instantiate(bullet,transform.position,Quaternion.identity) as GameObject;
-            Vector3 direction = Input.mousePosition - transform.position;
+            Camera cam = GetComponentInChildren<Camera>();
+            Vector3 direction = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,Input.mousePosition.y,cam.farClipPlane)) - transform.position;
             bulletTrans.GetComponent<Bullet>().Init(direction);
             ammunition--;
+            }
+            else{
+                //Tutaj komunikat z GUI o braku amunicji
+            }
 
         }
     }
