@@ -20,7 +20,9 @@ public class JetMovement : MonoBehaviour
     [Header("Physics")]
     Rigidbody rigidbody;
 
-
+    [Header("Explosion")]
+    [SerializeField]
+    private GameObject explosion;
 
     void Start()
     {
@@ -38,9 +40,19 @@ public class JetMovement : MonoBehaviour
 
     }
 
-    void LateUpdate(){
+    void LateUpdate()
+    {
 
        // transform.Rotate(transform.rotation.x,transform.rotation.y,0);
 
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if(other.collider.tag != "Ammo")
+        {
+            explosion.GetComponent<ParticleSystem>().Play();
+            GetComponent<Renderer>().enabled = false;
+        }
     }
 }

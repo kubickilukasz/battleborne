@@ -10,13 +10,13 @@ public class AmmoCollectible : MonoBehaviour
     public AmmoData ammoData;
 
     
-
     void OnTriggerEnter(Collider other) 
     {
-        if(other.tag == "Jet"){
+        if(other.tag == "Jet")
+        {
                 JetShooting jetShot = other.GetComponent<JetShooting>();
                 jetShot.AddAmmo(ammoData.ammo);
                 Destroy(gameObject);
-            }
-        }    
+        }
+    }    
 }

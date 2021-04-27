@@ -16,7 +16,8 @@ public class Bullet : MonoBehaviour
     private float bulletSpeed;
 
 
-    public void Init(Vector3 direction){
+    public void Init(Vector3 direction)
+    {
 
         rigidbody = GetComponent<Rigidbody>();
 
@@ -26,7 +27,8 @@ public class Bullet : MonoBehaviour
 
     }
 
-    void OnTriggerEnter(Collider other) {
+    void OnTriggerEnter(Collider other)
+    {
         // if(other.tag == "city"){
         //     //
         // }
