@@ -38,7 +38,7 @@ public class JetShooting : MonoBehaviour
         health = maxHealth;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         Shoot();        
     }

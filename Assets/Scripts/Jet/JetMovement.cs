@@ -57,9 +57,8 @@ public class JetMovement : MonoBehaviour
         if(other.collider.tag != "Ammo")
         {
             GameObject boom = Instantiate(explosion,transform.position,Quaternion.identity) as GameObject;
-            GetComponent<Renderer>().enabled = false;
             onDestroyEvent.Invoke();
-            Destroy(gameObject,2f);
+            Destroy(gameObject);
         }
     }
 }

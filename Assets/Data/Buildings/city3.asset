@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listOfTexture:
   - {fileID: 2800000, guid: 922539585dd7c9345a3ab3ad9a295b05, type: 3}
-  - {fileID: 2800000, guid: d899cc55472f62a4d9f8594c29b29d1a, type: 3}
+  - {fileID: 2800000, guid: 922e464dbec5f804191993d344c1450c, type: 3}
   - {fileID: 2800000, guid: 327e8040ec0cc5f4187e15d3f7b6e02a, type: 3}
