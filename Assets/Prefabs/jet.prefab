@@ -272,9 +272,9 @@ MonoBehaviour:
   onDestroyEvent:
     m_PersistentCalls:
       m_Calls: []
-  speed: 25
-  horizontalTurn: 2000
-  verticalTurn: 2000
+  speed: 1000
+  horizontalTurn: 1500
+  verticalTurn: 1500
   explosion: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
     type: 3}
 --- !u!95 &7179079518414552238
