@@ -44,7 +44,8 @@ public class JetMovement : MonoBehaviour
     void LateUpdate()
     {
 
-       // transform.Rotate(transform.rotation.x,transform.rotation.y,0);
+       rigidbody.rotation =
+            Quaternion.Lerp(rigidbody.rotation, Quaternion.Euler(new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0)), .5f);
 
     }
 

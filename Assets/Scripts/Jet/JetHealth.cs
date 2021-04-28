@@ -24,7 +24,6 @@ public class JetHealth : MonoBehaviour
         health = maxHealth;
     }
 
-    // Update is called once per frame
     void Update()
     {
         NoHealthExplode();
@@ -37,11 +36,11 @@ public class JetHealth : MonoBehaviour
         {
             if(other.collider.tag == "City")
             {
-                // CityBuilding building = other.collider.GetComponent<CityBuilding>();
-                // if(building != null)
-                // {
-                //     building.OnHit(100);
-                // }
+                CityBuilding building = other.collider.GetComponent<CityBuilding>();
+                if(building != null)
+                {
+                    building.OnHit(100);
+                }
             }
             else if(other.collider.tag == "Alien")
             {
