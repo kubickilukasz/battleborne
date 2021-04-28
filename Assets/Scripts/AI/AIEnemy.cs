@@ -81,6 +81,8 @@ public class AIEnemy : MonoBehaviour
     [SerializeField]
     private bool debug = true;
 
+
+
     // ***** UPDATE *****
 
 
@@ -276,8 +278,6 @@ public class AIEnemy : MonoBehaviour
         //Debug.Log("========== CHASE ==========");
     }
 
-
-
     // ***** MASZYNA STANOW *****
 
 
@@ -302,17 +302,38 @@ public class AIEnemy : MonoBehaviour
         }
     }
 
-    public void OnHit(int hitPoints)
-	{
-        hp -= hitPoints;
-        if (hp <= 0)
-            OnDestroy();
-	}
-
-    public void OnDestroy()
-	{
-    }
 
 
     // ***** DEBUG *****
+
+
+
+    // ***** GAMEPLAYOWE *****
+
+
+
+    public void OnHit(int hitPoints)
+    {
+        hp -= hitPoints;
+        if (hp <= 0)
+            Destroy(gameObject);
+    }
+
+
+
+    // ***** GAMEPLAYOWE *****
+
+
+
+    // ***** EVENT *****
+
+
+
+    public void OnDestroy()
+    {
+
+    }
+
+
+    // ***** EVENT *****
 }
