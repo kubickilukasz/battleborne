@@ -34,7 +34,7 @@ public class JetShooting : MonoBehaviour
             {
                 GameObject bulletTrans = Instantiate(bullet,transform.position,Quaternion.identity) as GameObject;
                 Vector3 direction = transform.forward*dirMultiplier;
-                bulletTrans.GetComponent<Bullet>().Init(direction);
+                bulletTrans.GetComponent<Bullet>().Init(direction,gameObject);
                 ammunition--;
             }
         }
