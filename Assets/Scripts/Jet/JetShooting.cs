@@ -1,13 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 
 public class JetShooting : MonoBehaviour
 {
 
-    public UnityEvent onDestroyEvent;
 
     [Header("Ammunition")]
     [SerializeField]
@@ -22,22 +20,6 @@ public class JetShooting : MonoBehaviour
     [SerializeField]
     private float dirMultiplier;
 
-    [Header("Jet Health")]
-    [SerializeField]
-    private int health;
-
-    [SerializeField]
-    private int maxHealth = 100;
-
-    [Header("Explosion")]
-    [SerializeField]
-    private GameObject explosion;
-
-
-    void Start()
-    {
-        health = maxHealth;
-    }
 
     void Update()
     {
@@ -69,32 +51,11 @@ public class JetShooting : MonoBehaviour
         return ammunition;
     }
 
-    public int GetHealth()
-    {
-        return health;        
-    }
-
     public void SetMaxAmmo()
     {
         ammunition = maxAmmo;
     }
 
-    public int GetMaxHealth()
-    {
-        return maxHealth;
-    }
-
-    public void OnHit(int hitPoints)
-    {
-        health -= hitPoints;
-        if(health <= 0)
-        {
-            GameObject boom = Instantiate(explosion,transform.position,Quaternion.identity) as GameObject;
-            GetComponent<Renderer>().enabled = false;
-            onDestroyEvent.Invoke();
-            Destroy(gameObject,2f);
-        }
-    }
 #endregion
 
 }

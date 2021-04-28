@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 7179079518423928672}
   - component: {fileID: 7179079518414552238}
   - component: {fileID: 7179079518423928673}
+  - component: {fileID: 7621178498617553995}
   - component: {fileID: 1205033909}
   - component: {fileID: 1205033915}
   m_Layer: 0
@@ -269,14 +270,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4881db38131094ea66a173e280ac85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onDestroyEvent:
-    m_PersistentCalls:
-      m_Calls: []
   speed: 1000
   horizontalTurn: 1500
   verticalTurn: 1500
-  explosion: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
-    type: 3}
 --- !u!95 &7179079518414552238
 Animator:
   serializedVersion: 3
@@ -312,6 +308,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 64
   m_CollisionDetection: 2
+--- !u!114 &7621178498617553995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7179079518423928686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf3c49249ac4a134ea88ed42d2d60b3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onDestroyEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  health: 0
+  maxHealth: 100
+  explosion: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
+    type: 3}
 --- !u!64 &1205033909
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -338,16 +353,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eb6fdd729e96d349a172da75d9dfee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onDestroyEvent:
-    m_PersistentCalls:
-      m_Calls: []
   ammunition: 150
   maxAmmo: 300
   bullet: {fileID: 1869544619058439905, guid: 1b6cac849c829b5498e87754d4e392ba, type: 3}
   dirMultiplier: 500
-  maxHealth: 100
-  explosion: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
-    type: 3}
 --- !u!1 &8953718499959505131
 GameObject:
   m_ObjectHideFlags: 0

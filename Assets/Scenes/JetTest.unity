@@ -918,17 +918,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1014645764382906056, guid: 3e57364e1a320bc47911d76d33c29207,
-        type: 3}
-      propertyPath: bulletSpeed
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 7179079518423928672, guid: 3e57364e1a320bc47911d76d33c29207,
-        type: 3}
-      propertyPath: explosion
-      value: 
-      objectReference: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
-        type: 3}
     - target: {fileID: 7179079518423928686, guid: 3e57364e1a320bc47911d76d33c29207,
         type: 3}
       propertyPath: m_Name

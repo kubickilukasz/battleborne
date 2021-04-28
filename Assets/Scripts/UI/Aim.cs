@@ -66,8 +66,8 @@ public class Aim : MonoBehaviour
 
         if(jetShooting != null)
         {
-            healthBar.fillAmount = jetShooting.GetHealth() / jetShooting.GetMaxHealth();
-            ammoBar.fillAmount = jetShooting.GetAmmo() / jetShooting.maxAmmo;
+            //healthBar.fillAmount = jetShooting.GetHealth() / jetShooting.GetMaxHealth();
+            //ammoBar.fillAmount = jetShooting.GetAmmo() / jetShooting.maxAmmo;
             Vector2 pos = jetCamera.WorldToScreenPoint(jetShooting.transform.position + jetShooting.transform.forward * rangeRayToCalculateAim);
             rectTransform.anchoredPosition = pos - (jetCamera.pixelRect.size / 2);
         }
