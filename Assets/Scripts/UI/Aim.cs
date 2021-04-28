@@ -7,13 +7,19 @@ public class Aim : MonoBehaviour
 {
 
     [SerializeField]
-    JetMovement movement; // TODO zmienić na JetShooting
+    JetShooting jetShooting; // TODO zmienić na JetShooting
 
     [SerializeField]
     RectTransform leftAim;
 
     [SerializeField]
     RectTransform rightAim;
+
+    [SerializeField]
+    Image healthBar;
+
+    [SerializeField]
+    Image ammoBar;
 
     [SerializeField]
     float smooth;
@@ -30,22 +36,43 @@ public class Aim : MonoBehaviour
     [SerializeField]
     bool isFocusing = true;
 
+    [SerializeField]
+    float rangeRayToCalculateAim;
+
+    [SerializeField]
+    Camera jetCamera;
+
     float refCurrentVelocity;
     Vector3 tempPosition;
+    RectTransform rectTransform;
 
-    void Start(){
+    void Start()
+    {
         tempPosition = new Vector3(leftAim.anchoredPosition.x,0,0);
+        rectTransform = GetComponent<RectTransform>();
     }
 
     void Update()
     {
-        if(isFocusing){
+        isFocusing = !Input.GetMouseButtonDown(0);
+        if(isFocusing)
+        {
             tempPosition = new Vector3(Mathf.SmoothDamp(tempPosition.x, focusPosX, ref refCurrentVelocity, smooth, maxSpeed),0,0);
         }else{
-            tempPosition = new Vector3(Mathf.SmoothDamp(tempPosition.x, recoilPosX, ref refCurrentVelocity, smooth, maxSpeed),0,0);
+            tempPosition = new Vector3(Mathf.SmoothDamp(tempPosition.x, recoilPosX, ref refCurrentVelocity, 0, maxSpeed),0,0);
         }
         leftAim.anchoredPosition = -tempPosition;
         rightAim.anchoredPosition = tempPosition;
+
+        if(jetShooting != null)
+        {
+            healthBar.fillAmount = jetShooting.GetHealth() / jetShooting.GetMaxHealth();
+            ammoBar.fillAmount = jetShooting.GetAmmo() / jetShooting.maxAmmo;
+            Vector2 pos = jetCamera.WorldToScreenPoint(jetShooting.transform.position + jetShooting.transform.forward * rangeRayToCalculateAim);
+            rectTransform.anchoredPosition = pos - (jetCamera.pixelRect.size / 2);
+        }
+
+        
     }
 
 
