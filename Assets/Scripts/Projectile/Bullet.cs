@@ -47,15 +47,15 @@ public class Bullet : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        else if(other.tag == "Jet")
-        {
-            JetShooting jet = other.GetComponent<JetShooting>();
-            if(jet != null)
-            {
-                jet.OnHit(hitPoints);
-                Destroy(gameObject);
-            }
-        }
+        // else if(other.tag == "Jet")
+        // {
+        //     JetShooting jet = other.GetComponent<JetShooting>();
+        //     if(jet != null)
+        //     {
+        //         jet.OnHit(hitPoints);
+        //         Destroy(gameObject);
+        //     }
+        // }
     }
 
 }

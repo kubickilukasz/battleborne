@@ -23,6 +23,7 @@ public class JetShooting : MonoBehaviour
     private float dirMultiplier;
 
     [Header("Jet Health")]
+    [SerializeField]
     private int health;
 
     [SerializeField]
