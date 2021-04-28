@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ammo
   - Jet
+  - Alien
   layers:
   - Default
   - TransparentFX
