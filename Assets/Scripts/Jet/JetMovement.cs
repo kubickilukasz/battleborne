@@ -57,6 +57,22 @@ public class JetMovement : MonoBehaviour
         if(other.collider.tag != "Ammo")
         {
             GameObject boom = Instantiate(explosion,transform.position,Quaternion.identity) as GameObject;
+            if(other.collider.tag == "City")
+            {
+                // CityBuilding building = other.collider.GetComponent<CityBuilding>();
+                // if(building != null)
+                // {
+                //     building.OnHit(100);
+                // }
+            }
+            else if(other.collider.tag == "Alien")
+            {
+                AIEnemy enemy = other.collider.GetComponent<AIEnemy>();
+                if(enemy!= null)
+                {
+                    enemy.OnHit(100);
+                }
+            }
             GetComponent<Renderer>().enabled = false;
             onDestroyEvent.Invoke();
             Destroy(gameObject,2f);

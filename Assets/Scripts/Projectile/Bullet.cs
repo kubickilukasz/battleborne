@@ -29,16 +29,33 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // if(other.tag == "city"){
-        //     //
-        // }
-        // else if(other.tag == "alien"){
+        if(other.tag == "City")
+        {
+            // CityBuilding building = other.GetComponent<CityBuilding>();
+            // if(building != null)
+            // {
+            //     building.OnHit(hitPoints);
+            //     Destroy(gameObject);
+            // }
+        }
+        else if(other.tag == "Alien")
+        {
             AIEnemy enemy = other.GetComponent<AIEnemy>();
-            if(enemy != null){
+            if(enemy != null)
+            {
                 enemy.OnHit(hitPoints);
                 Destroy(gameObject);
             }
-        //}
+        }
+        else if(other.tag == "Jet")
+        {
+            JetShooting jet = other.GetComponent<JetShooting>();
+            if(jet != null)
+            {
+                jet.OnHit(hitPoints);
+                Destroy(gameObject);
+            }
+        }
     }
 
 }
