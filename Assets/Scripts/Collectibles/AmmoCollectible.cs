@@ -2,17 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class AmmoCollectible : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    [Header("AmmoData")]
+    public AmmoData ammoData;
+
+    
+    void OnTriggerEnter(Collider other) 
     {
-        
-    }
+        if(other.tag == "Jet")
+        {
+                JetShooting jetShot = other.GetComponent<JetShooting>();
+                if(jetShot.GetAmmo() + ammoData.ammo < jetShot.maxAmmo)
+                {
+                    jetShot.AddAmmo(ammoData.ammo);
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    jetShot.SetMaxAmmo();
+                    Destroy(gameObject);
+                }
+        }
+    }    
 }
