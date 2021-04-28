@@ -15,8 +15,16 @@ public class AmmoCollectible : MonoBehaviour
         if(other.tag == "Jet")
         {
                 JetShooting jetShot = other.GetComponent<JetShooting>();
-                jetShot.AddAmmo(ammoData.ammo);
-                Destroy(gameObject);
+                if(jetShot.GetAmmo() + ammoData.ammo < jetShot.maxAmmo)
+                {
+                    jetShot.AddAmmo(ammoData.ammo);
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    jetShot.SetMaxAmmo();
+                    Destroy(gameObject);
+                }
         }
     }    
 }

@@ -1,20 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
 
 public class JetShooting : MonoBehaviour
 {
+
+    public UnityEvent onDestroyEvent;
+
     [Header("Ammunition")]
     [SerializeField]
     private float ammunition = 150f;
+
+    public float maxAmmo = 300f;
 
     [Header("Bullet")]
     [SerializeField]
     private GameObject bullet;
 
-    [Header("Jet Health")]
     [SerializeField]
+    private float dirMultiplier;
+
+    [Header("Jet Health")]
     private int health;
+
+    [SerializeField]
+    private int maxHealth = 100;
+
+    [Header("Explosion")]
+    [SerializeField]
+    private GameObject explosion;
+
+
+    void Start()
+    {
+        health = maxHealth;
+    }
 
     void FixedUpdate()
     {
@@ -27,17 +49,11 @@ public class JetShooting : MonoBehaviour
         {
             if(ammunition > 0)
             {
-            GameObject bulletTrans = Instantiate(bullet,transform.position,Quaternion.identity) as GameObject;
-            Camera cam = GetComponentInChildren<Camera>();
-            Vector3 direction = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,Input.mousePosition.y,cam.farClipPlane)) - transform.position;
-            bulletTrans.GetComponent<Bullet>().Init(direction);
-            ammunition--;
+                GameObject bulletTrans = Instantiate(bullet,transform.position,Quaternion.identity) as GameObject;
+                Vector3 direction = transform.forward*dirMultiplier;
+                bulletTrans.GetComponent<Bullet>().Init(direction);
+                ammunition--;
             }
-            else
-            {
-                //Tutaj komunikat z GUI o braku amunicji
-            }
-
         }
     }
 
@@ -47,9 +63,24 @@ public class JetShooting : MonoBehaviour
         ammunition+=ammo;
     }
 
-    public void GetAmmo()
+    public float GetAmmo()
     {
         return ammunition;
+    }
+
+    public int GetHealth()
+    {
+        return health;        
+    }
+
+    public void SetMaxAmmo()
+    {
+        ammunition = maxAmmo;
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
     }
 
     public void OnHit(int hitPoints)
@@ -57,7 +88,10 @@ public class JetShooting : MonoBehaviour
         health -= hitPoints;
         if(health <= 0)
         {
-            //TODO: zniszczenie się samolotu po utracie życia
+            GameObject boom = Instantiate(explosion,transform.position,Quaternion.identity) as GameObject;
+            GetComponent<Renderer>().enabled = false;
+            onDestroyEvent.Invoke();
+            Destroy(gameObject,2f);
         }
     }
 #endregion

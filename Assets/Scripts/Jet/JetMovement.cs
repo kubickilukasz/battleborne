@@ -3,11 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 [RequireComponent(typeof(Rigidbody))]
 public class JetMovement : MonoBehaviour
 {
+
+    public UnityEvent onDestroyEvent;
+
     [Header("Movement")]
     [SerializeField]
     private float speed;
@@ -23,6 +27,7 @@ public class JetMovement : MonoBehaviour
     [Header("Explosion")]
     [SerializeField]
     private GameObject explosion;
+
 
     void Start()
     {
@@ -51,8 +56,10 @@ public class JetMovement : MonoBehaviour
     {
         if(other.collider.tag != "Ammo")
         {
-            explosion.GetComponent<ParticleSystem>().Play();
+            GameObject boom = Instantiate(explosion,transform.position,Quaternion.identity) as GameObject;
             GetComponent<Renderer>().enabled = false;
+            onDestroyEvent.Invoke();
+            Destroy(gameObject,2f);
         }
     }
 }

@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
 
         rigidbody = GetComponent<Rigidbody>();
 
-        rigidbody.AddForce(direction*bulletSpeed*Time.fixedDeltaTime, ForceMode.Impulse);
+        rigidbody.AddRelativeForce(direction*bulletSpeed*Time.fixedDeltaTime, ForceMode.Impulse);
 
         Destroy(gameObject,5f);
 
