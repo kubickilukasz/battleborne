@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1869544619058439907}
   - component: {fileID: 5909353007898610666}
   - component: {fileID: 1041147831}
-  - component: {fileID: 1041147829}
   - component: {fileID: 1041147830}
-  m_Layer: 0
+  - component: {fileID: 1269226082}
+  m_Layer: 6
   m_Name: Bullet2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1869544619058439905}
   m_LocalRotation: {x: 0.0019713962, y: 0.000057906873, z: -0.029360816, w: 0.999567}
   m_LocalPosition: {x: -18.59, y: 7, z: -7.2}
-  m_LocalScale: {x: 0.038652647, y: 0.038554493, z: 0.020626664}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5340759439985878544}
   m_Father: {fileID: 0}
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52bcefafa8e66ca4d87c379c197ef115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleTime: 10000
+  scaleTime: 5
   trailRenderer: {fileID: 3497194632588877842}
 --- !u!54 &1041147831
 Rigidbody:
@@ -64,20 +64,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 1
---- !u!65 &1041147829
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1869544619058439905}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_CollisionDetection: 3
 --- !u!114 &1041147830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,7 +78,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 10
-  bulletSpeed: 100
+  bulletSpeed: 12
+--- !u!135 &1269226082
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869544619058439905}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6209817744985608529
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,7 +102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5340759439985878544}
   - component: {fileID: 3497194632588877842}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
