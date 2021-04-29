@@ -7,7 +7,10 @@ public class Aim : MonoBehaviour
 {
 
     [SerializeField]
-    JetShooting jetShooting; // TODO zmienić na JetShooting
+    JetShooting jetShooting;
+
+    [SerializeField]
+    JetHealth jetHealth;
 
     [SerializeField]
     RectTransform leftAim;
@@ -64,10 +67,10 @@ public class Aim : MonoBehaviour
         leftAim.anchoredPosition = -tempPosition;
         rightAim.anchoredPosition = tempPosition;
 
-        if(jetShooting != null)
+        if(jetShooting != null || jetHealth != null )
         {
-            //healthBar.fillAmount = jetShooting.GetHealth() / jetShooting.GetMaxHealth();
-            //ammoBar.fillAmount = jetShooting.GetAmmo() / jetShooting.maxAmmo;
+            healthBar.fillAmount = jetHealth.GetHealth() / jetHealth.GetMaxHealth();
+            ammoBar.fillAmount = jetShooting.GetAmmo() / jetShooting.maxAmmo;
             Vector2 pos = jetCamera.WorldToScreenPoint(jetShooting.transform.position + jetShooting.transform.forward * rangeRayToCalculateAim);
             rectTransform.anchoredPosition = pos - (jetCamera.pixelRect.size / 2);
         }

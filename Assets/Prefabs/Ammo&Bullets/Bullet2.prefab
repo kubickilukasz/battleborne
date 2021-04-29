@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52bcefafa8e66ca4d87c379c197ef115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleTime: 100
+  scaleTime: 10000
   trailRenderer: {fileID: 3497194632588877842}
 --- !u!54 &1041147831
 Rigidbody:

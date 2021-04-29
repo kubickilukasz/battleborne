@@ -20,6 +20,8 @@ public class BulletTrail : MonoBehaviour
         {
             trailRenderer = GetComponentInChildren<TrailRenderer>();
         }
+
+        SetSpeed(1);
     }
 
     public void SetSpeed(float speed)

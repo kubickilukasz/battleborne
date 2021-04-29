@@ -277,6 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jetShooting: {fileID: 0}
+  jetHealth: {fileID: 0}
   leftAim: {fileID: 760123941417434410}
   rightAim: {fileID: 760123942236918220}
   healthBar: {fileID: 760123942282618826}

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4107938204596079116}
   m_Layer: 0
   m_Name: Trooper
-  m_TagString: Untagged
+  m_TagString: Alien
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,4 +139,4 @@ MonoBehaviour:
   torqueacc: 2
   hp: 100
   particle: {fileID: 0}
-  debug: 1
+  debug: 0
