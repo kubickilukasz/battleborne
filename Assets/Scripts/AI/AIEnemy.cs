@@ -2,88 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using System;
 
 [RequireComponent(typeof(Rigidbody))]
-public class AIEnemy : MonoBehaviour
+public abstract class AIEnemy : MonoBehaviour
 {
-    //Status AI
-    /*
-     * Pomysl:
-     * Przeciwnik zaczyna w pozycji RETREAT, wracajac do wskazanego targetu
-     * Jesli gracz znajdzie sie w zasiegu wzroku przeciwnik zmienia stan na CHASE.
-     * W CHASE przeciwnik leci prosto w kierunku gracza (TODO: Atak).
-     * Jesli gracz znajdzie sie poza zasiegiem, zmieniony zostaje stan na RETREAT.
-     * W RETREAT przeciwnik wraca do swojego targetu. Jesli znajdzie sie u swojego targetu, wraca do IDLE
-    */
-    public Rigidbody rigidbody;
+    protected Rigidbody rigidbody;
 
-    public enum State
-    {
-        IDLE,
-        CHASE,
-        RETREAT
-    };
+    public float maxSpeed { get; protected set; }
+    public float acc { get; protected set; }
+    public float torqueacc { get; protected set; }
+
+    public float detectRange { get; protected set; }
+    public float ignoreTargetTime { get; protected set; }
+    public float imprecisionTime { get; protected set; }
+    public float dodgingTime { get; protected set; }
 
     [SerializeField]
-    private State state;
-
-
-
-    //Zmienne odpowiedzialne za Idle
+    protected GameObject player;
     [SerializeField]
-    private float idleMaxSpeed = 0f;
+    protected float playerDetectRange;
 
     [SerializeField]
-    public GameObject idlePoint;
-    [SerializeField]
-    private float detectRangeIdlePoint = 5f;
-    [SerializeField]
-    private float detectRangeIdlePointFar = 40f;
-
-    private float ignorePlayerTime;
-
-
-
-    //Zmienne odpowiedzialne za Chase
-    [SerializeField]
-    private float chaseMaxSpeed = 2f;
+    protected float crashDangerRange;
 
     [SerializeField]
-    public GameObject player;
+    protected float spawnIgnorePlayerTime;
     [SerializeField]
-    private float detectRangePlayer = 20f;
-
-
-
-    //Zmienne odpowiedzialne za Retreat 
+    protected float cycleImprecisonBoxSize;
     [SerializeField]
-    private float retreatMaxSpeed = 1f;
-
-
-
-    //Tymczasowe
+    protected float nextImprecisionTime;
+    private Vector3 randomImprecision;
     [SerializeField]
-    private float acc = 0.005f;
+    protected float nextDodgingTime;
+
     [SerializeField]
-    private float torqueacc = 250f;
-
-    private float maxspeed = 0f;
-    private GameObject currentTarget;
-
-
-
-    //Inne/Gameplayowe
+    public int hp;
     [SerializeField]
-    public int hp = 100;
+    private GameObject deathParticle;
     [SerializeField]
-    private GameObject particle;
-    [SerializeField]
-    private bool debug = true;
+    protected bool debug = true;
 
-
-
-    // ***** UPDATE *****
+    protected GameObject target;
 
 
 
@@ -91,249 +50,147 @@ public class AIEnemy : MonoBehaviour
     {
         if (hp > 0)
         {
-            if (ignorePlayerTime > 0)
-                ignorePlayerTime = ignorePlayerTime - Time.fixedDeltaTime * 100f;
+            if (ignoreTargetTime > 0)
+                ignoreTargetTime = ignoreTargetTime - Time.fixedDeltaTime * 100f;
 
-            switch (state)
+            if (dodgingTime > 0)
+                dodgingTime = dodgingTime - Time.fixedDeltaTime * 100f;
+
+            if (imprecisionTime > 0)
+                imprecisionTime = imprecisionTime - Time.fixedDeltaTime * 100f;
+            else
             {
-                case State.IDLE:
-                    Idle();
-                    break;
-                case State.CHASE:
-                    Chase();
-                    break;
-                case State.RETREAT:
-                    Retreat();
-                    break;
+                GenerateRandomImprecision();
+                imprecisionTime = nextImprecisionTime;
             }
+
+            UpdateStateMethods();
         }
+        else
+            Destroy(gameObject);
     }
 
     void Start()
     {
+        randomImprecision = new Vector3(0.0f, 0.0f, 0.0f);
         rigidbody = GetComponent<Rigidbody>();
-        SetState(State.RETREAT);
+        SetupStartValues();
     }
 
 
 
-    // ***** UPDATE *****
-
-
-
-    // ***** PORUSZANIE SIE *****
-
-
-
-    void AccelerateForward()
+    protected void AccelerateForward()
     {
-        if (rigidbody.velocity.magnitude <= maxspeed)
+        Vector3 newone = Vector3.forward * acc* Time.fixedDeltaTime * 100;
+
+        if (rigidbody.velocity.magnitude <= maxSpeed)
         {
-            rigidbody.AddRelativeForce(Vector3.forward * acc * Time.fixedDeltaTime * 10000);
+            rigidbody.AddRelativeForce(newone);
         }
         else
         {
-            rigidbody.AddRelativeForce(-Vector3.forward * acc * Time.fixedDeltaTime * 10000);
-        }
-
-        //Debug.Log("Velocity: " + rigidbody.velocity.magnitude + "/" + maxspeed);
-    }
-
-    void StrafeTowardsFocusTarget()
-	{
-        if (currentTarget != null)
-        {
-            Vector3 direction = (currentTarget.transform.position - transform.position).normalized;
-            Quaternion q = Quaternion.LookRotation(direction);
-            //Debug.Log("Rotating towards: " + currentTarget + " - " + q);
-            transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.fixedDeltaTime * torqueacc);
+            rigidbody.AddRelativeForce(-newone);
         }
     }
 
-    void FixVelocity()
-	{
+    private void FixVelocity()
+    {
         float t = rigidbody.velocity.magnitude;
         Vector3 v = Vector3.forward;
         v = rigidbody.rotation.normalized * v;
         v *= t;
 
-        
         rigidbody.velocity = v;
     }
 
-    void DetectPlayerOrIdlePoint()
-    {
-        //Debug.Log("From Player: " + (player.transform.position - transform.position).magnitude + "/" + detectRangePlayer);
-        //Debug.Log("From Idlepoint: " + (player.transform.position - transform.position).magnitude + "/" + detectRangeIdlePoint);
-
-        if ((currentTarget.transform.position - transform.position).magnitude < detectRangeIdlePoint)
-        {
-            //Debug.Log("Setting to IDLE");
-            SetState(State.IDLE);
-        }
-        else if (ignorePlayerTime <= 0 && (player.transform.position - transform.position).magnitude < detectRangePlayer)
-        {
-            //Debug.Log("Setting to CHASE");
-            SetState(State.CHASE);
-        }
-    }
-
-    void DetectPlayer()
-    {
-        //Debug.Log("From Player: " + (player.transform.position - transform.position).magnitude + "/" + detectRangePlayer);
-
-        if (ignorePlayerTime <= 0 && (player.transform.position - transform.position).magnitude < detectRangePlayer)
-        {
-            //Debug.Log("Setting to CHASE");
-            SetState(State.CHASE);
-        }
-
-    }
-
-    void DetectNotTooFar()
+    protected void StrafeTowardsFocusTarget()
 	{
-        //Debug.Log("From Idlepoint: " + (player.transform.position - transform.position).magnitude + "/" + detectRangeIdlePointFar);
-        if ((idlePoint.transform.position - transform.position).magnitude > detectRangeIdlePointFar)
+        if (target != null)
         {
-            //Debug.Log("Setting to RETREAT (too far)");
-            ignorePlayerTime = 400f;
-            SetState(State.RETREAT);
+            Vector3 direction = (target.transform.position - transform.position).normalized;
+            Quaternion q = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.fixedDeltaTime * torqueacc);
         }
+        FixVelocity();
     }
 
-    void DetectNotLostTarget()
+    protected void StrafeTowardsConstPos(Vector3 idlepos)
+    {
+        if (idlepos != null)
+        {
+            Vector3 direction = (idlepos - transform.position).normalized;
+            Quaternion q = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.fixedDeltaTime * torqueacc);
+        }
+        FixVelocity();
+    }
+
+    protected void CycleAroundTarget()
 	{
-        //Debug.Log("From Idlepoint: " + (player.transform.position - transform.position).magnitude + "/" + detectRangePlayer);
-        if ((currentTarget.transform.position - transform.position).magnitude > detectRangePlayer)
+        if (target.transform.position != null)
         {
-            //Debug.Log("Setting to RETREAT (lost target)");
-            SetState(State.RETREAT);
+            Vector3 direction = (target.transform.position + randomImprecision - transform.position).normalized;
+            Quaternion q = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.fixedDeltaTime * torqueacc);
         }
+        FixVelocity();
     }
 
-    // ***** PORUSZANIE SIE *****
-
-
-
-    // ***** MASZYNA STANOW *****
-
-
-
-    void SetState(State newstate)
+    protected void CycleAroundConstPos(Vector3 idlepos)
     {
-        switch (newstate)
+        if (idlepos != null)
         {
-            case State.IDLE:
-                maxspeed = idleMaxSpeed;
-                currentTarget = null;
-                state = newstate;
-                break;
-            case State.CHASE:
-                maxspeed = chaseMaxSpeed;
-                currentTarget = player;
-                state = newstate;
-                break;
-            case State.RETREAT:
-                maxspeed = retreatMaxSpeed;
-                currentTarget = idlePoint;
-                state = newstate;
-                break;
-            default:
-                //Debug.Log("Dlaczego Default?");
-                break;
+            Vector3 direction = (idlepos + randomImprecision - transform.position).normalized;
+            Quaternion q = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.fixedDeltaTime * torqueacc);
         }
-    }
 
-    void Idle()
-    {
-        //Debug.Log("========== IDLE ==========");
-        AccelerateForward();
-        StrafeTowardsFocusTarget();
         FixVelocity();
-        DetectPlayer();
-        //Debug.Log("Ignore Time: " + ignorePlayerTime);
-        //Debug.Log("========== IDLE ==========");
     }
 
-    void Retreat()
-    {
-        //Debug.Log("========== RETREAT ==========");
-        AccelerateForward();
-        StrafeTowardsFocusTarget();
-        FixVelocity();
-        DetectPlayerOrIdlePoint();
-        //Debug.Log("Ignore Time: " + ignorePlayerTime);
-        //Debug.Log("========== RETREAT ==========");
+    private void GenerateRandomImprecision()
+	{
+        randomImprecision.x = Random.Range(-cycleImprecisonBoxSize, cycleImprecisonBoxSize);
+        randomImprecision.y = Random.Range(-cycleImprecisonBoxSize, cycleImprecisonBoxSize);
+        randomImprecision.z = Random.Range(-cycleImprecisonBoxSize, cycleImprecisonBoxSize);
     }
 
-    void Chase()
-    {
-        //Debug.Log("========== CHASE ==========");
-        AccelerateForward();
-        StrafeTowardsFocusTarget();
-        FixVelocity();
-        DetectNotTooFar();
-        DetectNotLostTarget();
-        //Debug.Log("Ignore Time: " + ignorePlayerTime);
-        //Debug.Log("========== CHASE ==========");
-    }
-
-    // ***** MASZYNA STANOW *****
 
 
-
-    // ***** DEBUG *****
-
-
-
-    void OnDrawGizmos()
-    {
-        if (debug)
+    protected bool CheckRaycast()
+	{
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, crashDangerRange))
         {
-            if (currentTarget != null)
-            {
-                Gizmos.color = Color.yellow;
-                Gizmos.DrawLine(transform.position, currentTarget.transform.position);
-            }
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, transform.position + rigidbody.velocity.normalized);
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, detectRangePlayer);
+            return true;
         }
+        return false;
+	}
+
+
+    protected bool IsPlayerInRange()
+    {
+        if (ignoreTargetTime <= 0 && (player.transform.position - transform.position).magnitude < playerDetectRange)
+            return true;
+        else
+            return false;
     }
 
 
 
-    // ***** DEBUG *****
+    protected abstract void SetupStartValues();
 
-
-
-    // ***** GAMEPLAYOWE *****
+    protected abstract void UpdateStateMethods();
 
 
 
     public void OnHit(int hitPoints)
     {
         hp -= hitPoints;
-        if (hp <= 0)
-            Destroy(gameObject);
     }
-
-
-
-    // ***** GAMEPLAYOWE *****
-
-
-
-    // ***** EVENT *****
-
-
 
     public void OnDestroy()
     {
-
+        Instantiate(deathParticle, transform.position, transform.rotation);
     }
-
-
-    // ***** EVENT *****
 }

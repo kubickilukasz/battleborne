@@ -6,9 +6,7 @@ using UnityEngine.Events;
 public class City : MonoBehaviour
 {
     //Inne/Gameplayowe
-    [SerializeField]
-    private List<GameObject> buildingObjects = new List<GameObject>();
-    private List<CityBuilding> buildings = new List<CityBuilding>();
+    private List<CityBuilding> buildings;
     [SerializeField]
     private bool debug = false;
 
@@ -58,25 +56,14 @@ public class City : MonoBehaviour
 
     void Start()
     {
-        foreach (GameObject buildingObject in buildingObjects)
-            buildings.Add(buildingObject.GetComponent<CityBuilding>());
-
-        foreach (CityBuilding building in buildings)
-        {
-            building.Town = this;
-        }
+        CityBuilding[] buildingsTable = GetComponentsInChildren<CityBuilding>();
+        buildings = new List<CityBuilding>(buildingsTable);
+        foreach (CityBuilding cb in buildings)
+            cb.Town = this;
 
         cityDestroyedEvent = new UnityEvent();
         cityDestroyedEvent.AddListener(ListenerPlaceholder.ListenDestroyCity);
     }
-
-
-
-    // ***** UPDATE *****
-
-
-
-    // ***** GAMEPLAYOWE *****
 
 
 
@@ -93,6 +80,8 @@ public class City : MonoBehaviour
             cityDestroyedEvent.Invoke();
             Destroy(gameObject);
         }
+
+        DisplayHP();
     }
 
     public void DisplayHP()
@@ -107,22 +96,8 @@ public class City : MonoBehaviour
     }
 
 
-
-    // ***** EVENT *****
-
-
-
-    void OnTriggerEnter(Collider coll)
-    {
-        // Nie wiem jak wejdzie sie w kolizej
-    }
-
     public void OnDestroy()
     {
 
     }
-
-
-
-    // ***** EVENT *****
 }
