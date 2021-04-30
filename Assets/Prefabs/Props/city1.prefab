@@ -110,7 +110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
-  particle: {fileID: 0}
+  deathParticle: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
+    type: 3}
   debug: 0
 --- !u!64 &1422665409
 MeshCollider:
