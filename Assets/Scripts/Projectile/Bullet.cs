@@ -46,12 +46,12 @@ public class Bullet : MonoBehaviour
         {
             if(other.gameObject!= sender)
             {
-                AIEnemy enemy = other.GetComponent<AIEnemy>();
+                /*AIEnemy enemy = other.GetComponent<AIEnemy>();
                 if(enemy != null)
                 {
                     enemy.OnHit(hitPoints);
                     Destroy(gameObject);
-                }
+                }*/
             }
         }
         else if(other.tag == "Jet")

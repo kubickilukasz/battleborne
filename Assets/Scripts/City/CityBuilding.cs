@@ -10,13 +10,22 @@ public class CityBuilding : MonoBehaviour
     private int hp = 100;
     private int maxHp;
     [SerializeField]
-    private GameObject particle;
+    private GameObject deathParticle;
     [SerializeField]
     private bool debug = false;
     private City city = null;
 
     private Collider collider;
     UnityEvent buildingDestroyedEvent;
+
+    void Update()
+    {
+        if (hp <= 0)
+        {
+            buildingDestroyedEvent.Invoke();
+            Destroy(gameObject);
+        }
+    }
 
     public int MaxHealth
     {
@@ -59,10 +68,6 @@ public class CityBuilding : MonoBehaviour
 
 
 
-    // ***** UPDATE *****
-
-
-
     void FixedUpdate()
     {
         
@@ -79,50 +84,21 @@ public class CityBuilding : MonoBehaviour
 
 
 
-    // ***** UPDATE *****
-
-
-
-    // ***** GAMEPLAYOWE *****
-
-
-
     public void OnHit(int hitPoints)
     {
         hp -= hitPoints;
-        if (city != null) city.OnHit(hitPoints);
-
-        if (hp <= 0)
+        if (city != null)
         {
-            buildingDestroyedEvent.Invoke();
-            if (city != null) city.OnDestroyBuilding(this);
-            Destroy(gameObject);
+            city.OnHit(hitPoints);
+            city.DisplayHP();
         }
-
-        if (city != null) city.DisplayHP();
     }
 
 
-
-    // ***** GAMEPLAYOWE *****
-
-
-
-    // ***** EVENT *****
-
-
-
-    void OnTriggerEnter(Collider coll)
-    {
-        // TODO: Np. Jak wchodzisz na obszar miasta
-    }
 
     public void OnDestroy()
     {
-
+        city.OnDestroyBuilding(this);
+        Instantiate(deathParticle, transform.position, transform.rotation);
     }
-
-
-
-    // ***** EVENT *****
 }

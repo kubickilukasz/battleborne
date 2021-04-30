@@ -42,14 +42,14 @@ public class JetHealth : MonoBehaviour
                     building.OnHit(100);
                 }
             }
-            else if(other.collider.tag == "Alien")
+            /*else if(other.collider.tag == "Alien")
             {
                 AIEnemy enemy = other.collider.GetComponent<AIEnemy>();
                 if(enemy!= null)
                 {
                     enemy.OnHit(100);
                 }
-            }
+            }*/
             health = 0;
         }
     }
