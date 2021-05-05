@@ -45,6 +45,9 @@ public class Aim : MonoBehaviour
     [SerializeField]
     Camera jetCamera;
 
+    [SerializeField]
+    LayerMask maskForRay;
+
     float refCurrentVelocity;
     Vector3 tempPosition;
     RectTransform rectTransform;
@@ -71,8 +74,14 @@ public class Aim : MonoBehaviour
         {
             healthBar.fillAmount = jetHealth.GetHealth() / jetHealth.GetMaxHealth();
             ammoBar.fillAmount = jetShooting.GetAmmo() / jetShooting.maxAmmo;
-            Vector2 pos = jetCamera.WorldToScreenPoint(jetShooting.transform.position + jetShooting.transform.forward * rangeRayToCalculateAim);
-            rectTransform.anchoredPosition = pos - (jetCamera.pixelRect.size / 2);
+
+            RaycastHit hit;
+            if(Physics.Raycast(jetShooting.transform.position, jetShooting.transform.forward, out hit, rangeRayToCalculateAim, maskForRay)){
+                rectTransform.anchoredPosition = (Vector2)jetCamera.WorldToScreenPoint(hit.point) - (jetCamera.pixelRect.size / 2);
+            }else{
+                Vector2 pos = jetCamera.WorldToScreenPoint(jetShooting.transform.position + jetShooting.transform.forward * (rangeRayToCalculateAim * 0.25f));
+                rectTransform.anchoredPosition = pos - (jetCamera.pixelRect.size / 2);
+            }
         }
 
         
