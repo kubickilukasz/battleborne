@@ -26,5 +26,12 @@ public class AmmoCollectible : MonoBehaviour
                     Destroy(gameObject);
                 }
         }
+        else
+        {
+            if(other.tag != "Alien")
+            {
+                Destroy(gameObject);
+            }
+        }
     }    
 }

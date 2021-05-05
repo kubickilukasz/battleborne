@@ -19,6 +19,9 @@ public class JetHealth : MonoBehaviour
     [SerializeField]
     private GameObject explosion;
 
+    [SerializeField]
+    private int explosionHitPoints;
+
     void Start()
     {
         health = maxHealth;
@@ -39,17 +42,17 @@ public class JetHealth : MonoBehaviour
                 CityBuilding building = other.collider.GetComponent<CityBuilding>();
                 if(building != null)
                 {
-                    building.OnHit(100);
+                    building.OnHit(explosionHitPoints);
                 }
             }
-            /*else if(other.collider.tag == "Alien")
+            else if(other.collider.tag == "Alien")
             {
                 AIEnemy enemy = other.collider.GetComponent<AIEnemy>();
                 if(enemy!= null)
                 {
-                    enemy.OnHit(100);
+                    enemy.OnHit(explosionHitPoints);
                 }
-            }*/
+            }
             health = 0;
         }
     }

@@ -44,14 +44,15 @@ public class Bullet : MonoBehaviour
         }
         else if(other.tag == "Alien")
         {
-            if(other.gameObject!= sender)
+            if(other.gameObject != sender)
             {
-                /*AIEnemy enemy = other.GetComponent<AIEnemy>();
+                AIEnemy enemy = other.GetComponent<AIEnemy>();
+                Debug.Log(enemy);
                 if(enemy != null)
                 {
                     enemy.OnHit(hitPoints);
                     Destroy(gameObject);
-                }*/
+                }
             }
         }
         else if(other.tag == "Jet")

@@ -20,6 +20,14 @@ public class JetShooting : MonoBehaviour
     [SerializeField]
     private float dirMultiplier;
 
+    [Header("ShootingDelay")]
+
+    [SerializeField]
+    private float maxDelay;
+    
+    private float delay = 0f;
+
+    private bool shot = false;
 
     void Update()
     {
@@ -28,10 +36,13 @@ public class JetShooting : MonoBehaviour
 
     void Shoot()
     {
-        if(Input.GetMouseButtonDown(0))
+        ResetDelay();
+        if(Input.GetMouseButton(0) && !shot)
         {
             if(ammunition > 0)
             {
+                delay = maxDelay;
+                shot = true;
                 GameObject bulletTrans = Instantiate(bullet,transform.position,Quaternion.identity) as GameObject;
                 Vector3 direction = transform.forward*dirMultiplier;
                 bulletTrans.GetComponent<Bullet>().Init(direction,gameObject);
@@ -57,5 +68,21 @@ public class JetShooting : MonoBehaviour
     }
 
 #endregion
+
+#region PrivateMethods
+    private void ResetDelay()
+    {
+        if(shot && delay > 0)
+        {
+            delay -= Time.deltaTime;
+        }
+        if(delay < 0)
+        {
+            shot = false;
+            delay = 0f;
+        }
+    }
+#endregion
+
 
 }
