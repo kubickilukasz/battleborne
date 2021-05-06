@@ -24,6 +24,8 @@ public class Aim : MonoBehaviour
     [SerializeField]
     Image ammoBar;
 
+    [Space()]
+
     [SerializeField]
     float smooth;
 
@@ -48,9 +50,14 @@ public class Aim : MonoBehaviour
     [SerializeField]
     LayerMask maskForRay;
 
+    [SerializeField]
+    float smoothOfAimRay;
+
     float refCurrentVelocity;
     Vector3 tempPosition;
     RectTransform rectTransform;
+    Vector2 positionAim;
+    Vector2 positionAimRef;
 
     void Start()
     {
@@ -77,11 +84,11 @@ public class Aim : MonoBehaviour
 
             RaycastHit hit;
             if(Physics.Raycast(jetShooting.transform.position, jetShooting.transform.forward, out hit, rangeRayToCalculateAim, maskForRay)){
-                rectTransform.anchoredPosition = (Vector2)jetCamera.WorldToScreenPoint(hit.point) - (jetCamera.pixelRect.size / 2);
+                positionAim = (Vector2)jetCamera.WorldToScreenPoint(hit.point) - (jetCamera.pixelRect.size / 2);
             }else{
-                Vector2 pos = jetCamera.WorldToScreenPoint(jetShooting.transform.position + jetShooting.transform.forward * (rangeRayToCalculateAim * 0.25f));
-                rectTransform.anchoredPosition = pos - (jetCamera.pixelRect.size / 2);
+                positionAim = (Vector2)jetCamera.WorldToScreenPoint(jetShooting.transform.position + jetShooting.transform.forward * (rangeRayToCalculateAim * 0.25f)) - (jetCamera.pixelRect.size / 2); 
             }
+            rectTransform.anchoredPosition = Vector2.SmoothDamp(rectTransform.anchoredPosition, positionAim, ref positionAimRef, smoothOfAimRay);
         }
 
         
