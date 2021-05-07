@@ -52,9 +52,12 @@ public class CityCreator : MonoBehaviour
     }
 
     [ContextMenu("Delete City")]
-    void deleteCreatedObjects(){
-        foreach(GameObject ob in createdObjects){
-            if(ob != null){
+    void deleteCreatedObjects()
+    {
+        foreach(GameObject ob in createdObjects)
+        {
+            if(ob != null)
+            {
                 DestroyImmediate(ob);
             }
         }
@@ -62,34 +65,41 @@ public class CityCreator : MonoBehaviour
     }
 
     [ContextMenu("Create City")]
-    void CreateCity(){
+    void CreateCity()
+    {
 
         deleteCreatedObjects();
 
         Random.InitState(seed);
         Transform [] tempTransforms = GetComponentsInChildren<Transform>();
         transforms = new List<Transform>(tempTransforms);
-        if(transforms.Count > 1){
+        if(transforms.Count > 1)
+        {
             referenceVector = (transforms[1].position - transforms[0].position).normalized;
             CreateConnections();
             CreateRoads();
         }
     }
 
-    void CreateConnections(){
+    void CreateConnections()
+    {
         connections = new List<Connection>();
 
-        for(int i =0; i < transforms.Count;){
+        for(int i =0; i < transforms.Count;)
+        {
             Transform current = transforms[i];
             transforms.Remove(current);      
             connections.Add(CreateConnection(transforms,current));
         }
     }
 
-    Connection CreateConnection(List<Transform> transforms, Transform current){
+    Connection CreateConnection(List<Transform> transforms, Transform current)
+    {
         List<Transform> children = new List<Transform>();
-        foreach(Transform tr in transforms){
-            if(Vector3.Distance(tr.position, current.position) < maxDistance && Vector3.Angle(referenceVector, tr.position - current.position) % 45 < maxAngle){
+        foreach(Transform tr in transforms)
+        {
+            if(Vector3.Distance(tr.position, current.position) < maxDistance && Vector3.Angle(referenceVector, tr.position - current.position) % 45 < maxAngle)
+            {
                 children.Add(tr);
             }
         }
@@ -100,26 +110,41 @@ public class CityCreator : MonoBehaviour
         return connection;
     }
 
-    void CreateRoads(){
-        foreach(Connection c in connections){
-            foreach(Transform t in c.children){
+    void CreateRoads()
+    {
+        foreach(Connection c in connections)
+        {
+            foreach(Transform t in c.children)
+            {
                 float distance = Vector3.Distance(c.self.position, t.position) - (widthRoad/2);
                 Vector3 direction = (t.position - c.self.position).normalized;
-                for(float i = widthRoad / 2; i < distance; i += compaction){
+                for(float i = widthRoad / 2; i < distance; i += compaction)
+                {
                     Vector3 center = c.self.position + direction * i;
-                    Vector3 normal = new Vector3(-direction.z, direction.y, direction.x);
-                    SpawnRandomBuilding(center + normal * widthRoad / 2, Quaternion.identity);
+                    Vector3 normal = new Vector3(-direction.z, 0, direction.x);
+                    SpawnRandomBuilding(center + normal * widthRoad / 2, Quaternion.Euler(0,Vector3.Angle(Vector3.right, normal),0));
                     normal = -normal;
-                    normal.y = -normal.y;
-                    SpawnRandomBuilding(center + normal * widthRoad / 2, Quaternion.identity);
+                    SpawnRandomBuilding(center + normal * widthRoad / 2, Quaternion.Euler(0,Vector3.Angle(Vector3.right, normal),0));
                 }
             }
         }
     }
 
-    void SpawnRandomBuilding(Vector3 position, Quaternion roation){
+    void SpawnRandomBuilding(Vector3 position, Quaternion roation)
+    {
         int r = Random.Range(0,buidlings.Count);
         createdObjects.Add(Instantiate(buidlings[r], position, roation, parentBuidlings) as GameObject);
+    }
+
+    void OnDrawGizmos()
+    {
+   
+        foreach(Connection c in connections){
+            foreach(Transform t in c.children){
+                Gizmos.DrawLine(c.self.position, t.position);
+            }
+        }
+
     }
 
 }
