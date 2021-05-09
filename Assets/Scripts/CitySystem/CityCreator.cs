@@ -12,6 +12,14 @@ public class CityCreator : MonoBehaviour
         public float levelCompaction = 1f;
     }
 
+    [System.Serializable]
+    public class Building{
+        public GameObject prefab;
+        public Vector3 offsetRotation;
+        public Vector3 offsetPosition;
+        public Vector3 size;
+    }
+
     [SerializeField]
     int seed;
 
@@ -32,11 +40,18 @@ public class CityCreator : MonoBehaviour
     Transform parentBuidlings;
 
     [SerializeField]
-    List<GameObject> buidlings = new List<GameObject>();
+    List<Building> buidlings = new List<Building>();
 
+    [SerializeField]
+    Building way;
+
+    [SerializeField] [HideInInspector]
     List<Transform> transforms;
+    [SerializeField] [HideInInspector]
     List<GameObject> createdObjects = new List<GameObject>();
-    List<Connection> connections;
+    [SerializeField] [HideInInspector]
+    List<Connection> connections = new List<Connection>();
+    [SerializeField] [HideInInspector]
     Vector3 referenceVector;
  
     // Start is called before the first frame update
@@ -118,27 +133,48 @@ public class CityCreator : MonoBehaviour
             {
                 float distance = Vector3.Distance(c.self.position, t.position) - (widthRoad/2);
                 Vector3 direction = (t.position - c.self.position).normalized;
-                for(float i = widthRoad / 2; i < distance; i += compaction)
+                Vector3 normalLeft = new Vector3(-direction.z, 0, direction.x);
+                Vector3 normalRight = new Vector3(direction.z, 0, -direction.x);
+                float angleLeft = Vector3.Angle(Vector3.forward, normalLeft);
+                float angleRight = -Vector3.Angle(Vector3.forward, normalRight);
+                float buidlingSizeX = 0;
+                for(float i = widthRoad / 2; i < distance; i += compaction+buidlingSizeX)
                 {
                     Vector3 center = c.self.position + direction * i;
-                    Vector3 normal = new Vector3(-direction.z, 0, direction.x);
-                    SpawnRandomBuilding(center + normal * widthRoad / 2, Quaternion.Euler(0,Vector3.Angle(Vector3.right, normal),0));
-                    normal = -normal;
-                    SpawnRandomBuilding(center + normal * widthRoad / 2, Quaternion.Euler(0,Vector3.Angle(Vector3.right, normal),0));
+                    
+                    buidlingSizeX = SpawnRandomBuilding(center + normalLeft * widthRoad * 0.75f, Quaternion.Euler(0,angleLeft,0), normalLeft).x;
+                    buidlingSizeX = Mathf.Max(SpawnRandomBuilding(center + normalRight * widthRoad * 0.75f, Quaternion.Euler(0,angleRight,0), normalRight).x,buidlingSizeX);
                 }
+
+                float angleWay = Vector3.Angle(Vector3.forward, direction);
+                for(float i = 0; i < distance; i += way.size.z){
+                    Vector3 center = c.self.position + direction * i;
+                    SpawnWay(center - new Vector3(0f,0.001f * i,0f), Quaternion.Euler(0,angleWay,0), direction);
+                }
+
             }
         }
     }
 
-    void SpawnRandomBuilding(Vector3 position, Quaternion roation)
+    Vector3 SpawnRandomBuilding(Vector3 position, Quaternion rotation, Vector3 normal)
     {
         int r = Random.Range(0,buidlings.Count);
-        createdObjects.Add(Instantiate(buidlings[r], position, roation, parentBuidlings) as GameObject);
+        Vector3 offset = buidlings[r].offsetPosition;
+        offset.x *= normal.x;
+        offset.z *= normal.z;   
+        createdObjects.Add(Instantiate(buidlings[r].prefab, position + offset, Quaternion.Euler(rotation.eulerAngles + buidlings[r].offsetRotation), parentBuidlings) as GameObject);
+        return buidlings[r].size;
+    }
+
+    void SpawnWay(Vector3 position, Quaternion rotation, Vector3 normal){
+        Vector3 offset = way.offsetPosition;
+        offset.x *= normal.x;
+        offset.z *= normal.z; 
+        createdObjects.Add(Instantiate(way.prefab, position + offset, rotation, parentBuidlings) as GameObject);
     }
 
     void OnDrawGizmos()
     {
-   
         foreach(Connection c in connections){
             foreach(Transform t in c.children){
                 Gizmos.DrawLine(c.self.position, t.position);
