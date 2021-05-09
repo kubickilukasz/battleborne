@@ -29,38 +29,18 @@ public class City : MonoBehaviour
         }
     }
 
-    public int MaxHealth
-    {
-        get
-        {
-            int temp = 0;
-            foreach (CityBuilding building in buildings)
-            {
-                if (building != null)
-                {
-                    temp += building.MaxHealth;
-                }
-            }
-            return temp;
-        }
-    }
+    public int MaxHealth { get; protected set; }
 
-    // ***** UPDATE *****
-
-
-
-    void FixedUpdate()
-    {
-
-    }
-
+    
     void Start()
     {
         CityBuilding[] buildingsTable = GetComponentsInChildren<CityBuilding>();
         buildings = new List<CityBuilding>(buildingsTable);
         foreach (CityBuilding cb in buildings)
-            cb.Town = this;
-
+        {
+            cb.Init(this);
+            this.MaxHealth += cb.MaxHealth;
+        }
         cityDestroyedEvent = new UnityEvent();
         cityDestroyedEvent.AddListener(ListenerPlaceholder.ListenDestroyCity);
     }

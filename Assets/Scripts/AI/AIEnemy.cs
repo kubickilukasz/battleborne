@@ -10,7 +10,7 @@ public abstract class AIEnemy : MonoBehaviour
 
     public float maxSpeed { get; protected set; }
     public float acc { get; protected set; }
-    public float torqueacc { get; protected set; }
+    public float rotateSpeed { get; protected set; }
 
     public float detectRange { get; protected set; }
     public float ignoreTargetTime { get; protected set; }
@@ -18,7 +18,7 @@ public abstract class AIEnemy : MonoBehaviour
     public float dodgingTime { get; protected set; }
 
     [SerializeField]
-    protected GameObject player;
+    public GameObject player;
     [SerializeField]
     protected float playerDetectRange;
 
@@ -31,12 +31,25 @@ public abstract class AIEnemy : MonoBehaviour
     protected float cycleImprecisonBoxSize;
     [SerializeField]
     protected float nextImprecisionTime;
-    private Vector3 randomImprecision;
+    protected Vector3 randomImprecision;
     [SerializeField]
     protected float nextDodgingTime;
 
     [SerializeField]
-    public int hp;
+    protected float minAngleStartShooting;
+    [SerializeField]
+    protected float minDistanceStartShooting;
+    [SerializeField]
+    private GameObject bullet;
+        [SerializeField]
+    private float dirMultiplier;
+    private float fireCooldownTime;
+    [SerializeField]
+        private float fireCooldown;
+        
+
+    [SerializeField]
+    public int health;
     [SerializeField]
     private GameObject deathParticle;
     [SerializeField]
@@ -48,7 +61,7 @@ public abstract class AIEnemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (hp > 0)
+        if (health > 0)
         {
             if (ignoreTargetTime > 0)
                 ignoreTargetTime = ignoreTargetTime - Time.fixedDeltaTime * 100f;
@@ -64,6 +77,9 @@ public abstract class AIEnemy : MonoBehaviour
                 imprecisionTime = nextImprecisionTime;
             }
 
+            if(fireCooldownTime > 0)
+                fireCooldownTime = fireCooldownTime - Time.fixedDeltaTime * 100f;
+
             UpdateStateMethods();
         }
         else
@@ -72,16 +88,16 @@ public abstract class AIEnemy : MonoBehaviour
 
     void Start()
     {
-        randomImprecision = new Vector3(0.0f, 0.0f, 0.0f);
+        randomImprecision = Vector3.zero;
         rigidbody = GetComponent<Rigidbody>();
         SetupStartValues();
     }
 
 
 
-    protected void AccelerateForward()
+    protected void Accelerate(Vector3 dir)
     {
-        Vector3 newone = Vector3.forward * acc* Time.fixedDeltaTime * 100;
+        Vector3 newone = dir * acc* Time.fixedDeltaTime * 100;
 
         if (rigidbody.velocity.magnitude <= maxSpeed)
         {
@@ -91,6 +107,7 @@ public abstract class AIEnemy : MonoBehaviour
         {
             rigidbody.AddRelativeForce(-newone);
         }
+        if(debug) Debug.Log(rigidbody.velocity.magnitude);
     }
 
     private void FixVelocity()
@@ -103,48 +120,25 @@ public abstract class AIEnemy : MonoBehaviour
         rigidbody.velocity = v;
     }
 
-    protected void StrafeTowardsFocusTarget()
+    protected void StrafeTowardsFocusTarget(Vector3 extra)
 	{
         if (target != null)
         {
-            Vector3 direction = (target.transform.position - transform.position).normalized;
+            Vector3 direction = (target.transform.position + extra - transform.position).normalized;
             Quaternion q = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.fixedDeltaTime * torqueacc);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, q, Time.fixedDeltaTime * 100f);
         }
         FixVelocity();
     }
 
-    protected void StrafeTowardsConstPos(Vector3 idlepos)
+    protected void StrafeTowardsConstPos(Vector3 idlepos, Vector3 extra)
     {
         if (idlepos != null)
         {
-            Vector3 direction = (idlepos - transform.position).normalized;
+            Vector3 direction = (idlepos + extra - transform.position).normalized;
             Quaternion q = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.fixedDeltaTime * torqueacc);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, q, Time.fixedDeltaTime * 100f);
         }
-        FixVelocity();
-    }
-
-    protected void CycleAroundTarget()
-	{
-        if (target.transform.position != null)
-        {
-            Vector3 direction = (target.transform.position + randomImprecision - transform.position).normalized;
-            Quaternion q = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.fixedDeltaTime * torqueacc);
-        }
-        FixVelocity();
-    }
-
-    protected void CycleAroundConstPos(Vector3 idlepos)
-    {
-        if (idlepos != null)
-        {
-            Vector3 direction = (idlepos + randomImprecision - transform.position).normalized;
-            Quaternion q = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.fixedDeltaTime * torqueacc);
-        }
-
         FixVelocity();
     }
 
@@ -157,12 +151,13 @@ public abstract class AIEnemy : MonoBehaviour
 
 
 
-    protected bool CheckRaycast()
+    protected bool CheckRaycast(Vector3 dir)
 	{
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, crashDangerRange))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(dir), out hit, crashDangerRange))
         {
-            return true;
+            if(!hit.transform.gameObject.GetComponent<Bullet>())
+                return true;
         }
         return false;
 	}
@@ -176,6 +171,34 @@ public abstract class AIEnemy : MonoBehaviour
             return false;
     }
 
+    protected bool CanStartShooting()
+    {     
+        if(target) {
+            float angle = Vector3.Angle(transform.forward, target.transform.position-transform.position);
+            
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, minDistanceStartShooting))
+            {
+                if(angle <= minAngleStartShooting && hit.transform && !hit.transform.gameObject.GetComponent<JetMovement>() && !hit.transform.gameObject.GetComponent<AIPlayerPlaceholder>())
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    protected void Shoot()
+    {
+        if(fireCooldownTime <= 0.0f)
+        {
+            Debug.Log(bullet);
+            GameObject bulletTrans = Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
+            Debug.Log(bulletTrans);
+            Vector3 direction = transform.forward * dirMultiplier;
+            bulletTrans.GetComponent<Bullet>().Init(direction,gameObject);
+            fireCooldownTime = fireCooldown;
+        }
+    }
+
 
 
     protected abstract void SetupStartValues();
@@ -183,10 +206,17 @@ public abstract class AIEnemy : MonoBehaviour
     protected abstract void UpdateStateMethods();
 
 
-
+    void OnCollisionEnter(Collision other)
+    {
+        if(other.collider.tag != "Ammo")
+        {
+            Debug.Log(other.collider.gameObject);
+            health = 0;
+        }
+    }
     public void OnHit(int hitPoints)
     {
-        hp -= hitPoints;
+        health -= hitPoints;
     }
 
     public void OnDestroy()

@@ -8,12 +8,11 @@ public class CityBuilding : MonoBehaviour
     //Inne/Gameplayowe
     [SerializeField]
     private int hp = 100;
-    private int maxHp;
+
     [SerializeField]
     private GameObject deathParticle;
     [SerializeField]
     private bool debug = false;
-    private City city = null;
 
     private Collider collider;
     UnityEvent buildingDestroyedEvent;
@@ -27,13 +26,7 @@ public class CityBuilding : MonoBehaviour
         }
     }
 
-    public int MaxHealth
-    {
-        get
-        {
-            return maxHp;
-        }
-    }
+    public int MaxHealth { get; private set; }
 
     public int Health
 	{
@@ -43,40 +36,27 @@ public class CityBuilding : MonoBehaviour
 		}
         set
 		{
-            if (value >= 0 && value <= maxHp)
+            if (value >= 0 && value <= MaxHealth)
                 hp = value;
-            else if (value > maxHp)
-                hp = maxHp;
+            else if (value > MaxHealth)
+                hp = MaxHealth;
             else
                 hp = 0;
 		}
 	}
 
+    public City city { get; set; }
 
 
-    public City Town
+    public void Init(City newcity)
     {
-        get
-        {
-            return city;
-        }
-        set
-        {
-            city = value;
-        }
-    }
-
-
-
-    void FixedUpdate()
-    {
-        
+        MaxHealth = hp;
+        city = newcity;
     }
 
     void Start()
     {
         collider = GetComponent<Collider>();
-        maxHp = hp;
 
         buildingDestroyedEvent = new UnityEvent();
         buildingDestroyedEvent.AddListener(ListenerPlaceholder.ListenDestroyBuilding);

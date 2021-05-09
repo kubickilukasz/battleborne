@@ -4,8 +4,8 @@ using UnityEngine;
 
 public enum NormalStates
 {
-	FALLING, //Spadanie w dó³ w kierunku miasta
-	FALLINGSPOTTED //Te¿ spadanie, ale przeciwnik zauwa¿y³ gracza
+	FALLING, //Spadanie w dï¿½ w kierunku miasta
+	FALLINGSPOTTED //Teï¿½ spadanie, ale przeciwnik zauwaï¿½yï¿½ gracza
 }
 
 public class AINormal : AIEnemy
@@ -19,7 +19,7 @@ public class AINormal : AIEnemy
 
 	protected override void SetupStartValues()
 	{
-		torqueacc = 0f;
+		rotateSpeed = 0f;
 		maxSpeed = maxFallingSpeed;
 		acc = fallingAcceleration;
 		detectRange = playerDetectRange;
@@ -70,10 +70,10 @@ public class AINormal : AIEnemy
 
 	private void SetTo0hpIfCrashCourse()
 	{
-		if (dodgingTime <= 0 && CheckRaycast())
+		if (dodgingTime <= 0 && CheckRaycast(Vector3.down))
 		{
 			dodgingTime = nextDodgingTime;
-			hp = 0;
+			health = 0;
 		}
 	}
 
@@ -82,7 +82,7 @@ public class AINormal : AIEnemy
 	private void Falling()
 	{
 		if (debug) Debug.Log("===== FALLING =====");
-		AccelerateForward();
+		Accelerate(Vector3.down);
 		SetToSpottedIfPlayer();
 		SetTo0hpIfCrashCourse();
 	}
@@ -90,7 +90,7 @@ public class AINormal : AIEnemy
 	private void FallingSpotted()
 	{
 		if (debug) Debug.Log("===== FALLING SPOTTED =====");
-		AccelerateForward();
+		Accelerate(Vector3.down);
 		SetToFallingIfNoPlayer();
 		SetTo0hpIfCrashCourse();    
 	}

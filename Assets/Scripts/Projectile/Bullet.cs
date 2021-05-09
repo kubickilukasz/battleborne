@@ -20,11 +20,8 @@ public class Bullet : MonoBehaviour
 
     public void Init(Vector3 direction, GameObject sender)
     {
-
         rigidbody = GetComponent<Rigidbody>();
-
         rigidbody.AddRelativeForce(direction*bulletSpeed*Time.fixedDeltaTime, ForceMode.Impulse);
-
         this.sender = sender;
 
         Destroy(gameObject,5f);
@@ -46,12 +43,12 @@ public class Bullet : MonoBehaviour
         {
             if(other.gameObject!= sender)
             {
-                /*AIEnemy enemy = other.GetComponent<AIEnemy>();
+                AIEnemy enemy = other.GetComponent<AIEnemy>();
                 if(enemy != null)
                 {
                     enemy.OnHit(hitPoints);
                     Destroy(gameObject);
-                }*/
+                }
             }
         }
         else if(other.tag == "Jet")
