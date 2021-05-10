@@ -30,7 +30,9 @@ public class AmmoCollectible : MonoBehaviour
         {
             if(other.tag != "Alien")
             {
-                Destroy(gameObject);
+                Bullet bullet = other.GetComponent<Bullet>();
+                if(bullet == null)
+                    Destroy(gameObject);
             }
         }
     }    

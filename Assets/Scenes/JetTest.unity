@@ -652,7 +652,6 @@ GameObject:
   - component: {fileID: 1103354594}
   - component: {fileID: 1103354593}
   - component: {fileID: 1103354598}
-  - component: {fileID: 1103354597}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -736,36 +735,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1103354597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1103354592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99a37b9372d9c204db082abda5c71102, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rigidbody: {fileID: 1103354598}
-  state: 0
-  idleMaxSpeed: 0
-  idlePoint: {fileID: 932336035}
-  detectRangeIdlePoint: 5
-  detectRangeIdlePointFar: 40
-  ignorePlayerTime: 0
-  chaseMaxSpeed: 0
-  player: {fileID: 932336035}
-  detectRangePlayer: 20
-  retreatMaxSpeed: 1
-  acc: 0.005
-  torqueacc: 250
-  maxspeed: 0
-  currentTarget: {fileID: 0}
-  hp: 100
-  particle: {fileID: 0}
-  debug: 1
 --- !u!54 &1103354598
 Rigidbody:
   m_ObjectHideFlags: 0
