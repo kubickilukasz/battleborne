@@ -9,19 +9,32 @@ public class InvisibleWall : MonoBehaviour
     public UnityEvent onJetExitEvent;
     public UnityEvent onJetEnterEvent;
 
+    [SerializeField]
+    private float timerSeconds;
+
+    private float timer = 0.0f;
     private bool start;
+
+    private bool outOfBounds = false;
+
+    private GameObject jet;
 
     void Start()
     {
         start = true;
     }
 
+    void Update()
+    {
+        Timer();
+    }
+
     void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Jet" && !start)
+        if(other.tag == "Jet" && outOfBounds)
         {
             onJetEnterEvent.Invoke();
-            Debug.Log("Trigger enter");
+            outOfBounds = false;
         }
     }
 
@@ -30,8 +43,30 @@ public class InvisibleWall : MonoBehaviour
         if(other.tag == "Jet")
         {
             onJetExitEvent.Invoke();
-            Debug.Log("Trigger exit");
-            start = false;
+            outOfBounds = true;
+            jet = other.gameObject;
         }    
+    }
+
+    private void Timer()
+    {
+        if(outOfBounds && jet != null)
+        {
+            timer += Time.deltaTime;
+            if(timer >= timerSeconds)
+            {
+                JetHealth jetHealth = jet.GetComponent<JetHealth>();
+                if(jetHealth != null)
+                {
+                    int hitPoints = jetHealth.GetMaxHealth();
+                    jetHealth.OnHit(hitPoints);
+                    outOfBounds = false;
+                }
+            }   
+        }
+        else
+        {
+            timer = 0.0f;
+        }
     }
 }

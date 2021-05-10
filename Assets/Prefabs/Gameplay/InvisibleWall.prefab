@@ -50,10 +50,7 @@ MonoBehaviour:
   onJetEnterEvent:
     m_PersistentCalls:
       m_Calls: []
-  jetBullet: {fileID: 1869544619058439905, guid: 1b6cac849c829b5498e87754d4e392ba,
-    type: 3}
-  alienBullet: {fileID: 784167314051041915, guid: cf9b6ff4618e48a4ba79671fbdc8dfe8,
-    type: 3}
+  timerSeconds: 5
 --- !u!65 &8392243641397407518
 BoxCollider:
   m_ObjectHideFlags: 0
