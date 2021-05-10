@@ -32,6 +32,9 @@ public class Bullet : MonoBehaviour
 
     private GameObject sender;
 
+    [SerializeField]
+    private GameObject invisibleWall;
+
     public void Init(Vector3 direction, GameObject sender)
     {
 
@@ -88,6 +91,8 @@ public class Bullet : MonoBehaviour
         {
             if(other.tag != "Ammo")
             {
+                InvisibleWall wall = other.GetComponent<InvisibleWall>();
+                if(wall != null) return;
                 effect = Instantiate(groundHitEffect,transform.position,Quaternion.LookRotation(-transform.forward)) as GameObject;
                 Destroy(gameObject);
             }

@@ -87,6 +87,8 @@ MonoBehaviour:
     type: 3}
   groundHitEffect: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
     type: 3}
+  invisibleWall: {fileID: 8392243641397407512, guid: 3d746bf605429f448af48cab16fde24b,
+    type: 3}
 --- !u!135 &1269226082
 SphereCollider:
   m_ObjectHideFlags: 0
