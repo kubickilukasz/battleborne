@@ -7,7 +7,10 @@ public class CameraFollow : MonoBehaviour
     [Header("Target")]
     [SerializeField]
     private Transform target;
-    
+
+    [SerializeField]
+    private GameObject spawnPoint;
+
     [Header("Camera Values")]
     [SerializeField]
     private float smoothSpeed;
@@ -16,6 +19,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField]
     private float rotSpeed;
     private Vector3 velocity = Vector3.zero;
+
 
     void FixedUpdate()
     {
@@ -26,6 +30,15 @@ public class CameraFollow : MonoBehaviour
             Quaternion smoothRot = Quaternion.Lerp(transform.rotation, target.rotation,rotSpeed);
             transform.position = smoothPos;
             transform.rotation = smoothRot;
+        }
+    }
+
+    void LateUpdate()
+    {
+        if(target == null)
+        {
+            JetSpawn spawn = spawnPoint.GetComponent<JetSpawn>();
+            target = spawn.jetReference.transform;
         }
     }
 }

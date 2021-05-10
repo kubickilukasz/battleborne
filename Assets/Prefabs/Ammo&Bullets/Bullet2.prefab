@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52bcefafa8e66ca4d87c379c197ef115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleTime: 1.5
+  scaleTime: 5
   trailRenderer: {fileID: 3497194632588877842}
 --- !u!54 &1041147831
 Rigidbody:
@@ -78,7 +78,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 10
-  bulletSpeed: 35
+  bulletSpeed: 12
+  cityHitEffect: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
+    type: 3}
+  alienHitEffect: {fileID: 644392587103175744, guid: f6110365d1de88e439fadcec5b8d0413,
+    type: 3}
+  jetHitEffect: {fileID: 644392587103175744, guid: f6110365d1de88e439fadcec5b8d0413,
+    type: 3}
+  groundHitEffect: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
+    type: 3}
+  invisibleWall: {fileID: 8392243641397407512, guid: 3d746bf605429f448af48cab16fde24b,
+    type: 3}
 --- !u!135 &1269226082
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -327,6 +327,7 @@ MonoBehaviour:
   maxHealth: 100
   explosion: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
     type: 3}
+  explosionHitPoints: 100
 --- !u!64 &1205033909
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -357,6 +358,7 @@ MonoBehaviour:
   maxAmmo: 300
   bullet: {fileID: 1869544619058439905, guid: 1b6cac849c829b5498e87754d4e392ba, type: 3}
   dirMultiplier: 500
+  maxDelay: 0.4
 --- !u!1 &8953718499959505131
 GameObject:
   m_ObjectHideFlags: 0
