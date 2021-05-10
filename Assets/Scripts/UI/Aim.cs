@@ -7,10 +7,7 @@ public class Aim : MonoBehaviour
 {
 
     [SerializeField]
-    JetShooting jetShooting;
-
-    [SerializeField]
-    JetHealth jetHealth;
+    JetSpawn jetSpawn;
 
     [SerializeField]
     RectTransform leftAim;
@@ -76,6 +73,9 @@ public class Aim : MonoBehaviour
         }
         leftAim.anchoredPosition = -tempPosition;
         rightAim.anchoredPosition = tempPosition;
+
+        JetShooting jetShooting     =   jetSpawn?.jetReference?.GetComponent<JetShooting>();
+        JetHealth jetHealth         =   jetSpawn?.jetReference?.GetComponent<JetHealth>();
 
         if(jetShooting != null || jetHealth != null )
         {
