@@ -8376,7 +8376,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BATTLEBORN
+  m_text: BATTLEBORNE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 07dec136b5002494b88fb2215dfd5b99, type: 2}
   m_sharedMaterial: {fileID: -6875675708953938472, guid: 07dec136b5002494b88fb2215dfd5b99,

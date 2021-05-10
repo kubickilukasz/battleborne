@@ -9,6 +9,7 @@ public class CityCreator : MonoBehaviour
     public class Connection{
         public Transform self;
         public List<Transform> children;
+        public Transform parent;
         public float levelCompaction = 1f;
     }
 
@@ -99,12 +100,27 @@ public class CityCreator : MonoBehaviour
     void CreateConnections()
     {
         connections = new List<Connection>();
+        List<Transform> parents = new List<Transform>();
 
         for(int i =0; i < transforms.Count;)
         {
             Transform current = transforms[i];
-            transforms.Remove(current);      
+            transforms.Remove(current);    
+            parents.Add(current);  
             connections.Add(CreateConnection(transforms,current));
+        }
+
+        foreach(Connection c in connections)
+        {
+            foreach(Transform t in c.children)
+            {
+                foreach(Connection c2 in connections)
+                {   
+                    if(c2.self == t){
+
+                    }
+                }
+            }
         }
     }
 
@@ -131,7 +147,7 @@ public class CityCreator : MonoBehaviour
         {
             foreach(Transform t in c.children)
             {
-                float distance = Vector3.Distance(c.self.position, t.position) - (widthRoad/2);
+                float distance = Vector3.Distance(c.self.position, t.position);
                 Vector3 direction = (t.position - c.self.position).normalized;
                 Vector3 normalLeft = new Vector3(-direction.z, 0, direction.x);
                 Vector3 normalRight = new Vector3(direction.z, 0, -direction.x);
@@ -146,10 +162,10 @@ public class CityCreator : MonoBehaviour
                     buidlingSizeX = Mathf.Max(SpawnRandomBuilding(center + normalRight * widthRoad * 0.75f, Quaternion.Euler(0,angleRight,0), normalRight).x,buidlingSizeX);
                 }
 
-                float angleWay = Vector3.Angle(Vector3.forward, direction);
+                //float angleWay = -.Angle(Vector3.forward, direction);
                 for(float i = 0; i < distance; i += way.size.z){
                     Vector3 center = c.self.position + direction * i;
-                    SpawnWay(center - new Vector3(0f,0.001f * i,0f), Quaternion.Euler(0,angleWay,0), direction);
+                    SpawnWay(center - new Vector3(0f,0.0005f * i,0f), Quaternion.LookRotation(direction, Vector3.up), direction);
                 }
 
             }
@@ -159,18 +175,20 @@ public class CityCreator : MonoBehaviour
     Vector3 SpawnRandomBuilding(Vector3 position, Quaternion rotation, Vector3 normal)
     {
         int r = Random.Range(0,buidlings.Count);
-        Vector3 offset = buidlings[r].offsetPosition;
-        offset.x *= normal.x;
-        offset.z *= normal.z;   
-        createdObjects.Add(Instantiate(buidlings[r].prefab, position + offset, Quaternion.Euler(rotation.eulerAngles + buidlings[r].offsetRotation), parentBuidlings) as GameObject);
+        Vector3 offset = buidlings[r].offsetPosition;  
+        GameObject go = Instantiate(buidlings[r].prefab, position, Quaternion.Euler(rotation.eulerAngles + buidlings[r].offsetRotation), parentBuidlings) as GameObject;
+        offset = go.transform.TransformDirection(offset);
+        go.transform.position += offset;
+        createdObjects.Add(go);
         return buidlings[r].size;
     }
 
     void SpawnWay(Vector3 position, Quaternion rotation, Vector3 normal){
         Vector3 offset = way.offsetPosition;
-        offset.x *= normal.x;
-        offset.z *= normal.z; 
-        createdObjects.Add(Instantiate(way.prefab, position + offset, rotation, parentBuidlings) as GameObject);
+        GameObject go = Instantiate(way.prefab, position, rotation, parentBuidlings) as GameObject;
+        offset = go.transform.TransformDirection(offset);
+        go.transform.position += offset;
+        createdObjects.Add(go);
     }
 
     void OnDrawGizmos()
