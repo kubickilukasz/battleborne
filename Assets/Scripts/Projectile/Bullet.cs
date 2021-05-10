@@ -62,10 +62,9 @@ public class Bullet : MonoBehaviour
         }
         else if(other.tag == "Alien")
         {
-            if(other.gameObject != sender)
+            if(other.tag != sender.tag)
             {
                 AIEnemy enemy = other.GetComponent<AIEnemy>();
-                Debug.Log(enemy);
                 if(enemy != null)
                 {
                     enemy.OnHit(hitPoints);
@@ -76,7 +75,7 @@ public class Bullet : MonoBehaviour
         }
         else if(other.tag == "Jet")
         { 
-            if(other.gameObject != sender)
+            if(other.tag != sender.tag)
             {
                 JetHealth jet = other.GetComponent<JetHealth>();
                 if(jet != null)
