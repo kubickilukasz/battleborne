@@ -4,8 +4,8 @@ using UnityEngine;
 
 public enum TrooperStates
 {
-	IDLE, //Kr¹¿y w miejscu
-	CHASE, //Wykry³ gracza i go atakuje
+	IDLE, //Krï¿½ï¿½y w miejscu
+	CHASE, //Wykryï¿½ gracza i go atakuje
 	DODGE
 }
 
@@ -22,7 +22,7 @@ public class AITrooper : AIEnemy
 	private float accelerationChase;
 
 	[SerializeField]
-	private float torqueAcceleration;
+	private float rotationSpeed;
 
 	private TrooperStates prevState;
 	private Vector3 idlepos;
@@ -32,7 +32,7 @@ public class AITrooper : AIEnemy
 
 	protected override void SetupStartValues()
 	{
-		torqueacc = torqueAcceleration;
+		rotateSpeed = rotationSpeed;
 		detectRange = playerDetectRange;
 		ignoreTargetTime = spawnIgnorePlayerTime;
 		SetState(TrooperStates.IDLE);
@@ -96,10 +96,13 @@ public class AITrooper : AIEnemy
 	{
 		if (IsPlayerInRange()) SetState(TrooperStates.CHASE);
 	}
-
+	private void ShootIfTargetInRange()
+	{
+		if (CanStartShooting()) Shoot();
+	}
 	private void SetToDodgeIfCrashCourse()
 	{
-		if (dodgingTime <= 0 && CheckRaycast())
+		if (dodgingTime <= 0 && CheckRaycast(Vector3.forward))
 		{
 			dodgingTime = nextDodgingTime;
 			SetState(TrooperStates.DODGE);
@@ -112,13 +115,15 @@ public class AITrooper : AIEnemy
 			state = prevState;
 	}
 
+	
+
 
 
 	private void Idle()
 	{
-		if (debug) Debug.Log("===== IDLE =====");
-		AccelerateForward();
-		CycleAroundConstPos(idlepos);
+		if (debug) Debug.Log("===== IDLE " + idlepos + " =====");
+		Accelerate(Vector3.forward);
+		StrafeTowardsConstPos(idlepos, randomImprecision);
 		SetToChaseIfPlayer();
 		SetToDodgeIfCrashCourse();
 	}
@@ -126,17 +131,18 @@ public class AITrooper : AIEnemy
 	private void Chase()
 	{
 		if (debug) Debug.Log("===== CHASE =====");
-		AccelerateForward();
-		StrafeTowardsFocusTarget();
+		Accelerate(Vector3.forward);
+		StrafeTowardsFocusTarget(Vector3.zero);
 		SetToIdleIfLost();
 		SetToDodgeIfCrashCourse();
+		ShootIfTargetInRange();
 	}
 
 	private void Dodge()
 	{
 		if (debug) Debug.Log("===== DODGE =====");
-		AccelerateForward();
-		StrafeTowardsConstPos(dodgepos);
+		Accelerate(Vector3.forward);
+		StrafeTowardsConstPos(dodgepos, Vector3.zero);
 		ReturnToPrevState();
 	}
 }
