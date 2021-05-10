@@ -32,9 +32,7 @@ public class AmmoCollectible : MonoBehaviour
             {
                 Bullet bullet = other.GetComponent<Bullet>();
                 InvisibleWall wall = other.GetComponent<InvisibleWall>();
-                if(bullet == null)
-                    Destroy(gameObject);
-                else if(wall == null)
+                if(bullet == null && wall == null)
                     Destroy(gameObject);
             }
         }
