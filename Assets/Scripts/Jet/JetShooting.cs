@@ -67,6 +67,11 @@ public class JetShooting : MonoBehaviour
         ammunition = maxAmmo;
     }
 
+    public bool isShooting()
+    {
+        return shot;
+    }
+
 #endregion
 
 #region PrivateMethods

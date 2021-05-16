@@ -9,11 +9,23 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private int hitPoints;
 
+    [SerializeField]
+    private int cityHitPenalty;
+
+    [SerializeField]
+    private int hitBonus;
+
+    [SerializeField]
+    private float comboMultiplier;
+
     [Header("Physics")]
-    Rigidbody rigidbody;
 
     [SerializeField]
     private float bulletSpeed;
+
+    [SerializeField]
+    private GameObject invisibleWall;
+    Rigidbody rigidbody;
 
     [Header("Effects")]
     [SerializeField]
@@ -32,8 +44,6 @@ public class Bullet : MonoBehaviour
 
     private GameObject sender;
 
-    [SerializeField]
-    private GameObject invisibleWall;
 
     public void Init(Vector3 direction, GameObject sender)
     {
@@ -57,6 +67,12 @@ public class Bullet : MonoBehaviour
             {
                 building.OnHit(hitPoints);
                 effect = Instantiate(cityHitEffect,transform.position,Quaternion.LookRotation(-transform.forward)) as GameObject;
+                if(sender.tag == "Jet")
+                {
+                    JetPoints points = sender.GetComponent<JetPoints>();
+                    points.DecreasePoints(cityHitPenalty);
+                    points.ResetCombo();
+                }
                 Destroy(gameObject);
             }
         }
@@ -67,7 +83,13 @@ public class Bullet : MonoBehaviour
                 AIEnemy enemy = other.GetComponent<AIEnemy>();
                 if(enemy != null)
                 {
-                    enemy.OnHit(hitPoints);
+                    JetPoints points = sender.GetComponent<JetPoints>();
+                    points.AddPoints(hitBonus);
+                    points.StackCombo(comboMultiplier);
+                    if(points.isMaxCombo())
+                        enemy.OnHit(points.GetBonus()*hitPoints);
+                    else
+                        enemy.OnHit(hitPoints);
                     effect = Instantiate(alienHitEffect,transform.position,Quaternion.LookRotation(-transform.forward)) as GameObject;
                     Destroy(gameObject);
                 }

@@ -9,20 +9,17 @@ public class InvisibleWall : MonoBehaviour
     public UnityEvent onJetExitEvent;
     public UnityEvent onJetEnterEvent;
 
+#region Timer
     [SerializeField]
     private float timerSeconds;
 
     private float timer = 0.0f;
-    private bool start;
+#endregion
 
     private bool outOfBounds = false;
 
     private GameObject jet;
 
-    void Start()
-    {
-        start = true;
-    }
 
     void Update()
     {
