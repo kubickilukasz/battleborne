@@ -66,11 +66,10 @@ public class CityBuilding : MonoBehaviour
 
     public void OnHit(int hitPoints)
     {
-        hp -= hitPoints;
+        Health -= hitPoints;
         if (city != null)
         {
             city.OnHit(hitPoints);
-            city.DisplayHP();
         }
     }
 

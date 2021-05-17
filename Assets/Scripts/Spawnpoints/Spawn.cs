@@ -7,7 +7,7 @@ public abstract class Spawn : MonoBehaviour
     [SerializeField]
     private bool destroyAfterSpawn = false;
     [SerializeField]
-    private bool forceSpawn = false;
+    public bool forceSpawn = false;
 
     [SerializeField]
     protected List<GameObject> spawnList;
@@ -49,7 +49,6 @@ public abstract class Spawn : MonoBehaviour
 
     public void TriggerSpawn()
 	{
-        Debug.Log("Spawning");
         OnTriggerSpawn();
 
         Spawn[] spawns = GetComponentsInChildren<Spawn>();
