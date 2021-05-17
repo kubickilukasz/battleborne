@@ -25,9 +25,6 @@ public class JetHealth : MonoBehaviour
     [SerializeField]
     private int explosionHitPoints;
 
-    [SerializeField]
-    private int explosionPenalty;
-
     private JetPoints combo;
 
     void Start()
@@ -39,6 +36,7 @@ public class JetHealth : MonoBehaviour
     void Update()
     {
         NoHealthExplode();
+        SetInvincibility();
     }
 
 
@@ -77,8 +75,6 @@ public class JetHealth : MonoBehaviour
         {
             GameObject boom = Instantiate(explosion,transform.position,Quaternion.identity) as GameObject;
             GetComponent<Renderer>().enabled = false;
-            combo.DecreasePoints(explosionPenalty);
-            combo.ResetCombo();
             onDestroyEvent.Invoke();
             Destroy(gameObject);
         }

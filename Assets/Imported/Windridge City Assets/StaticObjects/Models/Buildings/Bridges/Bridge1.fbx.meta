@@ -1,66 +1,11 @@
 fileFormatVersion: 2
-guid: 53c7d1073b2405e408af691283133453
+guid: abd8a11a282c7334996cc3427bb3473a
 ModelImporter:
-  serializedVersion: 22
-  fileIDToRecycleName:
-    100000: //RootNode
-    100002: Bridge1 1
-    100004: BridgePart
-    100006: BridgePartConcrete_geo1
-    100008: BridgePartMetal_geo
-    100010: BridgePartWindows_geo
-    400000: //RootNode
-    400002: Bridge1 1
-    400004: BridgePart
-    400006: BridgePartConcrete_geo1
-    400008: BridgePartMetal_geo
-    400010: BridgePartWindows_geo
-    2100000: BridgePartWIndows_mat
-    2100002: BridgePartConcrete_mat
-    2100004: BridgePartMetal_mat
-    2100006: bridge_mat2
-    2100008: bridge_mat
-    2300000: Bridge1 1
-    2300002: BridgePartConcrete_geo1
-    2300004: BridgePartMetal_geo
-    2300006: BridgePartWindows_geo
-    3300000: Bridge1 1
-    3300002: BridgePartConcrete_geo1
-    3300004: BridgePartMetal_geo
-    3300006: BridgePartWindows_geo
-    4300000: BridgePartWindows_geo
-    4300002: BridgePartConcrete_geo1
-    4300004: BridgePartMetal_geo
-    4300006: Bridge1
-    9500000: //RootNode
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BridgePartConcrete_mat
-    second: {fileID: 2100000, guid: fd9335e397ea6174ca2b11e84bb43625, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BridgePartMetal_mat
-    second: {fileID: 2100000, guid: cb7b596a9b06bea4c8d0686221c3acec, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BridgePartWIndows_mat
-    second: {fileID: 2100000, guid: e74bc76edbac4d947b9235a8a073600b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: bridge_mat
-    second: {fileID: 2100000, guid: dfce75b6582598f49805aaf04b095224, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: bridge_mat2
-    second: {fileID: 2100000, guid: 872759b9d1a846c449c31ae8d1e93187, type: 2}
+  serializedVersion: 20200
+  internalIDToNameTable: []
+  externalObjects: {}
   materials:
-    importMaterials: 1
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -86,27 +31,37 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
@@ -114,10 +69,13 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 0
-  copyAvatar: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -127,14 +85,17 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

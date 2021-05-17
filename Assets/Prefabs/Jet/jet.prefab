@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 974281679}
   - component: {fileID: 974281680}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Trail (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3719339093169960793}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Contrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 1205033909}
   - component: {fileID: 1205033915}
   - component: {fileID: 1088628337619215913}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: jet
   m_TagString: Jet
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ Transform:
   m_GameObject: {fileID: 7179079518423928686}
   m_LocalRotation: {x: -0.046588708, y: 0.70401525, z: 0.009721017, w: 0.7085885}
   m_LocalPosition: {x: -3.79, y: 2.98, z: 0.5}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalScale: {x: 15, y: 15, z: 15}
   m_Children:
   - {fileID: 3719339093169960793}
   m_Father: {fileID: 0}
@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4881db38131094ea66a173e280ac85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1000
+  speed: 1400
   horizontalTurn: 1500
   verticalTurn: 1500
 --- !u!95 &7179079518414552238
@@ -329,6 +329,7 @@ MonoBehaviour:
   explosion: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
     type: 3}
   explosionHitPoints: 100
+  explosionPenalty: 60
 --- !u!64 &1205033909
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -375,10 +376,16 @@ MonoBehaviour:
   maxComboEvent:
     m_PersistentCalls:
       m_Calls: []
+  comboFinishEvent:
+    m_PersistentCalls:
+      m_Calls: []
   points: 0
-  comboBonus: 2
-  maxCombo: 0
+  maxCombo: 5
   defaultMultiplier: 1
+  comboBonus: 2
+  combo: 0
+  timerSeconds: 5
+  timer: 0
 --- !u!1 &8953718499959505131
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,7 +396,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6949753196500416426}
   - component: {fileID: 1937898189046297000}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

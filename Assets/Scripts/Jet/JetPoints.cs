@@ -75,6 +75,7 @@ public class JetPoints : MonoBehaviour
         combo += defaultMultiplier * multiplier;
         if(combo > maxCombo)
             combo = maxCombo;
+        
     }
 
     public void ResetCombo()
@@ -99,6 +100,11 @@ public class JetPoints : MonoBehaviour
     public int GetBonus()
     {
         return comboBonus;
+    }
+
+    public void RestorePoints(int restored)
+    {
+        points = restored;
     }
 
 #endregion

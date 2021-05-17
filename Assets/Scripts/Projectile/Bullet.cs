@@ -80,6 +80,7 @@ public class Bullet : MonoBehaviour
                 AIEnemy enemy = other.GetComponent<AIEnemy>();
                 if(enemy != null)
                 {
+                    
                     JetPoints points = sender.GetComponent<JetPoints>();
                     points.AddPoints(hitBonus);
                     points.StackCombo(comboMultiplier);
