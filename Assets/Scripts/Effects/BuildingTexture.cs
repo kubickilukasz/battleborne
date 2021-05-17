@@ -9,7 +9,7 @@ public class BuildingTexture : MonoBehaviour
 
     void Start()
     {
-        GetComponent<Renderer>().material.SetTexture("_MainTex", data.GetRandomTexture());
+        GetComponent<Renderer>().material.SetTexture("_BaseMap", data.GetRandomTexture());
     }
 
 }

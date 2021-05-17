@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
-  deathParticle: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
+  deathParticle: {fileID: 6076164758103322535, guid: 1afc38021bba1c24db3bf2bdc916606b,
     type: 3}
   debug: 0
 --- !u!65 &1056579190

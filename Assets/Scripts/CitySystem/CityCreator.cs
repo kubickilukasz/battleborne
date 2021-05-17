@@ -110,18 +110,6 @@ public class CityCreator : MonoBehaviour
             connections.Add(CreateConnection(transforms,current));
         }
 
-        foreach(Connection c in connections)
-        {
-            foreach(Transform t in c.children)
-            {
-                foreach(Connection c2 in connections)
-                {   
-                    if(c2.self == t){
-
-                    }
-                }
-            }
-        }
     }
 
     Connection CreateConnection(List<Transform> transforms, Transform current)
@@ -158,8 +146,8 @@ public class CityCreator : MonoBehaviour
                 {
                     Vector3 center = c.self.position + direction * i;
                     
-                    buidlingSizeX = SpawnRandomBuilding(center + normalLeft * widthRoad * 0.75f, Quaternion.Euler(0,angleLeft,0), normalLeft).x;
-                    buidlingSizeX = Mathf.Max(SpawnRandomBuilding(center + normalRight * widthRoad * 0.75f, Quaternion.Euler(0,angleRight,0), normalRight).x,buidlingSizeX);
+                    buidlingSizeX = SpawnRandomBuilding(center + normalLeft * widthRoad * 0.75f, Quaternion.LookRotation(normalLeft, Vector3.up), normalLeft).x;
+                    buidlingSizeX = Mathf.Max(SpawnRandomBuilding(center + normalRight * widthRoad * 0.75f,Quaternion.LookRotation(normalRight, Vector3.up), normalRight).x,buidlingSizeX);
                 }
 
                 //float angleWay = -.Angle(Vector3.forward, direction);
