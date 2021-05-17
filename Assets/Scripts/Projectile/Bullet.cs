@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -22,6 +23,10 @@ public class Bullet : MonoBehaviour
 
     [SerializeField]
     private float bulletSpeed;
+
+    [SerializeField]
+    [Range(1.5f,4f)]
+    private float bulletLifetime;
 
     [SerializeField]
     private GameObject invisibleWall;
@@ -51,7 +56,7 @@ public class Bullet : MonoBehaviour
         rigidbody.AddRelativeForce(direction*bulletSpeed*Time.fixedDeltaTime, ForceMode.Impulse);
         this.sender = sender;
 
-        Destroy(gameObject,5f);
+        Destroy(gameObject,bulletLifetime);
 
     }
 
@@ -101,6 +106,32 @@ public class Bullet : MonoBehaviour
                 if(jet != null)
                 {
                     jet.OnHit(hitPoints);
+                    Destroy(gameObject);
+                }
+            }
+        }
+        else
+        {
+            BossPart boss = other.GetComponent<BossPart>();
+            if(boss != null && sender.tag == "Jet")
+            {
+                    JetPoints points = sender.GetComponent<JetPoints>();
+                    points.AddPoints(hitBonus);
+                    points.StackCombo(comboMultiplier);
+                    if(points.isMaxCombo())
+                        boss.OnHit(points.GetBonus()*hitPoints);
+                    else
+                        boss.OnHit(hitPoints);
+                    effect = Instantiate(alienHitEffect,transform.position,Quaternion.LookRotation(-transform.forward)) as GameObject;
+                    Destroy(gameObject);
+            }
+            else
+            {
+                if(other.tag != "Ammo")
+                {
+                    InvisibleWall wall = other.GetComponent<InvisibleWall>();
+                    if(wall != null) return;
+                    effect = Instantiate(groundHitEffect,transform.position,Quaternion.LookRotation(-transform.forward)) as GameObject;
                     Destroy(gameObject);
                 }
             }

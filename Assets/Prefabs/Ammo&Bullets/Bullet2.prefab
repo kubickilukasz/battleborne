@@ -82,6 +82,7 @@ MonoBehaviour:
   hitBonus: 40
   comboMultiplier: 0.6
   bulletSpeed: 12
+  bulletLifetime: 2.7
   invisibleWall: {fileID: 8392243641397407512, guid: 3d746bf605429f448af48cab16fde24b,
     type: 3}
   cityHitEffect: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
