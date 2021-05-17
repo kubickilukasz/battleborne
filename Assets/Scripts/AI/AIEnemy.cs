@@ -41,11 +41,11 @@ public abstract class AIEnemy : MonoBehaviour
     protected float minDistanceStartShooting;
     [SerializeField]
     private GameObject bullet;
-        [SerializeField]
+    [SerializeField]
     private float dirMultiplier;
     private float fireCooldownTime;
     [SerializeField]
-        private float fireCooldown;
+    private float fireCooldown;
         
 
     [SerializeField]
@@ -190,9 +190,7 @@ public abstract class AIEnemy : MonoBehaviour
     {
         if(fireCooldownTime <= 0.0f)
         {
-            Debug.Log(bullet);
             GameObject bulletTrans = Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
-            Debug.Log(bulletTrans);
             Vector3 direction = transform.forward * dirMultiplier;
             bulletTrans.GetComponent<Bullet>().Init(direction,gameObject);
             fireCooldownTime = fireCooldown;

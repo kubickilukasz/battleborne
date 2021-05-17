@@ -140,7 +140,7 @@ MonoBehaviour:
   health: 100
   deathParticle: {fileID: 644392587103175744, guid: f6110365d1de88e439fadcec5b8d0413,
     type: 3}
-  debug: 1
+  debug: 0
   maxSpeedIdle: 5
   accelerationIdle: 0.1
   maxSpeedChase: 20
