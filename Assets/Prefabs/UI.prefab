@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3732976754212871660}
   - component: {fileID: 5309511088344503730}
+  - component: {fileID: 1749111298}
+  - component: {fileID: 2904837320526223643}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -43,8 +45,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bc6c6f976f20144095d29f8509081ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateMenu: 0
+  stateGame: {fileID: 1749111298}
   aim: {fileID: 0}
   menuInGame: {fileID: 0}
   cityHealthBar: {fileID: 0}
-  timeTransition: 0.1
+--- !u!114 &1749111298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3990886350024397983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1912b90e77406ef49a790b756d56f1a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateMenu: 0
+  timeTransition: 1
+  onChangeState:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2904837320526223643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3990886350024397983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa57d9992beb24a41b1b7af036f56981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -19,7 +19,7 @@ public class CityHealthBar : MonoBehaviour
 
     void Update()
     {
-        cityHealthBar.fillAmount = city.Health / city.MaxHealth;
+        cityHealthBar.fillAmount = city.Health / (float)city.MaxHealth;
     }
 
 

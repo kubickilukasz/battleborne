@@ -47,11 +47,8 @@ public class Bullet : MonoBehaviour
 
     public void Init(Vector3 direction, GameObject sender)
     {
-
         rigidbody = GetComponent<Rigidbody>();
-
         rigidbody.AddRelativeForce(direction*bulletSpeed*Time.fixedDeltaTime, ForceMode.Impulse);
-
         this.sender = sender;
 
         Destroy(gameObject,5f);
@@ -103,19 +100,8 @@ public class Bullet : MonoBehaviour
                 if(jet != null)
                 {
                     jet.OnHit(hitPoints);
-                    effect = Instantiate(jetHitEffect,transform.position,Quaternion.LookRotation(-transform.forward)) as GameObject;
                     Destroy(gameObject);
                 }
-            }
-        }
-        else
-        {
-            if(other.tag != "Ammo")
-            {
-                InvisibleWall wall = other.GetComponent<InvisibleWall>();
-                if(wall != null) return;
-                effect = Instantiate(groundHitEffect,transform.position,Quaternion.LookRotation(-transform.forward)) as GameObject;
-                Destroy(gameObject);
             }
         }
     }

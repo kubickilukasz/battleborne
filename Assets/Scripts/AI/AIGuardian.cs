@@ -4,16 +4,16 @@ using UnityEngine;
 
 public enum GuardianStates
 {
-	IDLE, //Kr¹¿y w miejscu
-	CHASE, //Wykry³ gracza i go atakuje
-	RETREAT, //Powrót do punktu startowego
+	IDLE, //Krï¿½ï¿½y w miejscu
+	CHASE, //Wykryï¿½ gracza i go atakuje
+	RETREAT, //Powrï¿½t do punktu startowego
 	DODGE
 }
 
 public class AIGuardian : AIEnemy
 {
 	[SerializeField]
-	protected GameObject guardingObject;
+	public GameObject guardingObject;
 	[SerializeField]
 	private float guardingObjectDetectRange;
 	[SerializeField]
@@ -35,7 +35,7 @@ public class AIGuardian : AIEnemy
 	private float accelerationRetreat;
 
 	[SerializeField]
-	private float torqueAcceleration;
+	private float rotationSpeed;
 
 	[SerializeField]
 	private float ignorePlayerTime;
@@ -47,7 +47,7 @@ public class AIGuardian : AIEnemy
 
 	protected override void SetupStartValues()
 	{
-		torqueacc = torqueAcceleration;
+		rotateSpeed = rotationSpeed;
 		ignoreTargetTime = spawnIgnorePlayerTime;
 		SetState(GuardianStates.RETREAT);
 	}
@@ -152,11 +152,16 @@ public class AIGuardian : AIEnemy
 
 	private void SetToDodgeIfCrashCourse()
 	{
-		if (dodgingTime <= 0 && CheckRaycast())
+		if (dodgingTime <= 0 && CheckRaycast(Vector3.forward))
 		{
 			dodgingTime = nextDodgingTime;
 			SetState(GuardianStates.DODGE);
 		}
+	}
+
+	private void ShootIfTargetInRange()
+	{
+		if (CanStartShooting()) Shoot();
 	}
 
 	private void ReturnToPrevState()
@@ -170,26 +175,27 @@ public class AIGuardian : AIEnemy
 	private void Idle()
 	{
 		if (debug) Debug.Log("===== IDLE =====");
-		AccelerateForward();
-		CycleAroundTarget();
+		Accelerate(Vector3.forward);
+		StrafeTowardsFocusTarget(randomImprecision);
 		SetToChaseIfPlayer();
 		SetToDodgeIfCrashCourse();
 	}
 
 	private void Chase()
 	{
-		if (debug) Debug.Log("===== CHASING " + target.transform.position + " =====");
-		AccelerateForward();
-		StrafeTowardsFocusTarget();
+		if (debug) Debug.Log("===== CHASING =====");
+		Accelerate(Vector3.forward);
+		StrafeTowardsFocusTarget(Vector3.zero);
 		SetToRetreatIfLostOrTooFar();
 		SetToDodgeIfCrashCourse();
+		ShootIfTargetInRange();
 	}
 
 	private void Retreat()
 	{
 		if (debug) Debug.Log("===== RETREAT =====");
-		AccelerateForward();
-		StrafeTowardsFocusTarget();
+		Accelerate(Vector3.forward);
+		StrafeTowardsFocusTarget(Vector3.zero);
 		SetToChaseIfPlayer();
 		SetToIdleIfInTarget();
 		SetToDodgeIfCrashCourse();
@@ -198,8 +204,8 @@ public class AIGuardian : AIEnemy
 	private void Dodge()
 	{
 		if (debug) Debug.Log("===== DODGE, prestate: " + prevState + " =====");
-		AccelerateForward();
-		StrafeTowardsConstPos(dodgepos);
+		Accelerate(Vector3.forward);
+		StrafeTowardsConstPos(dodgepos, Vector3.zero);
 		ReturnToPrevState();
 	}
 }

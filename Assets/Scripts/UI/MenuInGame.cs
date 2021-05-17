@@ -5,14 +5,8 @@ using UnityEngine.UI;
 
 public class MenuInGame : MonoBehaviour
 {
-
-    public enum StateMenu{
-        Play,
-        Paused
-    }
-
     [SerializeField]
-    StateMenu stateMenu = StateMenu.Play;
+    StateGame stateGame;
 
     [SerializeField]
     RectTransform aim;
@@ -23,40 +17,31 @@ public class MenuInGame : MonoBehaviour
     [SerializeField]
     RectTransform cityHealthBar;
 
-    [SerializeField]
-    float timeTransition = 1f;
-
     void Start()
     {
-        UpdateState();
+        stateGame.onChangeState.AddListener(UpdateState);
     }
 
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape)){
-            if(stateMenu == StateMenu.Play){
-                PausedState();
+            if(stateGame.GetStateMenu() == StateGame.StateMenu.Play){
+                stateGame.PausedState();
             }else{
-                PlayState();
+                stateGame.PlayState();
             }
         }
     }
 
     public void UpdateState(){
 
-        switch(stateMenu){
-            case StateMenu.Play:
-            Time.timeScale = 1f;
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+        switch(stateGame.GetStateMenu()){
+            case StateGame.StateMenu.Play:
             aim?.gameObject.SetActive(true);
             menuInGame?.gameObject.SetActive(false);
             cityHealthBar?.gameObject.SetActive(true);
             break;
-            case StateMenu.Paused:
-            Time.timeScale = 0f;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.Confined;
+            case StateGame.StateMenu.Paused:
             aim?.gameObject.SetActive(false);
             menuInGame?.gameObject.SetActive(true);
             cityHealthBar?.gameObject.SetActive(false);
@@ -65,22 +50,5 @@ public class MenuInGame : MonoBehaviour
 
     }
 
-    public void PlayState(){
-        if(stateMenu != StateMenu.Play){
-            StartCoroutine(ChangeState(StateMenu.Play));
-        }
-    }
-
-    public void PausedState(){
-        if(stateMenu != StateMenu.Paused){
-            StartCoroutine(ChangeState(StateMenu.Paused));
-        }
-    }
-
-    IEnumerator ChangeState(StateMenu newState){
-        yield return new WaitForSecondsRealtime(timeTransition);
-        stateMenu = newState;
-        UpdateState();
-    }
 
 }
