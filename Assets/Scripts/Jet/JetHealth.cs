@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(JetPoints))]
 public class JetHealth : MonoBehaviour
 {
 
@@ -15,6 +16,8 @@ public class JetHealth : MonoBehaviour
     [SerializeField]
     private int maxHealth = 100;
 
+    private bool invincibility = false;
+
     [Header("Explosion")]
     [SerializeField]
     private GameObject explosion;
@@ -22,14 +25,18 @@ public class JetHealth : MonoBehaviour
     [SerializeField]
     private int explosionHitPoints;
 
+    private JetPoints combo;
+
     void Start()
     {
         health = maxHealth;
+        combo = GetComponent<JetPoints>();
     }
 
     void Update()
     {
         NoHealthExplode();
+        SetInvincibility();
     }
 
 
@@ -44,6 +51,7 @@ public class JetHealth : MonoBehaviour
                 {
                     building.OnHit(explosionHitPoints);
                 }
+                health = 0;
             }
             else if(other.collider.tag == "Alien")
             {
@@ -52,8 +60,10 @@ public class JetHealth : MonoBehaviour
                 {
                     enemy.OnHit(explosionHitPoints);
                 }
+                if(!invincibility)
+                    health = 0;
             }
-            health = 0;
+            else health = 0;
         }
     }
 
@@ -67,6 +77,14 @@ public class JetHealth : MonoBehaviour
             GetComponent<Renderer>().enabled = false;
             onDestroyEvent.Invoke();
             Destroy(gameObject);
+        }
+    }
+
+    private void SetInvincibility()
+    {
+        if(combo.isMaxCombo())
+        {
+            invincibility = true;
         }
     }
 #endregion
@@ -90,4 +108,5 @@ public class JetHealth : MonoBehaviour
     }
 
 #endregion
+
 }

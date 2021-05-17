@@ -9,11 +9,23 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private int hitPoints;
 
+    [SerializeField]
+    private int cityHitPenalty;
+
+    [SerializeField]
+    private int hitBonus;
+
+    [SerializeField]
+    private float comboMultiplier;
+
     [Header("Physics")]
-    Rigidbody rigidbody;
 
     [SerializeField]
     private float bulletSpeed;
+
+    [SerializeField]
+    private GameObject invisibleWall;
+    Rigidbody rigidbody;
 
     [Header("Effects")]
     [SerializeField]
@@ -32,16 +44,11 @@ public class Bullet : MonoBehaviour
 
     private GameObject sender;
 
-    [SerializeField]
-    private GameObject invisibleWall;
 
     public void Init(Vector3 direction, GameObject sender)
     {
-
         rigidbody = GetComponent<Rigidbody>();
-
         rigidbody.AddRelativeForce(direction*bulletSpeed*Time.fixedDeltaTime, ForceMode.Impulse);
-
         this.sender = sender;
 
         Destroy(gameObject,5f);
@@ -57,17 +64,30 @@ public class Bullet : MonoBehaviour
             {
                 building.OnHit(hitPoints);
                 effect = Instantiate(cityHitEffect,transform.position,Quaternion.LookRotation(-transform.forward)) as GameObject;
+                if(sender.tag == "Jet")
+                {
+                    JetPoints points = sender.GetComponent<JetPoints>();
+                    points.DecreasePoints(cityHitPenalty);
+                    points.ResetCombo();
+                }
                 Destroy(gameObject);
             }
         }
         else if(other.tag == "Alien")
         {
-            if(other.gameObject != sender)
+            if(other.tag != sender.tag)
             {
                 AIEnemy enemy = other.GetComponent<AIEnemy>();
                 if(enemy != null)
                 {
-                    enemy.OnHit(hitPoints);
+                    
+                    JetPoints points = sender.GetComponent<JetPoints>();
+                    points.AddPoints(hitBonus);
+                    points.StackCombo(comboMultiplier);
+                    if(points.isMaxCombo())
+                        enemy.OnHit(points.GetBonus()*hitPoints);
+                    else
+                        enemy.OnHit(hitPoints);
                     effect = Instantiate(alienHitEffect,transform.position,Quaternion.LookRotation(-transform.forward)) as GameObject;
                     Destroy(gameObject);
                 }
@@ -75,25 +95,14 @@ public class Bullet : MonoBehaviour
         }
         else if(other.tag == "Jet")
         { 
-            if(other.gameObject != sender)
+            if(other.tag != sender.tag)
             {
                 JetHealth jet = other.GetComponent<JetHealth>();
                 if(jet != null)
                 {
                     jet.OnHit(hitPoints);
-                    effect = Instantiate(jetHitEffect,transform.position,Quaternion.LookRotation(-transform.forward)) as GameObject;
                     Destroy(gameObject);
                 }
-            }
-        }
-        else
-        {
-            if(other.tag != "Ammo")
-            {
-                InvisibleWall wall = other.GetComponent<InvisibleWall>();
-                if(wall != null) return;
-                effect = Instantiate(groundHitEffect,transform.position,Quaternion.LookRotation(-transform.forward)) as GameObject;
-                Destroy(gameObject);
             }
         }
     }

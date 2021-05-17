@@ -23,7 +23,7 @@ public class CameraFollow : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(target !=null)
+        if(target != null)
         {
             Vector3 desiredPos = target.position - target.TransformDirection(offset);//target.position + offset;
             Vector3 smoothPos = Vector3.SmoothDamp(transform.position, desiredPos, ref velocity, smoothSpeed);
@@ -38,7 +38,8 @@ public class CameraFollow : MonoBehaviour
         if(target == null)
         {
             JetSpawn spawn = spawnPoint.GetComponent<JetSpawn>();
-            target = spawn.jetReference.transform;
+            if(spawn.jetReference != null)
+                target = spawn.jetReference.transform;
         }
     }
 }

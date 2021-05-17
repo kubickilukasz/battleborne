@@ -31,7 +31,8 @@ public class AmmoCollectible : MonoBehaviour
             if(other.tag != "Alien")
             {
                 Bullet bullet = other.GetComponent<Bullet>();
-                if(bullet == null)
+                InvisibleWall wall = other.GetComponent<InvisibleWall>();
+                if(bullet == null && wall == null)
                     Destroy(gameObject);
             }
         }

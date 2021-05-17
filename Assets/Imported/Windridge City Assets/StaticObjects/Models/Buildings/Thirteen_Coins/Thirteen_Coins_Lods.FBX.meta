@@ -1,66 +1,15 @@
 fileFormatVersion: 2
-guid: 223a768f7e5309c4f9048d6dfec63848
+guid: 03a99f3d04739a64b85a1f96d23e6101
 ModelImporter:
-  serializedVersion: 22
-  fileIDToRecycleName:
-    100000: Thirteen_Coins_LOD0
-    100002: Thirteen_Coins_LOD1
-    100004: Thirteen_Coins_LOD2
-    100006: //RootNode
-    400000: Thirteen_Coins_LOD0
-    400002: Thirteen_Coins_LOD1
-    400004: Thirteen_Coins_LOD2
-    400006: //RootNode
-    2100000: TCEdificioMat3
-    2100002: TCMarcosMat3
-    2100004: TCVentanasMat3
-    2100006: TCCartelesMat3
-    2100008: TCLetrasMat3
-    2100010: TCTejadoMat3
-    2300000: Thirteen_Coins_LOD0
-    2300002: Thirteen_Coins_LOD1
-    2300004: Thirteen_Coins_LOD2
-    3300000: Thirteen_Coins_LOD0
-    3300002: Thirteen_Coins_LOD1
-    3300004: Thirteen_Coins_LOD2
-    4300000: Thirteen_Coins_LOD0
-    4300002: Thirteen_Coins_LOD1
-    4300004: Thirteen_Coins_LOD2
-    20500000: //RootNode
-  externalObjects:
+  serializedVersion: 20200
+  internalIDToNameTable:
   - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: TCCartelesMat3
-    second: {fileID: 2100000, guid: 50803a988d416c64395f4ecacb8661e0, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: TCEdificioMat3
-    second: {fileID: 2100000, guid: 26f93f230431e904a91e6820a300ac33, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: TCLetrasMat3
-    second: {fileID: 2100000, guid: f2c916482fbb8ca438f90deae1f91ac6, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: TCMarcosMat3
-    second: {fileID: 2100000, guid: c6da8d0fe6dfe7b47b217e3b6b254f33, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: TCTejadoMat3
-    second: {fileID: 2100000, guid: ddc33678e3b334641b56c865e4c4223e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: TCVentanasMat3
-    second: {fileID: 2100000, guid: b982bc6a38166114da906df8e12775e5, type: 2}
+      74: 1827226128182048838
+    second: Take 001
+  externalObjects: {}
   materials:
-    importMaterials: 1
-    materialName: 1
+    materialImportMode: 2
+    materialName: 0
     materialSearch: 1
     materialLocation: 1
   animations:
@@ -85,7 +34,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages:
     - 0.25
@@ -93,21 +42,31 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
@@ -115,10 +74,13 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 0
-  copyAvatar: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -128,14 +90,17 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

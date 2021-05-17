@@ -1,56 +1,14 @@
 fileFormatVersion: 2
-guid: 901d3f5784cc81c4baac0eea4f3a1636
+guid: 484b869d4bbbe5643acea37c18d8ed69
 ModelImporter:
-  serializedVersion: 22
-  fileIDToRecycleName:
-    100000: Crate_Barrel_LOD0
-    100002: Crate_Barrel_LOD1
-    100004: Crate_Barrel_LOD2
-    100006: //RootNode
-    400000: Crate_Barrel_LOD0
-    400002: Crate_Barrel_LOD1
-    400004: Crate_Barrel_LOD2
-    400006: //RootNode
-    2100000: roof_mat
-    2100002: glasses_mat
-    2100004: building_mat
-    2100006: frames_mat
-    2300000: Crate_Barrel_LOD0
-    2300002: Crate_Barrel_LOD1
-    2300004: Crate_Barrel_LOD2
-    3300000: Crate_Barrel_LOD0
-    3300002: Crate_Barrel_LOD1
-    3300004: Crate_Barrel_LOD2
-    4300000: Crate_Barrel_LOD2
-    4300002: Crate_Barrel_LOD1
-    4300004: Crate_Barrel_LOD0
-    7400000: Take 001
-    9500000: //RootNode
-    20500000: //RootNode
-    2186277476908879412: ImportLogs
-  externalObjects:
+  serializedVersion: 20200
+  internalIDToNameTable:
   - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: building_mat
-    second: {fileID: 2100000, guid: f3c28ddca30269f4c8156a93f741a635, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: frames_mat
-    second: {fileID: 2100000, guid: 15110d7acca5d6f4f89e7d7c361839ec, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: glasses_mat
-    second: {fileID: 2100000, guid: 2f621a6112117c64dbd15fd6004b5311, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: roof_mat
-    second: {fileID: 2100000, guid: bfb86d487b5e8d64f91c2e66faff0e17, type: 2}
+      74: 1827226128182048838
+    second: Take 001
+  externalObjects: {}
   materials:
-    importMaterials: 1
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -76,7 +34,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages:
     - 0.25
@@ -85,32 +43,45 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 1
+    normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 0
-  copyAvatar: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -120,14 +91,17 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
