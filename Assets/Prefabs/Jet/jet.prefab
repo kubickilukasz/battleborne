@@ -329,7 +329,6 @@ MonoBehaviour:
   explosion: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
     type: 3}
   explosionHitPoints: 100
-  explosionPenalty: 60
 --- !u!64 &1205033909
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -383,9 +382,7 @@ MonoBehaviour:
   maxCombo: 5
   defaultMultiplier: 1
   comboBonus: 2
-  combo: 0
   timerSeconds: 5
-  timer: 0
 --- !u!1 &8953718499959505131
 GameObject:
   m_ObjectHideFlags: 0

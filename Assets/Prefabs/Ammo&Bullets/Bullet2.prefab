@@ -80,7 +80,7 @@ MonoBehaviour:
   hitPoints: 10
   cityHitPenalty: 20
   hitBonus: 40
-  comboMultiplier: 0.6
+  comboMultiplier: 0.3
   bonusPenaltyList: {fileID: 11400000, guid: 8ae3f9419ae08b04f8e609d91d751ce6, type: 2}
   bulletSpeed: 12
   bulletLifetime: 2.7
