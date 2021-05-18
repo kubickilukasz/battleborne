@@ -45,6 +45,14 @@ public class InvisibleWall : MonoBehaviour
         }    
     }
 
+    public float GetTimer(){
+        return timer;
+    }
+
+    public float GetTimerSeconds(){
+        return timerSeconds;
+    }
+
     private void Timer()
     {
         if(outOfBounds && jet != null)
