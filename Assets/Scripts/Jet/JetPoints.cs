@@ -57,7 +57,7 @@ public class JetPoints : MonoBehaviour
 #region PublicMethods
     public void AddPoints(int value)
     {
-        if(combo == maxCombo)
+        if(combo >= maxCombo)
             points += comboBonus*value;
         else
             points += value;
