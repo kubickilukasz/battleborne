@@ -10,7 +10,6 @@ using UnityEngine.Events;
 public class JetMovement : MonoBehaviour
 {
 
-
     [Header("Movement")]
     [SerializeField]
     private float speed;
@@ -24,11 +23,9 @@ public class JetMovement : MonoBehaviour
     Rigidbody rigidbody;
 
 
-
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-
     }
 
     
@@ -43,10 +40,8 @@ public class JetMovement : MonoBehaviour
 
     void LateUpdate()
     {
-
        rigidbody.rotation =
             Quaternion.Lerp(rigidbody.rotation, Quaternion.Euler(new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0)), .5f);
-
     }
 
 }

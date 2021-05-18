@@ -17,9 +17,15 @@ public class InvisibleWall : MonoBehaviour
 #endregion
 
     private bool outOfBounds = false;
+    private bool start;
 
     private GameObject jet;
 
+
+    void Start()
+    {
+        start = true;
+    }
 
     void Update()
     {
@@ -28,10 +34,11 @@ public class InvisibleWall : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Jet" && outOfBounds)
+        if((other.tag == "Jet" && outOfBounds) || start)
         {
             onJetEnterEvent.Invoke();
             outOfBounds = false;
+            start = false;
         }
     }
 
@@ -65,7 +72,6 @@ public class InvisibleWall : MonoBehaviour
                 {
                     int hitPoints = jetHealth.GetMaxHealth();
                     jetHealth.OnHit(hitPoints);
-                    outOfBounds = false;
                 }
             }   
         }

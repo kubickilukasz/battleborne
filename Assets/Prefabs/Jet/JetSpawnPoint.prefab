@@ -47,3 +47,4 @@ MonoBehaviour:
     type: 3}
   jetReference: {fileID: 0}
   respawnPenalty: 60
+  bonusPenaltyList: {fileID: 11400000, guid: 8ae3f9419ae08b04f8e609d91d751ce6, type: 2}

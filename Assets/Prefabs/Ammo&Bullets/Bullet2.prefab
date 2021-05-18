@@ -81,9 +81,9 @@ MonoBehaviour:
   cityHitPenalty: 20
   hitBonus: 40
   comboMultiplier: 0.6
+  bonusPenaltyList: {fileID: 11400000, guid: 8ae3f9419ae08b04f8e609d91d751ce6, type: 2}
   bulletSpeed: 12
-  invisibleWall: {fileID: 8392243641397407512, guid: 3d746bf605429f448af48cab16fde24b,
-    type: 3}
+  bulletLifetime: 2.7
   cityHitEffect: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
     type: 3}
   alienHitEffect: {fileID: 644392587103175744, guid: f6110365d1de88e439fadcec5b8d0413,

@@ -14,6 +14,9 @@ public class JetSpawn : MonoBehaviour
     [SerializeField]
     private int respawnPenalty;
 
+    [SerializeField]
+    private BonusPenaltyList bonusPenaltyList;
+
     void LateUpdate()
     {
         StorePoints();
@@ -28,6 +31,13 @@ public class JetSpawn : MonoBehaviour
             JetPoints points = jetReference.GetComponent<JetPoints>();
             points.RestorePoints(jetPoints);
             points.DecreasePoints(respawnPenalty);
+            List<int> bpList = bonusPenaltyList.GetList();
+            foreach (var bp in bpList)
+            {
+                if(bp > 0) points.AddPoints(bp); 
+                else points.DecreasePoints(bp);
+            }
+            bonusPenaltyList.ClearList();
         }  
     }
 
