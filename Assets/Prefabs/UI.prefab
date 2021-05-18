@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateMenu: 0
-  timeTransition: 1
+  timeTransition: 0.1
   onChangeState:
     m_PersistentCalls:
       m_Calls: []
