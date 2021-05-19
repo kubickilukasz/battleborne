@@ -75,6 +75,13 @@ public class City : MonoBehaviour
         }
     }
 
+    public GameObject GetRandomBuilding()
+    {
+        if(buildings != null && buildings.Count > 0)
+            return buildings[Random.Range(0, buildings.Count-1)].gameObject;
+
+        return null;
+    }
 
     public void OnDestroy()
     {
