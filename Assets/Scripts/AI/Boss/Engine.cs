@@ -13,7 +13,7 @@ public class Engine : BossPart
     void FixedUpdate()
     {
         if (!neutralized && hp <= 0 && bossParent) {
-            bossParent.acc = accelerationSlow;
+            bossParent.acceleration = accelerationSlow;
             bossParent.maxSpeed = maxSpeedSlow;
         }
         base.FixedUpdate();

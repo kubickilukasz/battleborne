@@ -16,13 +16,13 @@ public class Spawnarea : Spawn
         int count = spawnList.Count;
         if(count >= 1)
         {
-            SpawnSingle(spawnList[Random.Range(0, count-1)], newspawn, transform.rotation);
+            SpawnSingle(spawnList[Random.Range(0, count)], newspawn, transform.rotation);
         }
     }
 
     void OnDrawGizmos()
 	{
-        if(debug)
+        if(debugGizmos)
 		{
             Gizmos.color = Color.blue;
             Gizmos.DrawWireCube(transform.position, new Vector3(spawnAreaSize.x, spawnAreaSize.y, spawnAreaSize.z));

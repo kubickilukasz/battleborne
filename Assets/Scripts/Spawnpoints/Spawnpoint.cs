@@ -13,7 +13,7 @@ public class Spawnpoint : Spawn
         }
     }
     void OnDrawGizmos() {
-        if(debug)
+        if(debugGizmos)
 		{
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, 2.0f);
