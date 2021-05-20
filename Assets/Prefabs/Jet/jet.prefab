@@ -138,87 +138,6 @@ TrailRenderer:
   m_MinVertexDistance: 0.2
   m_Autodestruct: 1
   m_Emitting: 1
---- !u!1 &1963152414535796432
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1963152414535796436}
-  - component: {fileID: 1963152414535796435}
-  - component: {fileID: 1963152414535796434}
-  m_Layer: 0
-  m_Name: MaxCombo
-  m_TagString: Ammo
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1963152414535796436
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1963152414535796432}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: -0.001}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
-  m_Children: []
-  m_Father: {fileID: 7179079518424355662}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1963152414535796435
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1963152414535796432}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &1963152414535796434
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1963152414535796432}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 30ca75d1522c8604e86a402ef1259b0c, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &3719339093169960795
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,7 +168,7 @@ Transform:
   - {fileID: 6949753196500416426}
   - {fileID: 974281679}
   m_Father: {fileID: 7179079518424355662}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7179079518423928686
 GameObject:
@@ -269,7 +188,6 @@ GameObject:
   - component: {fileID: 1205033909}
   - component: {fileID: 1205033915}
   - component: {fileID: 1088628337619215913}
-  - component: {fileID: 1734927353403411524}
   m_Layer: 7
   m_Name: jet
   m_TagString: Jet
@@ -288,7 +206,6 @@ Transform:
   m_LocalPosition: {x: -3.79, y: 2.98, z: 0.5}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
-  - {fileID: 1963152414535796436}
   - {fileID: 3719339093169960793}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -354,9 +271,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4881db38131094ea66a173e280ac85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1400
+  defaultSpeed: 1400
+  maxSpeed: 2000
   horizontalTurn: 1500
   verticalTurn: 1500
+  speedDelta: 50
+  timerMax: 0.05
 --- !u!95 &7179079518414552238
 Animator:
   serializedVersion: 3
@@ -466,19 +386,6 @@ MonoBehaviour:
   defaultMultiplier: 1
   comboBonus: 2
   timerSeconds: 5
---- !u!114 &1734927353403411524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7179079518423928686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08b79bfe40bbbd943848f5c19f916969, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effect: {fileID: 1963152414535796432}
 --- !u!1 &8953718499959505131
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,5 @@ using UnityEngine;
 public class AmmoData : ScriptableObject 
 {
     public float ammo = 20f;
-
 }
 

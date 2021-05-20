@@ -127,6 +127,7 @@ public class Bullet : MonoBehaviour
                 if(jet != null)
                 {
                     jet.OnHit(hitPoints);
+                    effect = Instantiate(jetHitEffect,transform.position,Quaternion.LookRotation(-transform.forward),other.transform) as GameObject;
                     Destroy(gameObject);
                 }
             }
