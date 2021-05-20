@@ -7,7 +7,8 @@ public class StateGame : MonoBehaviour
 {
     public enum StateMenu{
         Play,
-        Paused
+        Paused,
+        Respawn
     }
 
     [SerializeField]
@@ -37,6 +38,11 @@ public class StateGame : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.Confined;
             break;
+            case StateMenu.Respawn:
+            Time.timeScale = 1f;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+            break;
         }
 
     }
@@ -48,8 +54,14 @@ public class StateGame : MonoBehaviour
     }
 
     public void PausedState(){
-        if(stateMenu != StateMenu.Paused){
+        if(stateMenu != StateMenu.Paused && stateMenu != StateMenu.Respawn){
             StartCoroutine(ChangeState(StateMenu.Paused));
+        }
+    }
+
+    public void RespawnState(){
+        if(stateMenu != StateMenu.Respawn && stateMenu != StateMenu.Paused){
+            StartCoroutine(ChangeState(StateMenu.Respawn));
         }
     }
 

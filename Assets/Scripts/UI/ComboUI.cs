@@ -1,13 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using System.Text;
 
-public class ShowPoints : MonoBehaviour
+public class ComboUI : MonoBehaviour
 {
-
     [SerializeField]
     TextMeshProUGUI text;
 
@@ -22,7 +20,7 @@ public class ShowPoints : MonoBehaviour
 
     JetPoints jetPoints;
 
-    float earlierPoints = 0;
+    float earlierCombo = 0;
 
     float state = 0;
 
@@ -36,21 +34,23 @@ public class ShowPoints : MonoBehaviour
     void Update()
     {
         state -= Time.deltaTime * speed;
-        
         if(jetPoints == null && jetSpawn != null && jetSpawn.jetReference != null)
         {
             jetPoints = jetSpawn?.jetReference?.GetComponent<JetPoints>();
         }
         else
         {
-            text.rectTransform.localScale = Vector3.Lerp(Vector3.one, Vector3.one * scale, state);
-            StringBuilder textBuilder = new StringBuilder();
-            textBuilder.Append(jetPoints.GetPoints());
-            textBuilder.Append(" points");
+            StringBuilder textBuilder = new StringBuilder("x");
+            textBuilder.Append(jetPoints.GetCombo());
+            //textBuilder.Append(" points");
             text.SetText(textBuilder.ToString());
-            if(earlierPoints != jetPoints.GetPoints()){
-                earlierPoints = jetPoints.GetPoints();
+            if(earlierCombo != jetPoints.GetCombo()){
+                earlierCombo = jetPoints.GetCombo();
                 state = 1;
+            }
+
+            if(earlierCombo == 0){
+                text.SetText("");
             }
         }
     }

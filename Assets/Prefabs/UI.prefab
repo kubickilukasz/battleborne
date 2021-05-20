@@ -49,6 +49,8 @@ MonoBehaviour:
   aim: {fileID: 0}
   menuInGame: {fileID: 0}
   cityHealthBar: {fileID: 0}
+  points: {fileID: 0}
+  combo: {fileID: 0}
 --- !u!114 &1749111298
 MonoBehaviour:
   m_ObjectHideFlags: 0

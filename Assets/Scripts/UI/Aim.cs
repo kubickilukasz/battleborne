@@ -74,22 +74,25 @@ public class Aim : MonoBehaviour
         leftAim.anchoredPosition = -tempPosition;
         rightAim.anchoredPosition = tempPosition;
 
-        JetShooting jetShooting     =   jetSpawn?.jetReference?.GetComponent<JetShooting>();
-        JetHealth jetHealth         =   jetSpawn?.jetReference?.GetComponent<JetHealth>();
+        if(jetSpawn != null && jetSpawn.jetReference != null){
 
-        if(jetShooting != null || jetHealth != null )
-        {
-            healthBar.fillAmount = jetHealth.GetHealth() / (float)jetHealth.GetMaxHealth();
-            ammoBar.fillAmount = jetShooting.GetAmmo() / jetShooting.maxAmmo;
+            JetShooting jetShooting     =   jetSpawn?.jetReference?.GetComponent<JetShooting>();
+            JetHealth jetHealth         =   jetSpawn?.jetReference?.GetComponent<JetHealth>();
 
-            RaycastHit hit;
-            if(Physics.Raycast(jetShooting.transform.position, jetShooting.transform.forward, out hit, rangeRayToCalculateAim, maskForRay)){
-                positionAim = (Vector2)jetCamera.WorldToScreenPoint(hit.point) - (jetCamera.pixelRect.size / 2);
-            }else{
-                positionAim = (Vector2)jetCamera.WorldToScreenPoint(jetShooting.transform.position + jetShooting.transform.forward * (rangeRayToCalculateAim * 0.25f)) - (jetCamera.pixelRect.size / 2); 
+            if(jetShooting != null || jetHealth != null )
+            {
+                healthBar.fillAmount = jetHealth.GetHealth() / (float)jetHealth.GetMaxHealth();
+                ammoBar.fillAmount = jetShooting.GetAmmo() / jetShooting.maxAmmo;
+
+                RaycastHit hit;
+                if(Physics.Raycast(jetShooting.transform.position, jetShooting.transform.forward, out hit, rangeRayToCalculateAim, maskForRay)){
+                    positionAim = (Vector2)jetCamera.WorldToScreenPoint(hit.point) - (jetCamera.pixelRect.size / 2);
+                }else{
+                    positionAim = (Vector2)jetCamera.WorldToScreenPoint(jetShooting.transform.position + jetShooting.transform.forward * (rangeRayToCalculateAim * 0.25f)) - (jetCamera.pixelRect.size / 2); 
+                }
+                rectTransform.anchoredPosition = Vector2.SmoothDamp(rectTransform.anchoredPosition, positionAim, ref positionAimRef, smoothOfAimRay);
+
             }
-            rectTransform.anchoredPosition = Vector2.SmoothDamp(rectTransform.anchoredPosition, positionAim, ref positionAimRef, smoothOfAimRay);
-
         }
 
         
