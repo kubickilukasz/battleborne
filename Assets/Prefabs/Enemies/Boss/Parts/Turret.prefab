@@ -57,14 +57,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5088b6e54ea62734db9310b658fcc393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
+  hp: 20
   deathParticle: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
     type: 3}
-  smokeParticle: {fileID: 644392587103175744, guid: f6110365d1de88e439fadcec5b8d0413,
+  smokeParticle: {fileID: 4458993900058187211, guid: 16049e210c76fc34cbbc7ffae6811846,
     type: 3}
   smokeParticleCooldown: 100
   debug: 0
-  minDistanceStartShooting: 40
-  bullet: {fileID: 1869544619058439905, guid: 1b6cac849c829b5498e87754d4e392ba, type: 3}
+  minDistanceStartShooting: 100
+  bullet: {fileID: 2826832719698123469, guid: e8a23919a241ce743b5071f3d243a54b, type: 3}
+  dirMultiplier: 500
   fireCooldown: 50
-  dirMultiplier: 4

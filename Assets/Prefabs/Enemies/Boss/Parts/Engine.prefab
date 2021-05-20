@@ -57,11 +57,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec77c0d302cc5654586c63cff0f1a7b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 300
+  hp: 100
   deathParticle: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
     type: 3}
-  smokeParticle: {fileID: 644392587103175744, guid: f6110365d1de88e439fadcec5b8d0413,
+  smokeParticle: {fileID: 4458993900058187211, guid: 16049e210c76fc34cbbc7ffae6811846,
     type: 3}
   smokeParticleCooldown: 100
+  debug: 0
   maxSpeedSlow: 0.1
   accelerationSlow: 0.1

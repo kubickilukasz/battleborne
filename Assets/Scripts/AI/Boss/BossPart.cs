@@ -39,25 +39,23 @@ public class BossPart : MonoBehaviour
 
     public int MaxHealth { get; private set; }
 
-    public void Init (Boss boss) {
+    public virtual void Init (Boss boss) {
         MaxHealth = hp;
         bossParent = boss;
     }
+
     protected void FixedUpdate()
     {
         if (!neutralized && hp <= 0 ) {
             neutralized = true;
             Instantiate(deathParticle, transform.position, transform.rotation);
-            if(debug) Debug.Log("Cond 1");
         }
         else if (neutralized && smokeParticleTime > 0) {
             smokeParticleTime = smokeParticleTime - Time.fixedDeltaTime * 100f;
-            if(debug) Debug.Log("Cond 2");
         }
         else if (neutralized) {
             Instantiate(smokeParticle, transform.position, transform.rotation);
             smokeParticleTime = smokeParticleCooldown;
-            if(debug) Debug.Log("Cond 3");
         }
     }
 

@@ -82,7 +82,7 @@ MonoBehaviour:
   hitBonus: 40
   comboMultiplier: 0.3
   bonusPenaltyList: {fileID: 11400000, guid: 8ae3f9419ae08b04f8e609d91d751ce6, type: 2}
-  bulletSpeed: 12
+  bulletSpeed: 18
   bulletLifetime: 2.7
   cityHitEffect: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
     type: 3}
