@@ -137,6 +137,8 @@ MonoBehaviour:
   dirMultiplier: 800
   jetSpawn: {fileID: 0}
   city: {fileID: 0}
+  alienShot: {fileID: 1894063853016944106, guid: 5305f44b52ea72246a34a714b71b5835,
+    type: 3}
   fireCooldown: 300
   crashDangerRange: 1
   maxFallingSpeed: 0.2

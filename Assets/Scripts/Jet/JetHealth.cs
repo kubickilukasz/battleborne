@@ -22,6 +22,8 @@ public class JetHealth : MonoBehaviour
     [SerializeField]
     private GameObject explosion;
 
+    [SerializeField]
+    private AudioSource kaboom;
 
     [SerializeField]
     private int explosionHitPoints;
@@ -75,6 +77,7 @@ public class JetHealth : MonoBehaviour
         if(health <= 0)
         {
             GameObject boom = Instantiate(explosion,transform.position,Quaternion.identity) as GameObject;
+            kaboom.Play();
             GetComponent<Renderer>().enabled = false;
             onDestroyEvent.Invoke();
             Destroy(gameObject);

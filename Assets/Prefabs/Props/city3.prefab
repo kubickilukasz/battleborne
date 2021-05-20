@@ -113,6 +113,8 @@ MonoBehaviour:
   deathParticle: {fileID: 6076164758103322535, guid: 1afc38021bba1c24db3bf2bdc916606b,
     type: 3}
   debug: 0
+  buildingDestroyed: {fileID: 7687112017981365301, guid: 7ebe92c3e91c58a4a807942fca3e9e85,
+    type: 3}
 --- !u!65 &1056579190
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -14,6 +14,9 @@ public class CityBuilding : MonoBehaviour
     [SerializeField]
     private bool debug = false;
 
+    [SerializeField]
+    private AudioSource buildingDestroyed;
+
     private Collider collider;
     UnityEvent buildingDestroyedEvent;
 
@@ -78,6 +81,7 @@ public class CityBuilding : MonoBehaviour
     public void OnDestroy()
     {
         city.OnDestroyBuilding(this);
+        buildingDestroyed.Play();
         Instantiate(deathParticle, transform.position, transform.rotation);
     }
 }
