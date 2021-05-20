@@ -41,6 +41,10 @@ public class JetSpawn : MonoBehaviour
         }  
     }
 
+    public int GetPoints(){
+        return jetPoints;
+    }
+
     private void StorePoints()
     {
         if(jetReference)

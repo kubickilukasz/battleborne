@@ -11,7 +11,7 @@ public class City : MonoBehaviour
     private bool debug = false;
 
     private Collider collider;
-    UnityEvent cityDestroyedEvent;
+    public UnityEvent cityDestroyedEvent;
 
     public int Health
     {
@@ -41,8 +41,6 @@ public class City : MonoBehaviour
             cb.Init(this);
             this.MaxHealth += cb.MaxHealth;
         }
-        cityDestroyedEvent = new UnityEvent();
-        cityDestroyedEvent.AddListener(ListenerPlaceholder.ListenDestroyCity);
     }
 
 

@@ -26,6 +26,9 @@ public class MenuInGame : MonoBehaviour
     [SerializeField]
     RectTransform respawn;
 
+    [SerializeField]
+    RectTransform end;
+
     void Start()
     {
         stateGame.onChangeState.AddListener(UpdateState);
@@ -52,6 +55,7 @@ public class MenuInGame : MonoBehaviour
             points?.gameObject.SetActive(true);
             combo?.gameObject.SetActive(true);
             respawn?.gameObject.SetActive(false);
+            end?.gameObject.SetActive(false);
             break;
             case StateGame.StateMenu.Paused:
             aim?.gameObject.SetActive(false);
@@ -60,6 +64,7 @@ public class MenuInGame : MonoBehaviour
             points?.gameObject.SetActive(false);
             combo?.gameObject.SetActive(false);
             respawn?.gameObject.SetActive(false);
+            end?.gameObject.SetActive(false);
             break;
             case StateGame.StateMenu.Respawn:
             aim?.gameObject.SetActive(false);
@@ -68,6 +73,16 @@ public class MenuInGame : MonoBehaviour
             points?.gameObject.SetActive(false);
             combo?.gameObject.SetActive(false);
             respawn?.gameObject.SetActive(true);
+            end?.gameObject.SetActive(false);
+            break;
+            case StateGame.StateMenu.GameOver:
+            aim?.gameObject.SetActive(false);
+            menuInGame?.gameObject.SetActive(false);
+            cityHealthBar?.gameObject.SetActive(false);
+            points?.gameObject.SetActive(false);
+            combo?.gameObject.SetActive(false);
+            respawn?.gameObject.SetActive(false);
+            end?.gameObject.SetActive(true);
             break;
         }
 

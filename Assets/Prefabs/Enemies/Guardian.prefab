@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1484001723050080321}
   m_Layer: 0
   m_Name: Guardian
-  m_TagString: Untagged
+  m_TagString: Alien
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,6 +131,7 @@ MonoBehaviour:
   deathParticle: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
     type: 3}
   cycleImprecisonBoxSize: 5
+  explosionHitPoints: 0
   bullet: {fileID: 2826832719698123469, guid: e8a23919a241ce743b5071f3d243a54b, type: 3}
   dirMultiplier: 600
   jetSpawn: {fileID: 0}

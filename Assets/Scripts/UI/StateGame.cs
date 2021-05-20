@@ -8,7 +8,8 @@ public class StateGame : MonoBehaviour
     public enum StateMenu{
         Play,
         Paused,
-        Respawn
+        Respawn,
+        GameOver
     }
 
     [SerializeField]
@@ -43,25 +44,36 @@ public class StateGame : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.Confined;
             break;
+            case StateMenu.GameOver:
+            Time.timeScale = 0f;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+            break;
         }
 
     }
 
     public void PlayState(){
-        if(stateMenu != StateMenu.Play){
+        if(stateMenu != StateMenu.Play && stateMenu != StateMenu.GameOver){
             StartCoroutine(ChangeState(StateMenu.Play));
         }
     }
 
     public void PausedState(){
-        if(stateMenu != StateMenu.Paused && stateMenu != StateMenu.Respawn){
+        if(stateMenu != StateMenu.Paused && stateMenu != StateMenu.Respawn && stateMenu != StateMenu.GameOver){
             StartCoroutine(ChangeState(StateMenu.Paused));
         }
     }
 
     public void RespawnState(){
-        if(stateMenu != StateMenu.Respawn && stateMenu != StateMenu.Paused){
+        if(stateMenu != StateMenu.Respawn && stateMenu != StateMenu.Paused && stateMenu != StateMenu.GameOver){
             StartCoroutine(ChangeState(StateMenu.Respawn));
+        }
+    }
+
+    public void GameOverState(){
+        if(stateMenu != StateMenu.GameOver){
+            StartCoroutine(ChangeState(StateMenu.GameOver));
         }
     }
 

@@ -37,9 +37,11 @@ public class ShowPoints : MonoBehaviour
     {
         state -= Time.deltaTime * speed;
         
-        if(jetPoints == null && jetSpawn != null && jetSpawn.jetReference != null)
+        if(jetPoints == null)
         {
-            jetPoints = jetSpawn?.jetReference?.GetComponent<JetPoints>();
+            if(jetSpawn != null && jetSpawn.jetReference != null){
+                jetPoints = jetSpawn?.jetReference?.GetComponent<JetPoints>();
+            }
         }
         else
         {
