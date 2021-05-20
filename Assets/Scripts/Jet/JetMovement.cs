@@ -22,6 +22,9 @@ public class JetMovement : MonoBehaviour
     
     [SerializeField] 
     private float verticalTurn;
+
+    [SerializeField]
+    private AudioSource jetMovement;
     
 
     [Header("Physics")]
@@ -46,6 +49,7 @@ public class JetMovement : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
         fuel = GetComponent<JetShooting>();
+        jetMovement.Play();
     }
 
     

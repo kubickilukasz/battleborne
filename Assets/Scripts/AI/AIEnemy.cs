@@ -29,6 +29,9 @@ public abstract class AIEnemy : MonoBehaviour
 	[SerializeField]
     public City city;
 
+    [SerializeField]
+    private AudioSource alienShot;
+
     protected EnemyImprecision enemyImprecision;
     protected EnemyMoveable enemyMoveable;
     protected EnemyShooting enemyShooting;
@@ -62,6 +65,7 @@ public abstract class AIEnemy : MonoBehaviour
         GameObject bulletTrans = Instantiate(bullet, gameObject.transform.position, Quaternion.identity) as GameObject;
         Vector3 direction = gameObject.transform.forward * dirMultiplier;
         bulletTrans.GetComponent<Bullet>().Init(direction,gameObject);
+        alienShot.Play();
     }
 
     public void ShootDirection(Vector3 preDir) 
@@ -69,6 +73,7 @@ public abstract class AIEnemy : MonoBehaviour
         GameObject bulletTrans = Instantiate(bullet, gameObject.transform.position, Quaternion.identity) as GameObject;
         Vector3 direction = preDir.normalized * dirMultiplier;
         bulletTrans.GetComponent<Bullet>().Init(direction,gameObject);
+        alienShot.Play();
     }
 
     void OnCollisionEnter(Collision other)

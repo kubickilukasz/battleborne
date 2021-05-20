@@ -20,6 +20,9 @@ public class JetShooting : MonoBehaviour
     [SerializeField]
     private float dirMultiplier;
 
+    [SerializeField]
+    private AudioSource jetShot;
+
     [Header("ShootingDelay")]
 
     [SerializeField]
@@ -45,6 +48,7 @@ public class JetShooting : MonoBehaviour
                 shot = true;
                 GameObject bulletTrans = Instantiate(bullet,transform.position,Quaternion.identity) as GameObject;
                 Vector3 direction = transform.forward*dirMultiplier;
+                jetShot.Play();
                 bulletTrans.GetComponent<Bullet>().Init(direction,gameObject);
                 ammunition--;
             }

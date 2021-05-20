@@ -39,9 +39,13 @@ public class Bullet : MonoBehaviour
 
     [SerializeField]
     private GameObject alienHitEffect;
+    [SerializeField]
+    private AudioSource alienHit;
 
     [SerializeField]
     private GameObject jetHitEffect;
+    [SerializeField]
+    private AudioSource jetHit;
 
     [SerializeField]
     private GameObject groundHitEffect;
@@ -114,6 +118,7 @@ public class Bullet : MonoBehaviour
                         bonusPenaltyList.AddBonus(hitBonus);
                         enemy.OnHit(hitPoints);
                     }
+                    alienHit.Play();
                     effect = Instantiate(alienHitEffect,transform.position,Quaternion.LookRotation(-transform.forward)) as GameObject;
                     Destroy(gameObject);
                 }
@@ -127,6 +132,7 @@ public class Bullet : MonoBehaviour
                 if(jet != null)
                 {
                     jet.OnHit(hitPoints);
+                    jetHit.Play();
                     effect = Instantiate(jetHitEffect,transform.position,Quaternion.LookRotation(-transform.forward),other.transform) as GameObject;
                     Destroy(gameObject);
                 }

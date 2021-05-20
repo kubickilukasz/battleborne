@@ -358,6 +358,8 @@ MonoBehaviour:
   maxSpeed: 2800
   horizontalTurn: 1500
   verticalTurn: 1500
+  jetMovement: {fileID: 6548209077641720038, guid: a11309f6c7a431c4f8dd0a4533364bd9,
+    type: 3}
   speedDelta: 50
   timerMax: 0.025
 --- !u!95 &7179079518414552238
@@ -414,6 +416,7 @@ MonoBehaviour:
   maxHealth: 100
   explosion: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
     type: 3}
+  kaboom: {fileID: 7601822376225075377, guid: 408d74e870be0a4488182a7f58f5b4f7, type: 3}
   explosionHitPoints: 100
 --- !u!64 &1205033909
 MeshCollider:
@@ -445,6 +448,7 @@ MonoBehaviour:
   maxAmmo: 300
   bullet: {fileID: 1869544619058439905, guid: 1b6cac849c829b5498e87754d4e392ba, type: 3}
   dirMultiplier: 500
+  jetShot: {fileID: 3638690328661771372, guid: 61c2a4ff1954d384e952df9f7a4c534d, type: 3}
   maxDelay: 0.4
 --- !u!114 &1088628337619215913
 MonoBehaviour:

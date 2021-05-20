@@ -88,8 +88,11 @@ MonoBehaviour:
     type: 3}
   alienHitEffect: {fileID: 644392587103175744, guid: f6110365d1de88e439fadcec5b8d0413,
     type: 3}
+  alienHit: {fileID: 3477310918865868789, guid: c91d1563fe29dd84eba7486f24b0f9ae,
+    type: 3}
   jetHitEffect: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
     type: 3}
+  jetHit: {fileID: 5474188305481145302, guid: 25721b9f39c3154469e0c363c82bd23e, type: 3}
   groundHitEffect: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
     type: 3}
 --- !u!135 &6554345464731445597
