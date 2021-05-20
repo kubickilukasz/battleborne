@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1484001723050080321}
   m_Layer: 0
   m_Name: Guardian
-  m_TagString: Alien
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
     type: 3}
   cycleImprecisonBoxSize: 5
   bullet: {fileID: 2826832719698123469, guid: e8a23919a241ce743b5071f3d243a54b, type: 3}
-  dirMultiplier: 500
+  dirMultiplier: 600
   jetSpawn: {fileID: 0}
   city: {fileID: 0}
   dodgingStateCooldown: 400

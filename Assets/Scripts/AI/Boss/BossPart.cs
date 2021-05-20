@@ -8,12 +8,9 @@ public class BossPart : MonoBehaviour
     protected int hp = 100;
 
     [SerializeField]
-    private GameObject deathParticle;
+    protected GameObject deathParticle;
     [SerializeField]
-    private GameObject smokeParticle;
-    [SerializeField]
-    private float smokeParticleCooldown;
-    private float smokeParticleTime = 0f;
+    protected GameObject smokeParticle;
     [SerializeField]
     protected bool debug = false;
 
@@ -49,22 +46,12 @@ public class BossPart : MonoBehaviour
         if (!neutralized && hp <= 0 ) {
             neutralized = true;
             Instantiate(deathParticle, transform.position, transform.rotation);
-        }
-        else if (neutralized && smokeParticleTime > 0) {
-            smokeParticleTime = smokeParticleTime - Time.fixedDeltaTime * 100f;
-        }
-        else if (neutralized) {
-            Instantiate(smokeParticle, transform.position, transform.rotation);
-            smokeParticleTime = smokeParticleCooldown;
+            Instantiate(smokeParticle, transform.position, transform.rotation, gameObject.transform);
         }
     }
 
     public void OnHit(int hitPoints)
     {
         Health -= hitPoints;
-        if (bossParent != null)
-        {
-            bossParent.OnHit(hitPoints);
-        }
     }
 }

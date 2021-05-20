@@ -6,24 +6,21 @@ public class EnemyMoveable
 {   
     public EnemyMoveable(GameObject go) {
         rigidbody = go.GetComponent<Rigidbody>();
+        speed = 0f;
     }
 
+    private float speed;
     private Rigidbody rigidbody;
 
     public void Accelerate(Vector3 direction, float acceleration, float maxSpeed, bool debugSpeed)
     {
-        Vector3 newone = direction * acceleration * Time.fixedDeltaTime * 100;
-
-        if (rigidbody.velocity.magnitude <= maxSpeed)
-        {
-            rigidbody.AddRelativeForce(newone);
-        }
+        if (speed <= maxSpeed)
+            speed += acceleration * Time.fixedDeltaTime * 4f;
         else
-        {
-            rigidbody.AddRelativeForce(-newone);
-        }
+            speed -= acceleration * Time.fixedDeltaTime * 4f;
 
-        if(debugSpeed) Debug.Log("Speed: " + rigidbody.velocity.magnitude + "/" + maxSpeed);
+        rigidbody.velocity = direction * speed;
+        if(debugSpeed) Debug.Log("Speed: " + speed + " or " + rigidbody.velocity.magnitude + "/" + maxSpeed);
     }
 
     public void StrafeTowardsConstPos(Vector3 idlepos)

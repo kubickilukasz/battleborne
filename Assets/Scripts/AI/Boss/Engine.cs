@@ -13,9 +13,12 @@ public class Engine : BossPart
     void FixedUpdate()
     {
         if (!neutralized && hp <= 0 && bossParent) {
+            neutralized = true;
+            Instantiate(deathParticle, transform.position, transform.rotation);
+            Instantiate(smokeParticle, transform.position - transform.forward * 4f, transform.rotation, gameObject.transform);
+
             bossParent.acceleration = accelerationSlow;
             bossParent.maxSpeed = maxSpeedSlow;
         }
-        base.FixedUpdate();
     }
 }

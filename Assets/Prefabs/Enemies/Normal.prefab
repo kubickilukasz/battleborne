@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6250206736611935381}
   m_Layer: 0
   m_Name: Normal
-  m_TagString: Alien
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,12 +128,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugStates: 0
   debugSpeed: 0
-  health: 30
+  health: 40
   deathParticle: {fileID: 644392587103175744, guid: f6110365d1de88e439fadcec5b8d0413,
     type: 3}
   cycleImprecisonBoxSize: 5
+  explosionHitPoints: 0
   bullet: {fileID: 2826832719698123469, guid: e8a23919a241ce743b5071f3d243a54b, type: 3}
-  dirMultiplier: 4
+  dirMultiplier: 800
   jetSpawn: {fileID: 0}
   city: {fileID: 0}
   fireCooldown: 300

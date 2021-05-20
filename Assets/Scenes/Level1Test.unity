@@ -9876,7 +9876,7 @@ Transform:
   - {fileID: 76136653}
   - {fileID: 1477901756}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &308763872
 MonoBehaviour:
@@ -15511,7 +15511,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &565974930
 GameObject:
@@ -27419,7 +27419,7 @@ PrefabInstance:
     - target: {fileID: 6845617286754053106, guid: 6bd90139d4c78e146bd14c6f44786ff1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6845617286754053106, guid: 6bd90139d4c78e146bd14c6f44786ff1,
         type: 3}
@@ -27504,7 +27504,7 @@ PrefabInstance:
     - target: {fileID: 6845617286754053107, guid: 6bd90139d4c78e146bd14c6f44786ff1,
         type: 3}
       propertyPath: respawnCooldown
-      value: 15000
+      value: 20000
       objectReference: {fileID: 0}
     - target: {fileID: 6845617286754053107, guid: 6bd90139d4c78e146bd14c6f44786ff1,
         type: 3}
@@ -32498,7 +32498,7 @@ PrefabInstance:
     - target: {fileID: 6845617286754053106, guid: 6bd90139d4c78e146bd14c6f44786ff1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 6845617286754053106, guid: 6bd90139d4c78e146bd14c6f44786ff1,
         type: 3}
@@ -33389,7 +33389,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1430694910
 GameObject:
@@ -37231,7 +37231,7 @@ PrefabInstance:
     - target: {fileID: 6845617286754053106, guid: 6bd90139d4c78e146bd14c6f44786ff1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6845617286754053106, guid: 6bd90139d4c78e146bd14c6f44786ff1,
         type: 3}
@@ -37316,7 +37316,7 @@ PrefabInstance:
     - target: {fileID: 6845617286754053107, guid: 6bd90139d4c78e146bd14c6f44786ff1,
         type: 3}
       propertyPath: respawnCooldown
-      value: 1000
+      value: 1250
       objectReference: {fileID: 0}
     - target: {fileID: 6845617286754053107, guid: 6bd90139d4c78e146bd14c6f44786ff1,
         type: 3}
