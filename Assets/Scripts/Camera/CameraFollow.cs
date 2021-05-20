@@ -18,9 +18,30 @@ public class CameraFollow : MonoBehaviour
     private Vector3 offset;
     [SerializeField]
     private float rotSpeed;
+
+    [SerializeField]
+    private float fovDelta;
+    [SerializeField]
+    private float maxFOV;
+
+    private float defaultFOV;
     private Vector3 velocity = Vector3.zero;
 
+    private Camera camera;
 
+    private JetSpawn spawn;
+
+    void Start()
+    {
+        spawn = spawnPoint.GetComponent<JetSpawn>();
+        camera = GetComponent<Camera>();
+        defaultFOV = camera.fieldOfView;
+    }
+
+    void Update()
+    {
+        BoostingFieldOfView();
+    }
     void FixedUpdate()
     {
         if(target != null)
@@ -37,9 +58,24 @@ public class CameraFollow : MonoBehaviour
     {
         if(target == null)
         {
-            JetSpawn spawn = spawnPoint.GetComponent<JetSpawn>();
             if(spawn.jetReference != null)
                 target = spawn.jetReference.transform;
+        }
+    }
+
+    private void BoostingFieldOfView()
+    {
+        JetMovement movement = spawn?.jetReference.GetComponent<JetMovement>();
+        if(movement.IsBoosting())
+        {
+            if(camera.fieldOfView < maxFOV)
+                camera.fieldOfView+=fovDelta;
+            else camera.fieldOfView = maxFOV;
+        }
+        else
+        {
+            if(camera.fieldOfView > defaultFOV) camera.fieldOfView-=fovDelta;
+            else camera.fieldOfView = defaultFOV;
         }
     }
 }

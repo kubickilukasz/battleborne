@@ -271,9 +271,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4881db38131094ea66a173e280ac85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1400
+  defaultSpeed: 1400
+  maxSpeed: 2000
   horizontalTurn: 1500
   verticalTurn: 1500
+  speedDelta: 50
 --- !u!95 &7179079518414552238
 Animator:
   serializedVersion: 3

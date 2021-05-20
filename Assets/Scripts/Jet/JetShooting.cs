@@ -54,7 +54,8 @@ public class JetShooting : MonoBehaviour
 #region PublicMethods
     public void AddAmmo(float ammo)
     {
-        ammunition+=ammo;
+        if(ammunition+ammo < maxAmmo) ammunition+=ammo;
+        else ammunition=maxAmmo;
     }
 
     public float GetAmmo()
@@ -62,16 +63,17 @@ public class JetShooting : MonoBehaviour
         return ammunition;
     }
 
-    public void SetMaxAmmo()
-    {
-        ammunition = maxAmmo;
-    }
 
     public bool isShooting()
     {
         return shot;
     }
 
+    public static JetShooting operator--(JetShooting shooting)
+    {
+        shooting.ammunition--;
+        return shooting;
+    }
 #endregion
 
 #region PrivateMethods
