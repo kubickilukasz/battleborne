@@ -20,7 +20,7 @@ public class JetSpawn : MonoBehaviour
     void LateUpdate()
     {
         StorePoints();
-        Respawn();   
+        //Respawn();   
     }
 
     public void Respawn()

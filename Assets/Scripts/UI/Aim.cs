@@ -79,7 +79,7 @@ public class Aim : MonoBehaviour
 
         if(jetShooting != null || jetHealth != null )
         {
-            healthBar.fillAmount = jetHealth.GetHealth() / jetHealth.GetMaxHealth();
+            healthBar.fillAmount = jetHealth.GetHealth() / (float)jetHealth.GetMaxHealth();
             ammoBar.fillAmount = jetShooting.GetAmmo() / jetShooting.maxAmmo;
 
             RaycastHit hit;
@@ -89,6 +89,7 @@ public class Aim : MonoBehaviour
                 positionAim = (Vector2)jetCamera.WorldToScreenPoint(jetShooting.transform.position + jetShooting.transform.forward * (rangeRayToCalculateAim * 0.25f)) - (jetCamera.pixelRect.size / 2); 
             }
             rectTransform.anchoredPosition = Vector2.SmoothDamp(rectTransform.anchoredPosition, positionAim, ref positionAimRef, smoothOfAimRay);
+
         }
 
         

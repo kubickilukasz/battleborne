@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7838837090234709958}
   - component: {fileID: 3987906483606009034}
   - component: {fileID: -433691721636696344}
+  - component: {fileID: 6554345464731445597}
   m_Layer: 0
   m_Name: BulletEnemy1
   m_TagString: Untagged
@@ -91,6 +92,19 @@ MonoBehaviour:
     type: 3}
   groundHitEffect: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
     type: 3}
+--- !u!135 &6554345464731445597
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2826832719698123469}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7558920184296025469
 GameObject:
   m_ObjectHideFlags: 0
