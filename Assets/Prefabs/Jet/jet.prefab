@@ -204,7 +204,7 @@ Transform:
   m_GameObject: {fileID: 7179079518423928686}
   m_LocalRotation: {x: -0.046588708, y: 0.70401525, z: 0.009721017, w: 0.7085885}
   m_LocalPosition: {x: -3.79, y: 2.98, z: 0.5}
-  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 3719339093169960793}
   m_Father: {fileID: 0}
@@ -276,6 +276,7 @@ MonoBehaviour:
   horizontalTurn: 1500
   verticalTurn: 1500
   speedDelta: 50
+  timerMax: 0.05
 --- !u!95 &7179079518414552238
 Animator:
   serializedVersion: 3

@@ -22,6 +22,7 @@ public class JetHealth : MonoBehaviour
     [SerializeField]
     private GameObject explosion;
 
+
     [SerializeField]
     private int explosionHitPoints;
 
