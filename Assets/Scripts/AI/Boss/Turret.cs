@@ -8,45 +8,65 @@ public class Turret : BossPart
     protected float minDistanceStartShooting;
     [SerializeField]
     private GameObject bullet;
+    private float fireCooldownTime;
+    [SerializeField]
+    private float fireCooldown = 0f;
     [SerializeField]
     private float dirMultiplier;  
-    protected EnemyShooting enemyShooting;
+    protected bool CanStartShooting()
+    {     
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, bossParent.player.transform.position - transform.position, out hit, minDistanceStartShooting))
+        {
+            if(hit.transform)
+            {
+                if(hit.transform.gameObject.GetComponent<JetMovement>() || hit.transform.gameObject.GetComponent<AIPlayerPlaceholder>()) {
+                    if(debug) Debug.Log("I hit " + hit.transform.gameObject.GetComponent<AIPlayerPlaceholder>());
+                    return true;
+                }
+            }
+            else
+            {
+                if(debug) Debug.Log("??? " + hit);
+            }
+        }
+        else
+        {
+            if(debug) Debug.Log("Nic nie raycast");
+        }
 
-    protected EnemyTimer fireTimer;
-    [SerializeField]
-    private float fireCooldown;
-    
+        return false;
+    }
 
     protected void Shoot()
     {
-        if(bossParent?.jetSpawn?.jetReference) {
-            GameObject bulletTrans = Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
-            Vector3 direction = (bossParent.jetSpawn.jetReference.transform.position - transform.position) * dirMultiplier;
-            bulletTrans.GetComponent<Bullet>().Init(direction,gameObject);
+        GameObject bulletTrans = Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
+        Vector3 direction = (bossParent.player.transform.position - transform.position) * dirMultiplier;
+        bulletTrans.GetComponent<Bullet>().Init(direction,gameObject);
+    }
+    public bool IsPlayerInRange()
+    {
+        if ((bossParent.player.transform.position - transform.position).magnitude < minDistanceStartShooting)
+            return true;
+        else
+            return false;
+    }
+
+    public void ShootIfInRange() {
+        if (fireCooldownTime > 0) {
+            fireCooldownTime = fireCooldownTime - Time.fixedDeltaTime * 100f;
+        }
+        else if(CanStartShooting() && IsPlayerInRange()) {
+            if(debug) Debug.Log("Tur cond 2");
+            Shoot();
+            fireCooldownTime = fireCooldown;
         }
     }
-
-    void Start() {
-        fireTimer = new EnemyTimer(0, fireCooldown);
-        enemyShooting = new EnemyShooting(gameObject);
-    }
-
     void FixedUpdate()
     {
-        fireTimer.UpdateTimer();
-
-        if (
-            bossParent?.jetSpawn?.jetReference &&
-            !neutralized &&
-            fireTimer.IsTimerZero() &&
-            enemyShooting.IsPositionInRange(bossParent.jetSpawn.jetReference.transform.position, minDistanceStartShooting) &&
-            enemyShooting.CheckCrashCollisions(Vector3.forward, minDistanceStartShooting)
-        )
-        {
-            Shoot();
-            fireTimer.ResetTimer();
+        if (bossParent && !neutralized) {
+            ShootIfInRange();
         }
-
         base.FixedUpdate();
     }
 

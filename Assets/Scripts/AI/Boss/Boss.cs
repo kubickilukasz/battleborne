@@ -4,39 +4,21 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
-    public float maxSpeed;
-	public float acceleration;
-
+    public float maxSpeed { get; set; }
+    public float acc { get; set; }
     [SerializeField]
 	private float maxSpeedNormal;
 	[SerializeField]
-	private float accelerationNormal;
+	private float accNormal;
 
     private Rigidbody rigidbody;
 
     [SerializeField]
-    public JetSpawn jetSpawn;
+    public GameObject player;
     [SerializeField]
-    public City city;
-    [SerializeField]
-    private bool debugSpeed = false;
-    [SerializeField]
-    private bool debugHp = false;
-    [SerializeField]
-    private bool debugIdlePos = false;
+    private bool debug = false;
 
-
-
-    protected Vector3 idlepos;
-    [SerializeField]
-    protected float cycleImprecisonBoxSize;
-
-
-    protected EnemyImprecision enemyImprecision;
-    protected EnemyMoveable enemyMoveable;
-    protected EnemyShooting enemyShooting;
-
-    protected List<BossPart> bossParts;
+    private List<BossPart> bossParts;
 
     public int Health
     {
@@ -59,12 +41,7 @@ public class Boss : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
         maxSpeed = maxSpeedNormal;
-        acceleration = accelerationNormal;
-        idlepos = transform.position;
-
-        enemyImprecision = new EnemyImprecision(gameObject, new Vector3(cycleImprecisonBoxSize, 0, cycleImprecisonBoxSize));
-        enemyMoveable = new EnemyMoveable(gameObject);
-        enemyShooting = new EnemyShooting(gameObject);
+        acc = accNormal;
 
         BossPart[] bossPartTab = GetComponentsInChildren<BossPart>();
         bossParts = new List<BossPart>(bossPartTab);
@@ -80,33 +57,41 @@ public class Boss : MonoBehaviour
     {
         if(Health <= 0)
         {
+            //? TODO: Osierocanie SingleSpawnow
             Destroy(gameObject);
         }
 
-        DisplayHP();
-        
-        enemyMoveable.Accelerate(Vector3.forward, acceleration, maxSpeed, debugSpeed);
-		enemyMoveable.StrafeTowardsConstPos(idlepos + enemyImprecision.randomImprecision);
-        GenerateNewImprecisionIfReached();
-        if(debugIdlePos) Debug.Log("IdlePos: " + (idlepos + enemyImprecision.randomImprecision));
+        if(debug) DisplayHP();
+        Accelerate(Vector3.forward);
     }
 
     public void DisplayHP()
 	{
-        if(debugHp) {
+        if (debug)
+        {
             Debug.Log("========== BOSS STATUS ==========");
             Debug.Log("HP: " + this.Health + "/" + this.MaxHealth);
             Debug.Log("========== BOSS STATUS ==========");
         }
     }
 
-	private void GenerateNewImprecisionIfReached()
-	{
-        if(enemyShooting.IsPositionInRange(idlepos + enemyImprecision.randomImprecision, 5f))
-			enemyImprecision.GenerateRandomImprecision();
-	}
+    protected void Accelerate(Vector3 dir)
+    {
+        Vector3 newone = dir * acc * Time.fixedDeltaTime * 100;
+
+        if (rigidbody.velocity.magnitude <= maxSpeed)
+        {
+            rigidbody.AddRelativeForce(newone);
+        }
+        else
+        {
+            rigidbody.AddRelativeForce(-newone);
+        }
+        if(debug) Debug.Log(rigidbody.velocity.magnitude);
+    }
 
     public void OnHit(int hitPoints)
     {
+        DisplayHP();
     }
 }

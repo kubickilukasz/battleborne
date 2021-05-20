@@ -4,144 +4,84 @@ using UnityEngine;
 
 public enum GuardianStates
 {
-	IDLE,
-	CHASE,
-	RETREAT,
+	IDLE, //Kr��y w miejscu
+	CHASE, //Wykry� gracza i go atakuje
+	RETREAT, //Powr�t do punktu startowego
 	DODGE
 }
 
 public class AIGuardian : AIEnemy
 {
-#region Values
-    //Timers
-    protected EnemyTimer dodgeTimer;
-    protected EnemyTimer fireTimer;
-    protected EnemyTimer ignoreTargetTimer;
-    protected EnemyTimer imprecisionTimer;
-	protected EnemyTimer idlePointUpdateTimer;
-
-
-
-    //Timer Values
-    [SerializeField]
-    protected float dodgingStateCooldown;
-    [SerializeField]
-    protected float fireCooldown;
-    [SerializeField]
-    protected float ignoreTargetCooldown;
-    [SerializeField]
-    protected float newImprecisionCooldown;
-	[SerializeField]
-	protected float updateNewIdlePointCooldown;
-
-
-
-    //Extra Positions
-    protected Vector3 dodgepos;
-    protected Vector3 idlepos;
-    [SerializeField]
-    protected float crashDangerRange;
-
-
-
-    //Shooting Related
-    protected GameObject target;
-    [SerializeField]
-    protected float minDistanceDetectTarget;
-    [SerializeField]
-    protected float minAngleShootTarget;
-    [SerializeField]
-    protected float minDistanceShootTarget;
-
-
-	
-    //Guarding Object
 	[SerializeField]
 	public GameObject guardingObject;
 	[SerializeField]
-	protected float minDistanceDetectGuardingObject;
+	private float guardingObjectDetectRange;
 	[SerializeField]
-	protected float minDistanceLoseGuardingObject;
+	private float guardingObjectDetectRangeTooFar;
 
-
-
-    //State: Idle
 	[SerializeField]
-	protected float maxSpeedIdle;
+	private float maxSpeedIdle;
 	[SerializeField]
-	protected float accelerationIdle;
+	private float accelerationIdle;
 
-
-
-    //State: Chase
 	[SerializeField]
-	protected float maxSpeedChase;
+	private float maxSpeedChase;
 	[SerializeField]
-	protected float accelerationChase;
+	private float accelerationChase;
 
-
-
-    //State: Retreat
 	[SerializeField]
-	protected float maxSpeedRetreat;
+	private float maxSpeedRetreat;
 	[SerializeField]
-	protected float accelerationRetreat;
+	private float accelerationRetreat;
 
+	[SerializeField]
+	private float rotationSpeed;
 
+	[SerializeField]
+	private float ignorePlayerTime;
 
-	//States
-	private GuardianStates state;
 	private GuardianStates prevState;
-#endregion
+	private Vector3 dodgepos;
+
+	private GuardianStates state;
 
 	protected override void SetupStartValues()
 	{
-		target = jetSpawn?.jetReference;
-		if(guardingObject)
-			idlepos = guardingObject.transform.position;
-		else
-			idlepos = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
-
-		dodgeTimer = new EnemyTimer(0, dodgingStateCooldown);
-		fireTimer = new EnemyTimer(0, fireCooldown);
-		ignoreTargetTimer = new EnemyTimer(0, ignoreTargetCooldown);
-		imprecisionTimer = new EnemyTimer(0, newImprecisionCooldown);
-		idlePointUpdateTimer = new EnemyTimer(0, updateNewIdlePointCooldown);
-
+		rotateSpeed = rotationSpeed;
+		ignoreTargetTime = spawnIgnorePlayerTime;
 		SetState(GuardianStates.RETREAT);
 	}
-
-    protected override void UpdateTimers()
-    {
-        dodgeTimer.UpdateTimer();
-		fireTimer.UpdateTimer();
-		ignoreTargetTimer.UpdateTimer();
-		imprecisionTimer.UpdateTimer();
-		idlePointUpdateTimer.UpdateTimer();
-
-		GenerateNewImprecisionIfPossible();
-		UpdateTargetIfNull();
-		UpdateGuardingPos();
-    }
 
 	protected void SetState(GuardianStates newstate)
 	{
 		switch (newstate)
 		{
 			case GuardianStates.IDLE:
-				idlepos = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+				maxSpeed = maxSpeedIdle;
+				acc = accelerationIdle;
+				target = guardingObject;
+
 				state = newstate;
 				break;
 			case GuardianStates.CHASE:
+				maxSpeed = maxSpeedChase;
+				acc = accelerationChase;
+				target = player;
+
 				state = newstate;
 				break;
 			case GuardianStates.RETREAT:
+				maxSpeed = maxSpeedRetreat;
+				acc = accelerationRetreat;
+				target = guardingObject;
+
 				state = newstate;
 				break;
 			case GuardianStates.DODGE:
 				prevState = state;
-				Vector3 backward = this.transform.position - this.transform.forward * 25;
+				Vector3 backward = this.transform.position - this.transform.forward * 5;
 				dodgepos = new Vector3(backward.x, backward.y, backward.z);
+
 				state = newstate;
 				break;
 			default:
@@ -172,141 +112,100 @@ public class AIGuardian : AIEnemy
 
 
 
-	//RETREAT
+	protected bool IsGuardingPointInRange()
+	{
+		if ((guardingObject.transform.position - transform.position).magnitude < guardingObjectDetectRange)
+			return true;
+		else
+			return false;
+	}
+
+	protected bool IsGuardingPointTooFar()
+	{
+		if ((guardingObject.transform.position - transform.position).magnitude > guardingObjectDetectRangeTooFar)
+			return true;
+		else
+			return false;
+	}
+
 	private void SetToIdleIfInTarget()
 	{
-		if (enemyShooting.IsPositionInRange(idlepos, minDistanceDetectGuardingObject)) 
+		if (IsGuardingPointInRange()) SetState(GuardianStates.IDLE);
+	}
+
+	private void SetToRetreatIfLostOrTooFar()
+	{
+		if (!IsPlayerInRange()) {
+			SetState(GuardianStates.RETREAT);
+		}
+		else if (IsGuardingPointTooFar())
 		{
-			SetState(GuardianStates.IDLE);
+			ignoreTargetTime = ignorePlayerTime;
+			SetState(GuardianStates.RETREAT);
 		}
 	}
 
-	//IDLE, RETREAT
 	private void SetToChaseIfPlayer()
 	{
-		if (
-			target &&
-			enemyShooting.IsPositionInRange(target.transform.position, minDistanceDetectTarget) &&
-			ignoreTargetTimer.IsTimerZero()
-		) 
-			SetState(GuardianStates.CHASE);
+		if (IsPlayerInRange()) SetState(GuardianStates.CHASE);
 	}
 
-	//IDLE
-	private void SetToRetreatIfTooFar()
+	private void SetToDodgeIfCrashCourse()
 	{
-		if (
-			!enemyShooting.IsPositionInRange(idlepos, minDistanceDetectGuardingObject)
-		) 
-			SetState(GuardianStates.RETREAT);
-	}
-
-	//CHASE
-	private void SetToRetreatIfLostOrTooFar()
-	{
-		if (!target || !enemyShooting.IsPositionInRange(target.transform.position, minDistanceDetectTarget))
-			SetState(GuardianStates.RETREAT);
-		else if (!enemyShooting.IsPositionInRange(idlepos, minDistanceLoseGuardingObject))
+		if (dodgingTime <= 0 && CheckRaycast(Vector3.forward))
 		{
-			ignoreTargetTimer.ResetTimer();
-			SetState(GuardianStates.RETREAT);
+			dodgingTime = nextDodgingTime;
+			SetState(GuardianStates.DODGE);
 		}
 	}
 
 	private void ShootIfTargetInRange()
 	{
-		if (
-			target &&
-			fireTimer.IsTimerZero() &&
-			enemyShooting.IsPositionInRange(target.transform.position, minDistanceShootTarget) &&
-			enemyShooting.IsAngleInRange(target.transform.position, minAngleShootTarget) &&
-			enemyShooting.CheckCrashCollisions(Vector3.forward, minDistanceShootTarget)
-		)
-		{
-			Shoot();
-			fireTimer.ResetTimer();
-		}
+		if (CanStartShooting()) Shoot();
 	}
 
-	//DODGE
 	private void ReturnToPrevState()
 	{
-		if (dodgeTimer.IsTimerZero())
-			SetState(prevState);
-	}
-
-	//ALWAYS
-	private void SetToDodgeIfCrashCourse()
-	{
-		if (dodgeTimer.IsTimerZero() && enemyMoveable.CheckCrashCourse(Vector3.forward, crashDangerRange))
-		{
-			dodgeTimer.ResetTimer();
-			SetState(GuardianStates.DODGE);
-		}
-	}
-
-	private void GenerateNewImprecisionIfPossible()
-	{
-		if(imprecisionTimer.IsTimerZero())
-		{
-			enemyImprecision.GenerateRandomImprecision();
-			imprecisionTimer.ResetTimer();
-		}
-	}
-
-	private void UpdateTargetIfNull()
-	{
-		if(!target)
-			target = jetSpawn?.jetReference;
-	}
-
-	private void UpdateGuardingPos()
-	{
-		if(guardingObject && idlePointUpdateTimer.IsTimerZero())
-		{
-			idlepos = guardingObject.transform.position;
-			idlePointUpdateTimer.ResetTimer();
-		}
+		if (dodgingTime <= 0)
+			state = prevState;
 	}
 
 
 
 	private void Idle()
 	{
-		if (debugStates) Debug.Log("===== IDLE =====");
-		enemyMoveable.Accelerate(Vector3.forward, accelerationIdle, maxSpeedIdle, debugSpeed);
-		enemyMoveable.StrafeTowardsConstPos(idlepos+enemyImprecision.randomImprecision);
-
+		if (debug) Debug.Log("===== IDLE =====");
+		Accelerate(Vector3.forward);
+		StrafeTowardsFocusTarget(randomImprecision);
 		SetToChaseIfPlayer();
-		SetToRetreatIfTooFar();
+		SetToDodgeIfCrashCourse();
 	}
 
 	private void Chase()
 	{
-		if (debugStates) Debug.Log("===== CHASING =====");
-		enemyMoveable.Accelerate(Vector3.forward, accelerationChase, maxSpeedChase, debugSpeed);
-		enemyMoveable.StrafeTowardsObject(target, Vector3.zero);
-
+		if (debug) Debug.Log("===== CHASING =====");
+		Accelerate(Vector3.forward);
+		StrafeTowardsFocusTarget(Vector3.zero);
 		SetToRetreatIfLostOrTooFar();
+		SetToDodgeIfCrashCourse();
 		ShootIfTargetInRange();
 	}
 
 	private void Retreat()
 	{
-		if (debugStates) Debug.Log("===== RETREAT =====");
-		enemyMoveable.Accelerate(Vector3.forward, accelerationRetreat, maxSpeedRetreat, debugSpeed);
-		enemyMoveable.StrafeTowardsConstPos(idlepos+Vector3.zero);
-
+		if (debug) Debug.Log("===== RETREAT =====");
+		Accelerate(Vector3.forward);
+		StrafeTowardsFocusTarget(Vector3.zero);
 		SetToChaseIfPlayer();
 		SetToIdleIfInTarget();
+		SetToDodgeIfCrashCourse();
 	}
 
 	private void Dodge()
 	{
-		if (debugStates) Debug.Log("===== DODGE =====");
-		enemyMoveable.Accelerate(Vector3.forward, accelerationIdle, maxSpeedIdle, debugSpeed);
-		enemyMoveable.StrafeTowardsConstPos(dodgepos+enemyImprecision.randomImprecision);
-
+		if (debug) Debug.Log("===== DODGE, prestate: " + prevState + " =====");
+		Accelerate(Vector3.forward);
+		StrafeTowardsConstPos(dodgepos, Vector3.zero);
 		ReturnToPrevState();
 	}
 }

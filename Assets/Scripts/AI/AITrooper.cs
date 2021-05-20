@@ -2,113 +2,66 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public enum TrooperStates
 {
-	IDLE,
-	CHASE,
+	IDLE, //Kr��y w miejscu
+	CHASE, //Wykry� gracza i go atakuje
 	DODGE
 }
 
 public class AITrooper : AIEnemy
 {
-#region Values
-    //Timers
-    protected EnemyTimer dodgeTimer;
-    protected EnemyTimer fireTimer;
-    protected EnemyTimer ignoreTargetTimer;
-    protected EnemyTimer imprecisionTimer;
-
-
-
-    //Timer Values
-    [SerializeField]
-    protected float dodgingStateCooldown;
-    [SerializeField]
-    protected float fireCooldown;
-    [SerializeField]
-    protected float ignoreTargetCooldown;
-    [SerializeField]
-    protected float newImprecisionCooldown;
-	
-
-
-    //Extra Positions
-    protected Vector3 dodgepos;
-    protected Vector3 idlepos;
-    [SerializeField]
-    protected float crashDangerRange;
-
-
-
-    //Shooting Related
-    protected GameObject target;
-    [SerializeField]
-    protected float minDistanceDetectTarget;
-    [SerializeField]
-    protected float minAngleShootTarget;
-    [SerializeField]
-    protected float minDistanceShootTarget;
-
-
-
-    //State: Idle
 	[SerializeField]
-	protected float maxSpeedIdle;
+	private float maxSpeedIdle;
 	[SerializeField]
-	protected float accelerationIdle;
+	private float accelerationIdle;
 
-
-
-    //State: Chase
 	[SerializeField]
-	protected float maxSpeedChase;
+	private float maxSpeedChase;
 	[SerializeField]
-	protected float accelerationChase;
+	private float accelerationChase;
 
+	[SerializeField]
+	private float rotationSpeed;
 
-
-	//States
-	private TrooperStates state;
 	private TrooperStates prevState;
-#endregion
+	private Vector3 idlepos;
+	private Vector3 dodgepos;
+
+	private TrooperStates state;
 
 	protected override void SetupStartValues()
 	{
-		target = jetSpawn?.jetReference;
-		
-		dodgeTimer = new EnemyTimer(0, dodgingStateCooldown);
-		fireTimer = new EnemyTimer(0, fireCooldown);
-		imprecisionTimer = new EnemyTimer(0, newImprecisionCooldown);
-
+		rotateSpeed = rotationSpeed;
+		detectRange = playerDetectRange;
+		ignoreTargetTime = spawnIgnorePlayerTime;
 		SetState(TrooperStates.IDLE);
 	}
-
-	protected override void UpdateTimers()
-    {
-        dodgeTimer.UpdateTimer();
-		fireTimer.UpdateTimer();
-		imprecisionTimer.UpdateTimer();
-
-		GenerateNewImprecisionIfPossible();
-		UpdateTargetIfNull();
-    }
 
 	protected void SetState(TrooperStates newstate)
 	{
 		switch (newstate)
 		{
 			case TrooperStates.IDLE:
+				maxSpeed = maxSpeedIdle;
+				acc = accelerationIdle;
+				target = null;
 				idlepos = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+
 				state = newstate;
 				break;
 			case TrooperStates.CHASE:
+				maxSpeed = maxSpeedChase;
+				acc = accelerationChase;
+				target = player;
+
 				state = newstate;
 				break;
 			case TrooperStates.DODGE:
 				prevState = state;
-				Vector3 backward = this.transform.position - this.transform.forward * 25;
+				Vector3 backward = this.transform.position - this.transform.forward * 5;
 				dodgepos = new Vector3(backward.x, backward.y, backward.z);
+
 				state = newstate;
 				break;
 			default:
@@ -118,8 +71,6 @@ public class AITrooper : AIEnemy
 
 	protected override void UpdateStateMethods()
 	{
-		SetToDodgeIfCrashCourse();
-
 		switch (state)
 		{
 			case TrooperStates.IDLE:
@@ -136,99 +87,62 @@ public class AITrooper : AIEnemy
 
 
 
-	//IDLE
-	private void SetToChaseIfPlayer()
-	{
-		if (
-			target &&
-			enemyShooting.IsPositionInRange(target.transform.position, minDistanceDetectTarget)
-		) 
-			SetState(TrooperStates.CHASE);
-	}
-
-	//CHASE
 	private void SetToIdleIfLost()
 	{
-		if (!target || !enemyShooting.IsPositionInRange(target.transform.position, minDistanceDetectTarget))
-			SetState(TrooperStates.IDLE);
+		if (!IsPlayerInRange()) SetState(TrooperStates.IDLE);
 	}
 
+	private void SetToChaseIfPlayer()
+	{
+		if (IsPlayerInRange()) SetState(TrooperStates.CHASE);
+	}
 	private void ShootIfTargetInRange()
 	{
-		if (
-			target &&
-			fireTimer.IsTimerZero() &&
-			enemyShooting.IsPositionInRange(target.transform.position, minDistanceShootTarget) &&
-			enemyShooting.IsAngleInRange(target.transform.position, minAngleShootTarget) &&
-			enemyShooting.CheckCrashCollisions(Vector3.forward, minDistanceShootTarget)
-		)
-		{
-			Shoot();
-			fireTimer.ResetTimer();
-		}
+		if (CanStartShooting()) Shoot();
 	}
-	
-	//DODGE
-	private void ReturnToPrevState()
-	{
-		if (dodgeTimer.IsTimerZero())
-			SetState(prevState);
-	}
-
-	//ALWAYS
 	private void SetToDodgeIfCrashCourse()
 	{
-		if (dodgeTimer.IsTimerZero() && enemyMoveable.CheckCrashCourse(Vector3.forward, crashDangerRange))
+		if (dodgingTime <= 0 && CheckRaycast(Vector3.forward))
 		{
-			dodgeTimer.ResetTimer();
+			dodgingTime = nextDodgingTime;
 			SetState(TrooperStates.DODGE);
 		}
 	}
 
-	private void GenerateNewImprecisionIfPossible()
+	private void ReturnToPrevState()
 	{
-		if(imprecisionTimer.IsTimerZero())
-		{
-			enemyImprecision.GenerateRandomImprecision();
-			imprecisionTimer.ResetTimer();
-		}
+		if (dodgingTime <= 0)
+			state = prevState;
 	}
 
-	protected void UpdateTargetIfNull()
-	{
-		if(!target)
-		{
-			target = jetSpawn?.jetReference;
-		}
-	}
+	
 
 
 
 	private void Idle()
 	{
-		if (debugStates) Debug.Log("===== IDLE =====");
-		enemyMoveable.Accelerate(Vector3.forward, accelerationIdle, maxSpeedIdle, debugSpeed);
-		enemyMoveable.StrafeTowardsConstPos(idlepos + enemyImprecision.randomImprecision);
-
+		if (debug) Debug.Log("===== IDLE " + idlepos + " =====");
+		Accelerate(Vector3.forward);
+		StrafeTowardsConstPos(idlepos, randomImprecision);
 		SetToChaseIfPlayer();
+		SetToDodgeIfCrashCourse();
 	}
 
 	private void Chase()
 	{
-		if (debugStates) Debug.Log("===== CHASE =====");
-		enemyMoveable.Accelerate(Vector3.forward, accelerationChase, maxSpeedChase, debugSpeed);
-		enemyMoveable.StrafeTowardsObject(target, Vector3.zero);
-
+		if (debug) Debug.Log("===== CHASE =====");
+		Accelerate(Vector3.forward);
+		StrafeTowardsFocusTarget(Vector3.zero);
 		SetToIdleIfLost();
+		SetToDodgeIfCrashCourse();
 		ShootIfTargetInRange();
 	}
 
 	private void Dodge()
 	{
-		if (debugStates) Debug.Log("===== DODGE =====");
-		enemyMoveable.Accelerate(Vector3.forward, accelerationIdle, maxSpeedIdle, debugSpeed);
-		enemyMoveable.StrafeTowardsConstPos(dodgepos + enemyImprecision.randomImprecision);
-
+		if (debug) Debug.Log("===== DODGE =====");
+		Accelerate(Vector3.forward);
+		StrafeTowardsConstPos(dodgepos, Vector3.zero);
 		ReturnToPrevState();
 	}
 }

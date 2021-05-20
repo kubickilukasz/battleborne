@@ -61,10 +61,9 @@ MonoBehaviour:
   hp: 200
   deathParticle: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
     type: 3}
-  smokeParticle: {fileID: 4458993900058187211, guid: 16049e210c76fc34cbbc7ffae6811846,
+  smokeParticle: {fileID: 644392587103175744, guid: f6110365d1de88e439fadcec5b8d0413,
     type: 3}
   smokeParticleCooldown: 100
-  debug: 0
   respawnCooldown: 20000
 --- !u!1001 &4951650843559766164
 PrefabInstance:
