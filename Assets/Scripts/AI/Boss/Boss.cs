@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    public static bool isBossAlive = false;
     public float maxSpeed;
 	public float acceleration;
 
@@ -26,10 +27,14 @@ public class Boss : MonoBehaviour
     private bool debugIdlePos = false;
 
 
+    [SerializeField]
+    private GameObject deathParticle;
+
 
     protected Vector3 idlepos;
     [SerializeField]
     protected float cycleImprecisonBoxSize;
+
 
 
     protected EnemyImprecision enemyImprecision;
@@ -102,11 +107,13 @@ public class Boss : MonoBehaviour
 
 	private void GenerateNewImprecisionIfReached()
 	{
-        if(enemyShooting.IsPositionInRange(idlepos + enemyImprecision.randomImprecision, 5f))
+        if(enemyShooting.IsPositionInRange(idlepos + enemyImprecision.randomImprecision, 2f))
 			enemyImprecision.GenerateRandomImprecision();
 	}
 
-    public void OnHit(int hitPoints)
+    public void OnDestroy()
     {
+        isBossAlive = false;
+        Instantiate(deathParticle, transform.position, transform.rotation);
     }
 }

@@ -16,6 +16,8 @@ public abstract class AIEnemy : MonoBehaviour
     private GameObject deathParticle;
     [SerializeField]
     private float cycleImprecisonBoxSize;
+    [SerializeField]
+    private int explosionHitPoints;
     
     [SerializeField]
     private GameObject bullet;
@@ -65,15 +67,26 @@ public abstract class AIEnemy : MonoBehaviour
     public void ShootDirection(Vector3 preDir) 
     {
         GameObject bulletTrans = Instantiate(bullet, gameObject.transform.position, Quaternion.identity) as GameObject;
-        Vector3 direction = preDir * dirMultiplier;
+        Vector3 direction = preDir.normalized * dirMultiplier;
         bulletTrans.GetComponent<Bullet>().Init(direction,gameObject);
     }
 
     void OnCollisionEnter(Collision other)
     {
         if(other.collider.tag != "Ammo")
+        {
+            if(other.collider.tag == "City")
+            {
+                CityBuilding building = other.collider.GetComponent<CityBuilding>();
+                if(building != null)
+                {
+                    building.OnHit(explosionHitPoints);
+                }
+            }
             health = 0;
+        }
     }
+    
     public void OnHit(int hitPoints)
     {
         health -= hitPoints;

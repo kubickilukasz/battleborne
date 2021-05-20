@@ -109,7 +109,7 @@ public class AINormal : AIEnemy
 	private void UpdateTargetIfNull()
 	{
 		if(!target)
-			target = jetSpawn?.jetReference;
+			target = city.GetRandomBuilding();
 	}
 
 

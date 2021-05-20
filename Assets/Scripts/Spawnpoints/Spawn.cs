@@ -34,23 +34,31 @@ public abstract class Spawn : MonoBehaviour
 
     protected void SpawnSingle(GameObject toSpawn, Vector3 pos, Quaternion rot)
     {
-        GameObject spawned = Instantiate(toSpawn, pos, rot) as GameObject;
+        if(toSpawn.GetComponent<Boss>() && !Boss.isBossAlive)
+        {
+            Boss.isBossAlive = true;
+            GameObject spawned = Instantiate(toSpawn, pos, rot) as GameObject;
 
-        AIEnemy enemyScript = spawned.GetComponent<AIEnemy>();
-        if (enemyScript) {
-            enemyScript.jetSpawn = jetSpawn;
-            enemyScript.city = city;
+            Boss bossScript = spawned.GetComponent<Boss>();
+            if (bossScript) {
+                bossScript.jetSpawn = jetSpawn;
+                bossScript.city = city;
+            }
         }
+        else if(!toSpawn.GetComponent<Boss>())
+        {
+            GameObject spawned = Instantiate(toSpawn, pos, rot) as GameObject;
+            
+            AIEnemy enemyScript = spawned.GetComponent<AIEnemy>();
+            if (enemyScript) {
+                enemyScript.jetSpawn = jetSpawn;
+                enemyScript.city = city;
+            }
 
-        Boss bossScript = spawned.GetComponent<Boss>();
-        if (bossScript) {
-            bossScript.jetSpawn = jetSpawn;
-            bossScript.city = city;
+            AIGuardian guardScript = spawned.GetComponent<AIGuardian>();
+            if (guardScript && transform.parent)
+                guardScript.guardingObject = transform.parent.gameObject;
         }
-
-        AIGuardian guardScript = spawned.GetComponent<AIGuardian>();
-        if (guardScript && transform.parent)
-            guardScript.guardingObject = transform.parent.gameObject;
     }
 
     public abstract void OnTriggerSpawn();

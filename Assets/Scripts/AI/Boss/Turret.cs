@@ -21,7 +21,7 @@ public class Turret : BossPart
     {
         if(bossParent?.jetSpawn?.jetReference) {
             GameObject bulletTrans = Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
-            Vector3 direction = (bossParent.jetSpawn.jetReference.transform.position - transform.position) * dirMultiplier;
+            Vector3 direction = (bossParent.jetSpawn.jetReference.transform.position - transform.position).normalized * dirMultiplier;
             bulletTrans.GetComponent<Bullet>().Init(direction,gameObject);
         }
     }

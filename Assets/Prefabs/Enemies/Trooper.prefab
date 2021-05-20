@@ -127,13 +127,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugStates: 0
   debugSpeed: 0
-  health: 100
+  health: 40
   deathParticle: {fileID: 3576652596286017753, guid: 047cd4abe6eed5544823dcd5ac57009a,
     type: 3}
   cycleImprecisonBoxSize: 5
   bullet: {fileID: 2826832719698123469, guid: e8a23919a241ce743b5071f3d243a54b, type: 3}
-  dirMultiplier: 40
+  dirMultiplier: 600
   jetSpawn: {fileID: 0}
+  city: {fileID: 0}
   dodgingStateCooldown: 400
   fireCooldown: 60
   ignoreTargetCooldown: 1000
