@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugStates: 0
   debugSpeed: 0
-  health: 40
+  health: 50
   deathParticle: {fileID: 644392587103175744, guid: f6110365d1de88e439fadcec5b8d0413,
     type: 3}
   cycleImprecisonBoxSize: 5

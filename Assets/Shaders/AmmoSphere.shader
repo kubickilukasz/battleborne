@@ -3,7 +3,7 @@ Shader "Unlit/AmmoSphere"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-         _Color ("Color (RGBA)", Color) = (1, 1, 1, 1)
+        _Color ("Color (RGBA)", Color) = (1, 1, 1, 1) 
     }
     SubShader
     {
@@ -55,7 +55,7 @@ Shader "Unlit/AmmoSphere"
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv) * _Color;
 
-                col.a = (sin(_Time.a * 1 + i.uv.y * 5) + 1) / 3 ;
+                col.a = (sin(_Time.a * 1 + i.uv.y * 5) + 1) / 3 * col.a;
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;

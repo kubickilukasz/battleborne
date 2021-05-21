@@ -36,7 +36,7 @@ public class MenuInGame : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape)){
+        if(Input.GetKeyDown(KeyCode.Escape) && stateGame.GetStateMenu() != StateGame.StateMenu.GameOver && stateGame.GetStateMenu() != StateGame.StateMenu.Respawn){
             if(stateGame.GetStateMenu() == StateGame.StateMenu.Play){
                 stateGame.PausedState();
             }else{
