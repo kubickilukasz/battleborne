@@ -42687,6 +42687,11 @@ PrefabInstance:
       objectReference: {fileID: 1379256385}
     - target: {fileID: 2558084805625156517, guid: 0b832564473e16643b009c976bca6a68,
         type: 3}
+      propertyPath: stateGame
+      value: 
+      objectReference: {fileID: 609279329}
+    - target: {fileID: 2558084805625156517, guid: 0b832564473e16643b009c976bca6a68,
+        type: 3}
       propertyPath: invisibleWall
       value: 
       objectReference: {fileID: 238638657}

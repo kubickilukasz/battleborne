@@ -80,6 +80,7 @@ public class JetPoints : MonoBehaviour
 
     public void StackCombo(float multiplier)
     {
+        comboTimer = 0;
         combo += defaultMultiplier * multiplier;
         if(combo > maxCombo)
             combo = maxCombo;

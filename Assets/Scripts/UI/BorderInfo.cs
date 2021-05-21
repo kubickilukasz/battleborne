@@ -12,6 +12,9 @@ public class BorderInfo : MonoBehaviour
     [SerializeField]
     InvisibleWall invisibleWall;
 
+    [SerializeField]
+    StateGame stateGame;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +24,11 @@ public class BorderInfo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.SetText("Back to FIGHT!\n"+(int)(invisibleWall.GetTimerSeconds() - invisibleWall.GetTimer()));
+        if(stateGame.GetStateMenu() == StateGame.StateMenu.Play){
+            text.SetText("Back to FIGHT!\n"+(int)(invisibleWall.GetTimerSeconds() - invisibleWall.GetTimer()));
+        }else{
+            text.SetText("");
+        }
     }
 
     public void ShowInfo(){

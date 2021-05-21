@@ -356,8 +356,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultSpeed: 1400
   maxSpeed: 2800
-  horizontalTurn: 1500
-  verticalTurn: 1500
+  horizontalTurn: 1200
+  verticalTurn: 1200
   jetMovement: {fileID: 6548209077641720038, guid: a11309f6c7a431c4f8dd0a4533364bd9,
     type: 3}
   speedDelta: 50
