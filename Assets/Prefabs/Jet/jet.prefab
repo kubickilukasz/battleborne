@@ -473,6 +473,7 @@ MonoBehaviour:
   defaultMultiplier: 1
   comboBonus: 2
   timerSeconds: 5
+  comboResetTimerSeconds: 8
 --- !u!114 &469044584218698525
 MonoBehaviour:
   m_ObjectHideFlags: 0
