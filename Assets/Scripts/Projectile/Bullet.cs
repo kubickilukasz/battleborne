@@ -56,6 +56,8 @@ public class Bullet : MonoBehaviour
     private GameObject sender;
 
     private string senderTag;
+
+    private bool isEnemyBullet = false;
 #endregion
 
 
@@ -65,12 +67,16 @@ public class Bullet : MonoBehaviour
         rigidbody.AddRelativeForce(direction*bulletSpeed*Time.fixedDeltaTime, ForceMode.Impulse);
         this.sender = sender;
         senderTag = sender.tag;
+        if(senderTag != "Jet") isEnemyBullet = true;
         Destroy(gameObject,bulletLifetime);
 
     }
 
     void OnTriggerEnter(Collider other)
     {
+        Bullet enemyBullet = other.GetComponent<Bullet>();
+        if(enemyBullet != null)
+            if(enemyBullet.IsEnemyBullet() == isEnemyBullet) return;
 
         string colliderTag = other.tag;        
         if(colliderTag == "City")
@@ -140,33 +146,50 @@ public class Bullet : MonoBehaviour
         }
         else
         {
-            BossPart boss = other.GetComponent<BossPart>();
-            if(boss != null && senderTag == "Jet")
+            BossPart bossPart = other.GetComponent<BossPart>();
+            if(bossPart != null)
             {
-                    if(sender != null)
+                    if(senderTag=="Jet")
                     {
-                        JetPoints points = sender.GetComponent<JetPoints>();
-                        points.AddPoints(hitBonus);
-                        points.StackCombo(comboMultiplier);
-                        if(points.isMaxCombo())
-                            boss.OnHit(points.GetBonus()*hitPoints);
+                        Debug.Log(sender);
+                        if(sender != null)
+                        {
+                            JetPoints points = sender.GetComponent<JetPoints>();
+                            points.AddPoints(hitBonus);
+                            points.StackCombo(comboMultiplier);
+                            if(points.isMaxCombo())
+                                bossPart.OnHit(points.GetBonus()*hitPoints);
+                            else
+                                bossPart.OnHit(hitPoints);
+                        }
                         else
-                            boss.OnHit(hitPoints);
+                        {
+                            bonusPenaltyList.AddBonus(hitBonus);
+                            bossPart.OnHit(hitPoints);
+                        }
+                        alienHit.Play();
+                        effect = Instantiate(alienHitEffect,transform.position,Quaternion.LookRotation(-transform.forward)) as GameObject;
+                        Destroy(gameObject);
                     }
-                    else
-                    {
-                        bonusPenaltyList.AddBonus(hitBonus);
-                        boss.OnHit(hitPoints);
-                    }
-                    effect = Instantiate(alienHitEffect,transform.position,Quaternion.LookRotation(-transform.forward)) as GameObject;
-                    Destroy(gameObject);
             }
             else
             {
                 if(other.tag != "Ammo")
                 {
                     InvisibleWall wall = other.GetComponent<InvisibleWall>();
+                    Boss boss = other.GetComponent<Boss>(); 
                     if(wall != null) return;
+                    if(boss!=null)
+                    {
+                        Debug.Log(sender);
+                        if(senderTag == "Jet")
+                        {
+                            alienHit.Play();
+                            effect = Instantiate(alienHitEffect,transform.position,Quaternion.LookRotation(-transform.forward)) as GameObject;
+                            Destroy(gameObject);
+                        }
+                        else return;
+                    }
                     effect = Instantiate(groundHitEffect,transform.position,Quaternion.LookRotation(-transform.forward)) as GameObject;
                     Destroy(gameObject);
                 }
@@ -174,4 +197,8 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    public bool IsEnemyBullet()
+    {
+        return isEnemyBullet;
+    }
 }

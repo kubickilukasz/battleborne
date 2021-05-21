@@ -65,17 +65,20 @@ public class CameraFollow : MonoBehaviour
 
     private void BoostingFieldOfView()
     {
-        JetMovement movement = spawn?.jetReference.GetComponent<JetMovement>();
-        if(movement.IsBoosting())
+        if(spawn.jetReference !=null)
         {
-            if(camera.fieldOfView < maxFOV)
-                camera.fieldOfView+=fovDelta;
-            else camera.fieldOfView = maxFOV;
-        }
-        else
-        {
-            if(camera.fieldOfView > defaultFOV) camera.fieldOfView-=fovDelta;
-            else camera.fieldOfView = defaultFOV;
+            JetMovement movement = spawn.jetReference.GetComponent<JetMovement>();
+            if(movement.IsBoosting())
+            {
+                if(camera.fieldOfView < maxFOV)
+                    camera.fieldOfView+=fovDelta;
+                else camera.fieldOfView = maxFOV;
+            }
+            else
+            {
+                if(camera.fieldOfView > defaultFOV) camera.fieldOfView-=fovDelta;
+                else camera.fieldOfView = defaultFOV;
+            }
         }
     }
 }
