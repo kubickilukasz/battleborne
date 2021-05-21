@@ -29,11 +29,18 @@ public class JetPoints : MonoBehaviour
 
     private float combo = 0.0f;
 
+    private float mostRecentCombo;
+
 #region Timer
     [SerializeField]
     private float timerSeconds;
 
     private float timer = 0.0f;
+
+    [SerializeField]
+    private float comboResetTimerSeconds;
+
+    private float comboTimer = 0.0f;
 #endregion
 
 
@@ -50,6 +57,7 @@ public class JetPoints : MonoBehaviour
         }
         else
         {
+            ComboResetTimer();
             timer = 0.0f;
         }
     }
@@ -75,7 +83,7 @@ public class JetPoints : MonoBehaviour
         combo += defaultMultiplier * multiplier;
         if(combo > maxCombo)
             combo = maxCombo;
-        
+        mostRecentCombo = combo;
     }
 
     public void ResetCombo()
@@ -121,6 +129,20 @@ public class JetPoints : MonoBehaviour
             comboFinishEvent.Invoke();
             timer = 0.0f;
         }
+    }
+
+    private void ComboResetTimer()
+    {
+        if(combo == mostRecentCombo)
+        {
+            comboTimer += Time.deltaTime;
+            if(comboTimer >= comboResetTimerSeconds)
+            {
+                ResetCombo();
+                comboTimer = 0.0f;
+            }
+        }
+        else comboTimer = 0.0f;
     }
 
 #endregion
