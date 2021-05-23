@@ -87,18 +87,6 @@ public class CityCreator : MonoBehaviour
     List<Connection> connections = new List<Connection>();
     [SerializeField] [HideInInspector]
     Vector3 referenceVector;
- 
-    // Start is called before the first frame update
-    void Awake()
-    {
-      // CreateCity();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     /**
     * Delete buildings from scene
@@ -156,6 +144,8 @@ public class CityCreator : MonoBehaviour
 
     /**
     * Create single connection
+    @param transforms - positions of intersection
+    @param current - parent position
     */
     Connection CreateConnection(List<Transform> transforms, Transform current)
     {
@@ -210,6 +200,9 @@ public class CityCreator : MonoBehaviour
 
     /**
     * Spawn building on scene
+    @param position - position of buidling
+    @param rotation - rotation of buidling
+    @param normal - direction of buidling
     */
     Vector3 SpawnRandomBuilding(Vector3 position, Quaternion rotation, Vector3 normal)
     {
@@ -224,6 +217,9 @@ public class CityCreator : MonoBehaviour
 
     /**
     * Put way prefab on scene
+    @param position - position of way
+    @param rotation - rotation of way
+    @param normal - direction of way
     */
     void SpawnWay(Vector3 position, Quaternion rotation, Vector3 normal){
         Vector3 offset = way.offsetPosition;

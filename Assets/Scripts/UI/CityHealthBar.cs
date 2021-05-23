@@ -10,10 +10,12 @@ public class CityHealthBar : MonoBehaviour
 {
 
     [SerializeField]
-    City city; /// Reference to City
+    /// Reference to City
+    City city; 
 
     [SerializeField]
-    Image cityHealthBar; /// Reference to image, which represents health bar
+    /// Reference to image, which represents health bar
+    Image cityHealthBar; 
 
     void Update()
     {

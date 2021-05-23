@@ -9,28 +9,36 @@ Class responsible for control menus and UIs in game
 public class MenuInGame : MonoBehaviour
 {
     [SerializeField]
-    StateGame stateGame; /// Reference to StateGame
+    /// Reference to StateGame
+    StateGame stateGame;
 
     [SerializeField]
-    RectTransform aim; /// Reference to viewfinder UI object
+    /// Reference to viewfinder UI object
+    RectTransform aim; 
 
     [SerializeField]
-    RectTransform menuInGame; /// Reference to paused menu UI object
+    /// Reference to paused menu UI object
+    RectTransform menuInGame; 
 
     [SerializeField]
-    RectTransform cityHealthBar; /// Reference to UI object of health bar of city
+    /// Reference to UI object of health bar of city
+    RectTransform cityHealthBar; 
 
     [SerializeField]
-    RectTransform points; /// Reference to UI object of points
+    /// Reference to UI object of points
+    RectTransform points; 
 
     [SerializeField]
-    RectTransform combo; /// Reference to UI object of showing combo
+    /// Reference to UI object of showing combo
+    RectTransform combo; 
 
     [SerializeField]
-    RectTransform respawn; /// Reference to UI object of respawn
+    /// Reference to UI object of respawn
+    RectTransform respawn; 
 
     [SerializeField]
-    RectTransform end; /// Reference to UI object of GameOver
+    /// Reference to UI object of GameOver
+    RectTransform end; 
 
     void Start()
     {

@@ -10,48 +10,62 @@ public class Aim : MonoBehaviour
 {
 
     [SerializeField]
-    JetSpawn jetSpawn; /// Reference to JetSpawn
+    /// Reference to JetSpawn
+    JetSpawn jetSpawn; 
 
     [SerializeField]
-    RectTransform leftAim; /// Reference to left part of viewfinder
+    /// Reference to left part of viewfinder
+    RectTransform leftAim; 
 
     [SerializeField]
-    RectTransform rightAim; /// Reference to right part of viewfinder
+    /// Reference to right part of viewfinder
+    RectTransform rightAim; 
 
     [SerializeField]
-    Image healthBar; /// Reference to image, which represents Health Bar
+    /// Reference to image, which represents Health Bar
+    Image healthBar; 
 
     [SerializeField]
-    Image ammoBar; /// Reference to image, which represents Ammo Bar
+    /// Reference to image, which represents Ammo Bar
+    Image ammoBar; 
 
     [Space()]
 
     [SerializeField]
-    float smooth; /// Smooth of viewfinder
+    /// Smooth of viewfinder
+    float smooth; 
 
     [SerializeField]
-    float maxSpeed; /// Max speed of viewfinder
+    /// Max speed of viewfinder
+    float maxSpeed; 
 
     [SerializeField]
-    float focusPosX = 70f; /// Position of X in focus mode
+    /// Position of X in focus mode
+    float focusPosX = 70f; 
 
     [SerializeField]
-    float recoilPosX = 150f; /// Position of X in recoil mode
+    /// Position of X in recoil mode
+    float recoilPosX = 150f; 
 
     [SerializeField]
-    bool isFocusing = true; /// Is viewfinder focusing
+    /// Is viewfinder focusing
+    bool isFocusing = true; 
 
     [SerializeField]
-    float rangeRayToCalculateAim; /// max range of ray to calculate position of viewfinder
+    /// max range of ray to calculate position of viewfinder
+    float rangeRayToCalculateAim; 
 
     [SerializeField]
-    Camera jetCamera; /// Reference to Camera
+    /// Reference to Camera
+    Camera jetCamera;
 
     [SerializeField]
-    LayerMask maskForRay; /// Mask for ray to calculate position fo viewfinder
+    /// Mask for ray to calculate position fo viewfinder
+    LayerMask maskForRay; 
 
     [SerializeField]
-    float smoothOfAimRay; /// mooth of viewfinder
+    /// mooth of viewfinder
+    float smoothOfAimRay; 
 
     float refCurrentVelocity;
     Vector3 tempPosition;

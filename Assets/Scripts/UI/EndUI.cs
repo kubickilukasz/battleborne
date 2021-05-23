@@ -11,16 +11,20 @@ public class EndUI : MonoBehaviour
 {
 
     [SerializeField]
-    JetSpawn jetSpawn; /// Reference to JetSpawn
+    /// Reference to JetSpawn
+    JetSpawn jetSpawn; 
 
     [SerializeField]
-    TextMeshProUGUI textM; /// Reference to text information
+    /// Reference to text information
+    TextMeshProUGUI textM; 
 
     [SerializeField]
-    StateGame stateGame; /// Reference to StateGame
+    /// Reference to StateGame
+    StateGame stateGame; 
 
     [SerializeField]
-    City city; /// Reference to City
+    /// Reference to City
+    City city; 
 
     void Start(){
         stateGame.onChangeState.AddListener(View);

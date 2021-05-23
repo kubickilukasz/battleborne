@@ -10,13 +10,16 @@ Class responsible for showing information about cross the board of map. If playe
 public class BorderInfo : MonoBehaviour
 {
     [SerializeField]
-    TextMeshProUGUI text; /// Reference to text information
+    /// Reference to text information
+    TextMeshProUGUI text; 
 
     [SerializeField]
-    InvisibleWall invisibleWall; /// Refernece to InvisibleWall
+    /// Refernece to InvisibleWall
+    InvisibleWall invisibleWall; 
 
     [SerializeField]
-    StateGame stateGame; /// Reference to StateGame to pause the game
+    /// Reference to StateGame to pause the game
+    StateGame stateGame; 
 
     void Update()
     {

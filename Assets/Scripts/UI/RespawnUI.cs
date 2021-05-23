@@ -10,16 +10,20 @@ Class responsible for respawn menu
 public class RespawnUI : MonoBehaviour
 {   
     [SerializeField]
-    StateGame stateGame; /// Reference to StateGame
+    /// Reference to StateGame
+    StateGame stateGame; 
 
     [SerializeField]
-    JetSpawn jetSpawn; /// Reference to JetSPawn
+    /// Reference to JetSPawn
+    JetSpawn jetSpawn; 
 
     [SerializeField]
-    TextMeshProUGUI text; /// Reference to text info
+    /// Reference to text info
+    TextMeshProUGUI text; 
 
     [SerializeField]
-    float timeToRespawn = 5f;  /// Time to respawn jet
+    /// Time to respawn jet
+    float timeToRespawn = 5f;  
 
     float timer = 0;
     bool counting = false;

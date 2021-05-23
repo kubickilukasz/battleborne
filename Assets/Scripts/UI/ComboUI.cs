@@ -10,16 +10,20 @@ Show information about combo
 public class ComboUI : MonoBehaviour
 {
     [SerializeField]
-    TextMeshProUGUI text; /// Reference to text information 
+    /// Reference to text information 
+    TextMeshProUGUI text; 
 
     [SerializeField]
-    JetSpawn jetSpawn; /// Reference to JetSpawn
+    /// Reference to JetSpawn
+    JetSpawn jetSpawn; 
 
     [SerializeField]
-    float speed = 2f; /// Speed of shock of text 
+    /// Speed of shock of text 
+    float speed = 2f; 
 
     [SerializeField]
-    float scale = 1.2f; /// Speed of shock of text 
+    /// Speed of shock of text 
+    float scale = 1.2f; 
 
     JetPoints jetPoints;
 

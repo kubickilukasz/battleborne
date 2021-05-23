@@ -9,7 +9,8 @@ public class BossComponentMarker : MonoBehaviour
 {
 
     [SerializeField]
-    BossPart bossPart;
+    /// Reference to BossPart
+    BossPart bossPart; 
 
     void Update()
     {

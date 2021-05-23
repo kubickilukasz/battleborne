@@ -8,6 +8,7 @@ using UnityEngine;
 public class BuildingTexture : MonoBehaviour
 {
     [SerializeField]
+    /// Data to textures
     BuildingsTextureData data;
 
     void Start()

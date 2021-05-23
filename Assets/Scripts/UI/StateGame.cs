@@ -19,13 +19,16 @@ public class StateGame : MonoBehaviour
     }
 
     [SerializeField]
-    StateMenu stateMenu = StateMenu.Play; /// Current state of game
+    /// Current state of game
+    StateMenu stateMenu = StateMenu.Play; 
 
     [SerializeField]
-    float timeTransition = 1f; /// Time to change state
+    /// Time to change state
+    float timeTransition = 1f; 
 
     [SerializeField]
-    public UnityEvent onChangeState; /// On change state event
+    /// On change state event
+    public UnityEvent onChangeState; 
 
     void Start()
     {

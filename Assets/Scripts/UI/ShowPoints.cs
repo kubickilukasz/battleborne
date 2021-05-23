@@ -12,16 +12,20 @@ public class ShowPoints : MonoBehaviour
 {
 
     [SerializeField]
-    TextMeshProUGUI text; /// Reference to text information
+    /// Reference to text information
+    TextMeshProUGUI text; 
 
     [SerializeField]
-    JetSpawn jetSpawn; /// Reference to JetSpawn
+    /// Reference to JetSpawn
+    JetSpawn jetSpawn; 
 
     [SerializeField]
-    float speed = 2f; /// Speed of the shock points
+    /// Speed of the shock points
+    float speed = 2f; 
 
     [SerializeField]
-    float scale = 1.2f; /// Max shock size of text
+    /// Max shock size of text
+    float scale = 1.2f; 
 
     JetPoints jetPoints;
     float earlierPoints = 0;

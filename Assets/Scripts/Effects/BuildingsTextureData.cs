@@ -9,6 +9,7 @@ using UnityEngine;
 public class BuildingsTextureData : ScriptableObject
 {
     [SerializeField]
+    /// List of available textures
     List<Texture> listOfTexture = new List<Texture>();
 
     public Texture GetRandomTexture()
