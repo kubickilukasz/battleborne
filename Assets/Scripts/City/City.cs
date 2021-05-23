@@ -3,16 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+
+/**
+* Representation of the city
+*/
 public class City : MonoBehaviour
 {
-    //Inne/Gameplayowe
+    
+    /**
+    * List of buildings in the city
+    */
     private List<CityBuilding> buildings;
+    /**
+    * Debug variable to check city's health
+    */
     [SerializeField]
     private bool debug = false;
 
-    private Collider collider;
+    /**
+    * Event fired when city will be destroyed
+    */
     public UnityEvent cityDestroyedEvent;
 
+    /**
+    * Current health of the city
+    */
     public int Health
     {
         get
@@ -29,6 +44,9 @@ public class City : MonoBehaviour
         }
     }
 
+    /**
+    * Maximum health of the city
+    */
     public int MaxHealth { get; protected set; }
 
     
@@ -45,11 +63,11 @@ public class City : MonoBehaviour
 
 
 
-    public void OnHit(int hitPoints)
-    {
-        //TODO: NP. Update hp bara
-    }
-
+    /**
+    * Behaviour after one of city's building has been destroyed
+    *
+    * @param building Building destroyed
+    */
     public void OnDestroyBuilding(CityBuilding building)
 	{
         buildings.Remove(building);
@@ -62,6 +80,9 @@ public class City : MonoBehaviour
         DisplayHP();
     }
 
+    /**
+    * Displays HP of the city if debugging
+    */
     public void DisplayHP()
 	{
         if (debug)
@@ -73,16 +94,16 @@ public class City : MonoBehaviour
         }
     }
 
+    /**
+    * Retruns random building from the city (for enemies)
+    *
+    * @return Random, alive building
+    */
     public GameObject GetRandomBuilding()
     {
         if(buildings != null && buildings.Count > 0)
             return buildings[Random.Range(0, buildings.Count-1)].gameObject;
 
         return null;
-    }
-
-    public void OnDestroy()
-    {
-
     }
 }

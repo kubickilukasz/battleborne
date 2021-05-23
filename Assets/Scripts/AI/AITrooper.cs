@@ -3,76 +3,123 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+/**
+* States of Trooper
+*/
 public enum TrooperStates
 {
-	IDLE,
-	CHASE,
-	DODGE
+	IDLE, /*! < When Trooper hovers around idle position */
+	CHASE, /*! < When Trooper chases the player */
+	DODGE /*! < When Trooper dodges an obstacle */
 }
 
+/**
+* Class represents behaviour of Trooper - Enemy that attack the player, or waits for him to come
+*/
 public class AITrooper : AIEnemy
 {
 #region Values
-    //Timers
     protected EnemyTimer dodgeTimer;
     protected EnemyTimer fireTimer;
-    protected EnemyTimer ignoreTargetTimer;
     protected EnemyTimer imprecisionTimer;
 
 
 
-    //Timer Values
+	/**
+	* How long should enemy dodge an object
+	*/
     [SerializeField]
     protected float dodgingStateCooldown;
+	/**
+	* Cooldown before shooting next bullet
+	*/
     [SerializeField]
     protected float fireCooldown;
-    [SerializeField]
-    protected float ignoreTargetCooldown;
+	/**
+	* Cooldown before generating new imprecise position
+	*/
     [SerializeField]
     protected float newImprecisionCooldown;
-	
 
 
-    //Extra Positions
+
+	/**
+	* Selected position to follow when dodging
+	*/
     protected Vector3 dodgepos;
+	/**
+	* Guarding position
+	*/
     protected Vector3 idlepos;
+	/**
+	* Distance between enemy and obstacle, after which enemy switches to dodge state
+	*/
     [SerializeField]
     protected float crashDangerRange;
 
 
 
-    //Shooting Related
+	/**
+	* Target of an enemy
+	*/
     protected GameObject target;
-    [SerializeField]
-    protected float minDistanceDetectTarget;
+	/**
+	* Minimum angle between enemy's view and target's position, after which enemy can start shooting
+	*/
     [SerializeField]
     protected float minAngleShootTarget;
+	/**
+	* Minimum distance between enemy and target, after which enemy can start shooting
+	*/
     [SerializeField]
     protected float minDistanceShootTarget;
+	/**
+	* Minimum distance between enemy and target, after which enemy notices target
+	*/
+    [SerializeField]
+    protected float minDistanceDetectTarget;
 
 
 
-    //State: Idle
+	/**
+	* Maximum speed of an enemy when in idle state
+	*/
 	[SerializeField]
 	protected float maxSpeedIdle;
+	/**
+	* Acceleration of an enemy when in idle state
+	*/
 	[SerializeField]
 	protected float accelerationIdle;
 
 
 
-    //State: Chase
+	/**
+	* Maximum speed of an enemy when in chase state
+	*/
 	[SerializeField]
 	protected float maxSpeedChase;
+	/**
+	* Acceleration of an enemy when in chase state
+	*/
 	[SerializeField]
 	protected float accelerationChase;
 
 
 
-	//States
+	/**
+	* Current state of an enemy
+	*/
 	private TrooperStates state;
+	/**
+	* Previous state of an enemy
+	*/
 	private TrooperStates prevState;
 #endregion
 
+    /**
+    * Sets up start values
+    */
 	protected override void SetupStartValues()
 	{
 		target = jetSpawn?.jetReference;
@@ -84,6 +131,9 @@ public class AITrooper : AIEnemy
 		SetState(TrooperStates.IDLE);
 	}
 
+    /**
+    * Updates timers
+    */
 	protected override void UpdateTimers()
     {
         dodgeTimer.UpdateTimer();
@@ -94,6 +144,10 @@ public class AITrooper : AIEnemy
 		UpdateTargetIfNull();
     }
 
+    /**
+    * Updates the state of an enemy
+	* @param newstate New state
+    */
 	protected void SetState(TrooperStates newstate)
 	{
 		switch (newstate)
@@ -116,6 +170,9 @@ public class AITrooper : AIEnemy
 		}
 	}
 
+    /**
+    * Determines behaviour of an enemy, depending on his state
+    */
 	protected override void UpdateStateMethods()
 	{
 		SetToDodgeIfCrashCourse();
@@ -136,7 +193,9 @@ public class AITrooper : AIEnemy
 
 
 
-	//IDLE
+    /**
+    * Behaviour of an enemy - Starts chasing player if it is in range
+    */
 	private void SetToChaseIfPlayer()
 	{
 		if (
@@ -146,13 +205,18 @@ public class AITrooper : AIEnemy
 			SetState(TrooperStates.CHASE);
 	}
 
-	//CHASE
+    /**
+    * Behaviour of an enemy - Switches to idle if player is lost
+    */
 	private void SetToIdleIfLost()
 	{
 		if (!target || !enemyShooting.IsPositionInRange(target.transform.position, minDistanceDetectTarget))
 			SetState(TrooperStates.IDLE);
 	}
 
+    /**
+    * Behaviour of an enemy - Shoots a target (player) if enemy is close enough
+    */
 	private void ShootIfTargetInRange()
 	{
 		if (
@@ -168,14 +232,18 @@ public class AITrooper : AIEnemy
 		}
 	}
 	
-	//DODGE
+    /**
+    * Behaviour of an enemy - Returns to previous state after dodging an obstacle
+    */
 	private void ReturnToPrevState()
 	{
 		if (dodgeTimer.IsTimerZero())
 			SetState(prevState);
 	}
 
-	//ALWAYS
+    /**
+    * Behaviour of an enemy - Dodges an obstacle if distance is critical
+    */
 	private void SetToDodgeIfCrashCourse()
 	{
 		if (dodgeTimer.IsTimerZero() && enemyMoveable.CheckCrashCourse(Vector3.forward, crashDangerRange))
@@ -185,6 +253,9 @@ public class AITrooper : AIEnemy
 		}
 	}
 
+    /**
+    * Behaviour of an enemy - Generates new imprecision (used to randomize dodging position)
+    */
 	private void GenerateNewImprecisionIfPossible()
 	{
 		if(imprecisionTimer.IsTimerZero())
@@ -194,6 +265,9 @@ public class AITrooper : AIEnemy
 		}
 	}
 
+    /**
+    * Behaviour of an enemy - Picks new target (building) if previous was destroyed
+    */
 	protected void UpdateTargetIfNull()
 	{
 		if(!target)
@@ -204,6 +278,9 @@ public class AITrooper : AIEnemy
 
 
 
+    /**
+    * Set of behaviours of an enemy if in idle state
+    */
 	private void Idle()
 	{
 		if (debugStates) Debug.Log("===== IDLE =====");
@@ -213,6 +290,9 @@ public class AITrooper : AIEnemy
 		SetToChaseIfPlayer();
 	}
 
+    /**
+    * Set of behaviours of an enemy if in chase state
+    */
 	private void Chase()
 	{
 		if (debugStates) Debug.Log("===== CHASE =====");
@@ -223,6 +303,10 @@ public class AITrooper : AIEnemy
 		ShootIfTargetInRange();
 	}
 
+
+    /**
+    * Set of behaviours of an enemy if in dodge state
+    */
 	private void Dodge()
 	{
 		if (debugStates) Debug.Log("===== DODGE =====");

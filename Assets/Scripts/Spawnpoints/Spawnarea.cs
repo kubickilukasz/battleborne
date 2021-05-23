@@ -2,11 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+* Type of Spawn - Spawn area
+*/
 public class Spawnarea : Spawn
 {
+    /**
+    * Box where objects can spawn
+    */
     [SerializeField]
     private Vector3 spawnAreaSize;
 
+    /**
+    * Method for activating a spawn area
+    */
     public override void OnTriggerSpawn()
     {
         float xspawn = Random.Range(-spawnAreaSize.x/2, spawnAreaSize.x/2);

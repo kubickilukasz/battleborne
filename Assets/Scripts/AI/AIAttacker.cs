@@ -3,61 +3,100 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+/**
+* States of Attacker
+*/
 public enum AttackerStates
 {
-	CHASE,
-	DODGE
+	CHASE, /*! < When Attacker chases the building */
+	DODGE /*! < When Attacker dodges an obstacle */
 }
 
+/**
+* Class represents behaviour of Attacker - Enemy that attack the city
+*/
 public class AIAttacker : AIEnemy
 {
 #region Values
-    //Timers
     protected EnemyTimer dodgeTimer;
     protected EnemyTimer fireTimer;
     protected EnemyTimer imprecisionTimer;
 
 
 
-    //Timer Values
+	/**
+	* How long should enemy dodge an object
+	*/
     [SerializeField]
     protected float dodgingStateCooldown;
+	/**
+	* Cooldown before shooting next bullet
+	*/
     [SerializeField]
     protected float fireCooldown;
+	/**
+	* Cooldown before generating new imprecise position
+	*/
     [SerializeField]
     protected float newImprecisionCooldown;
 	
 
 
-    //Extra Positions
+	/**
+	* Selected position to follow when dodging
+	*/
     protected Vector3 dodgepos;
+	/**
+	* Distance between enemy and obstacle, after which enemy switches to dodge state
+	*/
     [SerializeField]
     protected float crashDangerRange;
 
 
 
-    //Shooting Related
+	/**
+	* Target of an enemy
+	*/
     protected GameObject target;
+	/**
+	* Minimum angle between enemy's view and target's position, after which enemy can start shooting
+	*/
     [SerializeField]
     protected float minAngleShootTarget;
+	/**
+	* Minimum distance between enemy and target, after which enemy can start shooting
+	*/
     [SerializeField]
     protected float minDistanceShootTarget;
 
 
 
-    //State: Chase
+	/**
+	* Maximum speed of an enemy when in chase state
+	*/
 	[SerializeField]
 	protected float maxSpeedChase;
+	/**
+	* Acceleration of an enemy when in chase state
+	*/
 	[SerializeField]
 	protected float accelerationChase;
 
 
 
-	//States
+	/**
+	* Current state of an enemy
+	*/
 	private AttackerStates state;
+	/**
+	* Previous state of an enemy
+	*/
 	private AttackerStates prevState;
 #endregion
 
+    /**
+    * Sets up start values
+    */
 	protected override void SetupStartValues()
 	{
 		target = city.GetRandomBuilding();
@@ -69,6 +108,9 @@ public class AIAttacker : AIEnemy
 		SetState(AttackerStates.CHASE);
 	}
 
+    /**
+    * Updates timers
+    */
 	protected override void UpdateTimers()
     {
         dodgeTimer.UpdateTimer();
@@ -79,6 +121,10 @@ public class AIAttacker : AIEnemy
 		UpdateTargetIfNull();
     }
 
+    /**
+    * Updates the state of an enemy
+	* @param newstate New state
+    */
 	protected void SetState(AttackerStates newstate)
 	{
 		switch (newstate)
@@ -97,6 +143,9 @@ public class AIAttacker : AIEnemy
 		}
 	}
 
+    /**
+    * Determines behaviour of an enemy, depending on his state
+    */
 	protected override void UpdateStateMethods()
 	{
 		SetToDodgeIfCrashCourse();
@@ -112,7 +161,9 @@ public class AIAttacker : AIEnemy
 		}
 	}
 
-
+    /**
+    * Behaviour of an enemy - Shoots a target (building) if enemy is close enough
+    */
 	private void ShootIfTargetInRange()
 	{
 		if (
@@ -128,14 +179,18 @@ public class AIAttacker : AIEnemy
 		}
 	}
 	
-	//DODGE
+    /**
+    * Behaviour of an enemy - Returns to previous state after dodging an obstacle
+    */
 	private void ReturnToPrevState()
 	{
 		if (dodgeTimer.IsTimerZero())
 			SetState(prevState);
 	}
 
-	//ALWAYS
+    /**
+    * Behaviour of an enemy - Dodges an obstacle if distance is critical
+    */
 	private void SetToDodgeIfCrashCourse()
 	{
 		if (dodgeTimer.IsTimerZero() && enemyMoveable.CheckCrashCourse(Vector3.forward, crashDangerRange))
@@ -145,6 +200,9 @@ public class AIAttacker : AIEnemy
 		}
 	}
 
+    /**
+    * Behaviour of an enemy - Generates new imprecision (used to randomize dodging position)
+    */
 	private void GenerateNewImprecisionIfPossible()
 	{
 		if(imprecisionTimer.IsTimerZero())
@@ -154,6 +212,9 @@ public class AIAttacker : AIEnemy
 		}
 	}
 
+    /**
+    * Behaviour of an enemy - Picks new target (building) if previous was destroyed
+    */
 	protected void UpdateTargetIfNull()
 	{
 		if(!target)
@@ -162,6 +223,11 @@ public class AIAttacker : AIEnemy
 		}
 	}
 
+
+
+    /**
+    * Set of behaviours of an enemy if in chase state
+    */
 	private void Chase()
 	{
 		if (debugStates) Debug.Log("===== CHASE =====");
@@ -171,6 +237,9 @@ public class AIAttacker : AIEnemy
 		ShootIfTargetInRange();
 	}
 
+    /**
+    * Set of behaviours of an enemy if in dodge state
+    */
 	private void Dodge()
 	{
 		if (debugStates) Debug.Log("===== DODGE =====");

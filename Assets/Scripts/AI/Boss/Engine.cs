@@ -2,13 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+* Boss' critical part - Engine
+*/
 public class Engine : BossPart
 {
+	/**
+	* Maximum speed of boss when engine has been destroyed
+	*/
     [SerializeField]
 	private float maxSpeedSlow;
+	/**
+	* Acceleration of boss when engine has been destroyed
+	*/
 	[SerializeField]
 	private float accelerationSlow;
-    // Start is called before the first frame update
 
     void FixedUpdate()
     {

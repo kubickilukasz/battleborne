@@ -2,36 +2,72 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+* Base class for Spawn Points and Spawn Areas
+*/
 public abstract class Spawn : MonoBehaviour
 {
+    /**
+    * Should this spawn bee destroyed after spawning an object
+    */
     [SerializeField]
     private bool destroyAfterSpawn = false;
+    /**
+    * Special indicator for spawning object instantly
+    */
     [SerializeField]
     public bool forceSpawn = false;
 
-
+    /**
+    * List of objects that can be spawned
+    */
     [SerializeField]
     protected List<GameObject> spawnList;
 
 
 
 	protected EnemyTimer respawnTimer;
+    /**
+    * Cooldown before spawning another object
+    */
     [SerializeField]
     protected float respawnCooldown;
 
 
 
+    /**
+    * Reference to jet's spawnpoint
+    */
     [SerializeField]
     public JetSpawn jetSpawn;
-    [SerializeField]
+    /**
+    * Reference to city
+    */
+	[SerializeField]
     public City city;
-    private List<Spawn> spawnlist;
 
+    /**
+    * List of children
+    */
+    private List<Spawn> spawnChildren;
+
+    /**
+    * Debug variable to check range of spawning
+    */
     [SerializeField]
     protected bool debugGizmos;
+    /**
+    * Debug variable to check delay before spawning an object
+    */
     [SerializeField]
     protected bool debugTimer;
 
+    /**
+    * Spawns an object
+    * @param toSpawn Object to spawn
+    * @param pos Position to spawn at
+    * @param rot Rotation to spawn with
+    */
     protected void SpawnSingle(GameObject toSpawn, Vector3 pos, Quaternion rot)
     {
         if(toSpawn.GetComponent<Boss>() && !Boss.isBossAlive)
@@ -61,14 +97,17 @@ public abstract class Spawn : MonoBehaviour
         }
     }
 
+    /**
+    * Base method for activating a spawn point/area
+    */
     public abstract void OnTriggerSpawn();
 
     void Start()
     {
         Spawn[] spawns = GetComponentsInChildren<Spawn>();
         Spawn myspawn = GetComponent<Spawn>();
-        spawnlist = new List<Spawn>(spawns);
-        spawnlist.Remove(myspawn);
+        spawnChildren = new List<Spawn>(spawns);
+        spawnChildren.Remove(myspawn);
 
         respawnTimer = new EnemyTimer(respawnCooldown, respawnCooldown);
     }

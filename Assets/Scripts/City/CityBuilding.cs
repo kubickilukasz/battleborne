@@ -3,34 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/**
+* Representation of the city's building
+*/
 public class CityBuilding : MonoBehaviour
 {
-    //Inne/Gameplayowe
+    /**
+    * Health of the building
+    */
     [SerializeField]
     private int hp = 100;
 
+    /**
+    * Particle after death of a building
+    */
     [SerializeField]
     private GameObject deathParticle;
-    [SerializeField]
-    private bool debug = false;
 
+    /**
+    * Audio played when building is destroyed
+    */
     [SerializeField]
     private AudioSource buildingDestroyed;
 
     private Collider collider;
-    UnityEvent buildingDestroyedEvent;
 
     void Update()
     {
         if (hp <= 0)
         {
-            buildingDestroyedEvent.Invoke();
             Destroy(gameObject);
         }
     }
 
+    /**
+    * Maximum health of the building
+    */
     public int MaxHealth { get; private set; }
 
+    /**
+    * Current health of the building
+    */
     public int Health
 	{
         get
@@ -48,9 +61,15 @@ public class CityBuilding : MonoBehaviour
 		}
 	}
 
+    /**
+    * Reference to city the building belongs to
+    */
     public City city { get; set; }
 
-
+    /**
+    * Initialization of the building
+    * @param newcity Reference to the city the building will belong to
+    */
     public void Init(City newcity)
     {
         MaxHealth = hp;
@@ -60,20 +79,16 @@ public class CityBuilding : MonoBehaviour
     void Start()
     {
         collider = GetComponent<Collider>();
-
-        buildingDestroyedEvent = new UnityEvent();
-        buildingDestroyedEvent.AddListener(ListenerPlaceholder.ListenDestroyBuilding);
     }
 
-
-
+    /**
+    * Deals damage to a building.
+    *
+    * @param hitPoints Damage
+    */
     public void OnHit(int hitPoints)
     {
         Health -= hitPoints;
-        if (city != null)
-        {
-            city.OnHit(hitPoints);
-        }
     }
 
 
@@ -81,7 +96,7 @@ public class CityBuilding : MonoBehaviour
     public void OnDestroy()
     {
         city.OnDestroyBuilding(this);
-        buildingDestroyed.Play();
+        //buildingDestroyed.Play();
         Instantiate(deathParticle, transform.position, transform.rotation);
     }
 }

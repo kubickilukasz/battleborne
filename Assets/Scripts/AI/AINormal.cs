@@ -2,50 +2,61 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+* States of Normal
+*/
 public enum NormalStates
 {
-	FALLING
+	FALLING /*! < When Normal is falling */
 }
 
-
+/**
+* Class represents behaviour of Normal - Enemy that slowly falls and shoots buildings from afar
+*/
 public class AINormal : AIEnemy
 {
 #region Values
-    //Timers
     protected EnemyTimer fireTimer;
 
 
 
-	//Timer Values
+	/**
+	* Cooldown before shooting next bullet
+	*/
     [SerializeField]
     protected float fireCooldown;
 
 
-    //Extra Positions
-    [SerializeField]
-    protected float crashDangerRange;
 
-
-
-    //Falling
+	/**
+	* Maximum speed of an enemy when in falling state
+	*/
 	[SerializeField]
 	protected float maxFallingSpeed;
+	/**
+	* Acceleration of an enemy when in falling state
+	*/
 	[SerializeField]
 	protected float fallingAcceleration;
 
 
 
-    //Shooting Related
+	/**
+	* Target of an enemy
+	*/
     protected GameObject target;
-    [SerializeField]
-    protected float minDistanceDetectTarget;
 
 
 
-	//States
+	/**
+	* Current state of an enemy
+	*/
 	private NormalStates state;
 #endregion
 
+    /**
+    * Sets up start values
+    */
 	protected override void SetupStartValues()
 	{
 		target = city.GetRandomBuilding();
@@ -56,6 +67,9 @@ public class AINormal : AIEnemy
 		SetState(NormalStates.FALLING);
 	}
 
+    /**
+    * Updates timers
+    */
     protected override void UpdateTimers()
     {
 		fireTimer.UpdateTimer();
@@ -63,6 +77,10 @@ public class AINormal : AIEnemy
 		UpdateTargetIfNull();
     }
 
+    /**
+    * Updates the state of an enemy
+	* @param newstate New state
+    */
 	protected void SetState(NormalStates newstate)
 	{
 		switch (newstate)
@@ -75,6 +93,9 @@ public class AINormal : AIEnemy
 		}
 	}
 
+    /**
+    * Determines behaviour of an enemy, depending on his state
+    */
 	protected override void UpdateStateMethods()
 	{
 		switch (state)
@@ -83,13 +104,13 @@ public class AINormal : AIEnemy
 				Falling();
 				break;
 		}
-
-		//SetTo0hpIfCrashCourse();
 	}
 
 
 
-	//FALLING
+    /**
+    * Behaviour of an enemy - Shoots a target (building)
+    */
 	private void ShootTarget()
 	{
 		if (
@@ -105,7 +126,9 @@ public class AINormal : AIEnemy
 	}
 
 
-	//ALWAYS
+    /**
+    * Behaviour of an enemy - Picks new target (building) if previous was destroyed
+    */
 	private void UpdateTargetIfNull()
 	{
 		if(!target)
@@ -114,6 +137,9 @@ public class AINormal : AIEnemy
 
 
 
+   /**
+    * Set of behaviours of an enemy if in falling state
+    */
 	private void Falling()
 	{
 		if (debugStates) Debug.Log("===== FALLING =====");

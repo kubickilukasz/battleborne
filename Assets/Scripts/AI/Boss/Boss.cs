@@ -2,47 +2,96 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+* Represents boss' AI
+*/
 public class Boss : MonoBehaviour
 {
+    /**
+    * Determines if boss is currently on map
+    */
     public static bool isBossAlive = false;
     public float maxSpeed;
 	public float acceleration;
 
+	/**
+	* Maximum speed of boss when it has an engine alive
+	*/
     [SerializeField]
 	private float maxSpeedNormal;
+	/**
+	* Acceleration of boss when it has an engine alive
+	*/
 	[SerializeField]
 	private float accelerationNormal;
 
     private Rigidbody rigidbody;
 
+    /**
+    * Reference to jet's spawnpoint
+    */
     [SerializeField]
     public JetSpawn jetSpawn;
+    /**
+    * Reference to city
+    */
     [SerializeField]
     public City city;
+
+    /**
+    * Debug variable to check boss' speed
+    */
     [SerializeField]
     private bool debugSpeed = false;
+    /**
+    * Debug variable to check boss' health
+    */
     [SerializeField]
     private bool debugHp = false;
+    /**
+    * Debug variable to check boss' next position to reach
+    */
     [SerializeField]
     private bool debugIdlePos = false;
 
-
+    /**
+    * Particle after death of an enemy
+    */
     [SerializeField]
     private GameObject deathParticle;
 
-
+    /**
+    * Next position to reach by the boss
+    */
     protected Vector3 idlepos;
+    /**
+    * Size of imprecison box - used to set new position to reach
+    */
     [SerializeField]
     protected float cycleImprecisonBoxSize;
 
 
-
+    /**
+    * Component responsible for generating random imprecision
+    */
     protected EnemyImprecision enemyImprecision;
+    /**
+    * Component responsible for motion control of an enemy
+    */
     protected EnemyMoveable enemyMoveable;
+    /**
+    * Component responsible for detecing targets - mainly to determine if an enemy is clear to shoot
+    */
     protected EnemyShooting enemyShooting;
 
+    /**
+    * List of parts of the boss
+    */
     protected List<BossPart> bossParts;
 
+    /**
+    * Current health of the boss
+    */
     public int Health
     {
         get
@@ -59,7 +108,12 @@ public class Boss : MonoBehaviour
         }
     }
 
+    /**
+    * Maximum health of the boss
+    */
     public int MaxHealth { get; protected set; }
+
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -80,7 +134,6 @@ public class Boss : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if(Health <= 0)
@@ -96,6 +149,9 @@ public class Boss : MonoBehaviour
         if(debugIdlePos) Debug.Log("IdlePos: " + (idlepos + enemyImprecision.randomImprecision));
     }
 
+    /**
+    * Displays HP of the boss if debugging
+    */
     public void DisplayHP()
 	{
         if(debugHp) {
@@ -105,6 +161,9 @@ public class Boss : MonoBehaviour
         }
     }
 
+    /**
+    * Generates new position to follow if reached the previous one
+    */
 	private void GenerateNewImprecisionIfReached()
 	{
         if(enemyShooting.IsPositionInRange(idlepos + enemyImprecision.randomImprecision, 2f))

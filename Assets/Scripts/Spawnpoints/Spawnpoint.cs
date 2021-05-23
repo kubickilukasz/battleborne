@@ -2,8 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+* Type of Spawn - Spawn point
+*/
 public class Spawnpoint : Spawn
 {
+    /**
+    * Method for activating a spawn area
+    */
     public override void OnTriggerSpawn()
     {
         int count = spawnList.Count;
@@ -12,6 +18,10 @@ public class Spawnpoint : Spawn
             SpawnSingle(spawnList[Random.Range(0, count-1)], transform.position, transform.rotation);
         }
     }
+
+    /**
+    * Responsible for drawing a range of spawning
+    */
     void OnDrawGizmos() {
         if(debugGizmos)
 		{
