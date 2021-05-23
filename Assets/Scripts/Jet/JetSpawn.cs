@@ -5,24 +5,27 @@ using UnityEngine;
 public class JetSpawn : MonoBehaviour
 {
     [SerializeField]
-    private GameObject jetPrefab;
+    private GameObject jetPrefab; /// Place for jet's prefab
 
-    public GameObject jetReference;
+    public GameObject jetReference; /// Reference to the current jet's object on the scene
 
     private int jetPoints;
 
     [SerializeField]
-    private int respawnPenalty;
+    private int respawnPenalty; /// Point penalty given on each respawn
 
     [SerializeField]
-    private BonusPenaltyList bonusPenaltyList;
+    private BonusPenaltyList bonusPenaltyList; /// Reference to the list with bonuses and penalties received after dying
 
     void LateUpdate()
     {
-        StorePoints();
-        //Respawn();   
+        StorePoints(); 
     }
 
+
+    /**
+    Method that respawns the jet on the map, restores points it had before dying and applies penalties and bonuses
+    */
     public void Respawn()
     {
         if(jetReference == null)
@@ -45,6 +48,9 @@ public class JetSpawn : MonoBehaviour
         return jetPoints;
     }
 
+    /**
+    Method that is used for storing the most recent amount of points
+    */
     private void StorePoints()
     {
         if(jetReference)

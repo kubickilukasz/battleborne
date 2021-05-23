@@ -6,23 +6,23 @@ public class CameraFollow : MonoBehaviour
 {
     [Header("Target")]
     [SerializeField]
-    private Transform target;
+    private Transform target; ///Transform of an object that camera is going to follow
 
     [SerializeField]
-    private GameObject spawnPoint;
+    private GameObject spawnPoint; ///Reference to the spawn point of the targer
 
     [Header("Camera Values")]
     [SerializeField]
-    private float smoothSpeed;
+    private float smoothSpeed; ///Smoothing speed of the camera
     [SerializeField]
-    private Vector3 offset;
+    private Vector3 offset; ///Distance from the target
     [SerializeField]
-    private float rotSpeed;
+    private float rotSpeed; ///Camera rotation speed
 
     [SerializeField]
-    private float fovDelta;
+    private float fovDelta; ///Delta of the Field of View value, used while boosting the jet
     [SerializeField]
-    private float maxFOV;
+    private float maxFOV;  ///Maximum Field of View value that is allowed
 
     private float defaultFOV;
     private Vector3 velocity = Vector3.zero;
@@ -46,7 +46,7 @@ public class CameraFollow : MonoBehaviour
     {
         if(target != null)
         {
-            Vector3 desiredPos = target.position - target.TransformDirection(offset);//target.position + offset;
+            Vector3 desiredPos = target.position - target.TransformDirection(offset); //target.position + offset;
             Vector3 smoothPos = Vector3.SmoothDamp(transform.position, desiredPos, ref velocity, smoothSpeed);
             Quaternion smoothRot = Quaternion.Lerp(transform.rotation, target.rotation,rotSpeed);
             transform.position = smoothPos;
@@ -63,6 +63,9 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
+/**
+    Method that changes camera's Field Of View value, depending on whether the target is boosting or not
+ */
     private void BoostingFieldOfView()
     {
         if(spawn.jetReference !=null)

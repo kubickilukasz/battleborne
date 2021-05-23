@@ -11,22 +11,22 @@ public class JetHealth : MonoBehaviour
 
     [Header("Jet Health")]
     [SerializeField]
-    private int health;
+    private int health; /// Current amount of health of the jet
 
     [SerializeField]
-    private int maxHealth = 100;
+    private int maxHealth = 100; /// Maximum amount of health of the jet
 
     private bool invincibility = false;
 
     [Header("Explosion")]
     [SerializeField]
-    private GameObject explosion;
+    private GameObject explosion; /// Explosion effect instantiated after dying
 
     [SerializeField]
-    private AudioSource kaboom;
+    private AudioSource kaboom; /// Sound effect for the explosion
 
     [SerializeField]
-    private int explosionHitPoints;
+    private int explosionHitPoints; /// Amount of hit points dealt on explosion (to buildings, enemies)
 
     private JetPoints combo;
 
@@ -72,6 +72,10 @@ public class JetHealth : MonoBehaviour
 
 #region PrivateMethods
 
+
+    /**
+    Method that checks whether the amount of health reached 0 and performs  the explosion
+    */
     private void NoHealthExplode()
     {
         if(health <= 0)
@@ -84,11 +88,18 @@ public class JetHealth : MonoBehaviour
         }
     }
 
+    /**
+    Method used for setting immortality of the jet based on the combo value
+    */
     private void SetInvincibility()
     {
         if(combo.isMaxCombo())
         {
             invincibility = true;
+        }
+        else
+        {
+            invincibility = false;
         }
     }
 #endregion
@@ -106,9 +117,13 @@ public class JetHealth : MonoBehaviour
         return maxHealth;
     }
 
+    /**
+    Method used when jet gets hit by enemy's bullet, hits the ground etc.
+    */
     public void OnHit(int hitPoints)
     {
-        health -= hitPoints;
+        if(!invincibility)
+            health -= hitPoints;
     }
 
 #endregion

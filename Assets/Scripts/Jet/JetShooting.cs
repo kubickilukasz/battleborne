@@ -9,24 +9,24 @@ public class JetShooting : MonoBehaviour
 
     [Header("Ammunition")]
     [SerializeField]
-    private float ammunition = 150f;
+    private float ammunition = 150f; /// Amount of jet's ammunition
 
-    public float maxAmmo = 300f;
+    public float maxAmmo = 300f; /// Maximum amount of jet's ammunition
 
     [Header("Bullet")]
     [SerializeField]
-    private GameObject bullet;
+    private GameObject bullet; /// Place for bullet's prefab
 
     [SerializeField]
-    private float dirMultiplier;
+    private float dirMultiplier; /// Multiplier for bullet's direction vector. Used to make it go further.
 
     [SerializeField]
-    private AudioSource jetShot;
+    private AudioSource jetShot; /// Sound used when a shooting action is performed
 
     [Header("ShootingDelay")]
 
     [SerializeField]
-    private float maxDelay;
+    private float maxDelay; /// Delay for shooting. Used so that bullets don't spawn too fast
     
     private float delay = 0f;
 
@@ -56,6 +56,10 @@ public class JetShooting : MonoBehaviour
     }
 
 #region PublicMethods
+    /**
+    Method used for increasing amount of ammunition after receiving a certain amount of it.
+    @param ammo Amount of received ammunition
+    */
     public void AddAmmo(float ammo)
     {
         if(ammunition+ammo < maxAmmo) ammunition+=ammo;
@@ -67,11 +71,18 @@ public class JetShooting : MonoBehaviour
         return ammunition;
     }
 
-
+    /**
+    Method stating whether jet is currently shooting or not
+    return Returns true if jet is shooting, false otherwise
+    */
     public bool isShooting()
     {
         return shot;
     }
+
+    /**
+    Operator used for reducing the amount of ammunition
+    */
 
     public static JetShooting operator--(JetShooting shooting)
     {
@@ -81,6 +92,10 @@ public class JetShooting : MonoBehaviour
 #endregion
 
 #region PrivateMethods
+
+    /**
+    Method used to reset shooting delay
+    */
     private void ResetDelay()
     {
         if(shot && delay > 0)

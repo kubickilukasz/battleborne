@@ -6,6 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AmmoData", menuName = "battleborne/AmmoData", order = 0)]
 public class AmmoData : ScriptableObject 
 {
-    public float ammo = 20f;
+    public float ammo = 20f; ///Amount of ammunition in the collectible
 }
 

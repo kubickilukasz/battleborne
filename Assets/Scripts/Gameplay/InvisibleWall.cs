@@ -6,12 +6,12 @@ using UnityEngine.Events;
 public class InvisibleWall : MonoBehaviour
 {
 
-    public UnityEvent onJetExitEvent;
-    public UnityEvent onJetEnterEvent;
+    public UnityEvent onJetExitEvent; /// Event invoked when jet leaves the area 
+    public UnityEvent onJetEnterEvent; /// Event invoked when jet enters the area
 
 #region Timer
     [SerializeField]
-    private float timerSeconds;
+    private float timerSeconds; /// Amount of seconds for the selfdestruction countdown
 
     private float timer = 0.0f;
 #endregion
@@ -60,6 +60,10 @@ public class InvisibleWall : MonoBehaviour
         return timerSeconds;
     }
 
+
+    /**
+    Method used for counting time until selfdestruction of jet that left the map
+    */
     private void Timer()
     {
         if(outOfBounds && jet != null)

@@ -8,47 +8,47 @@ public class Bullet : MonoBehaviour
 {
     [Header("Hitting")]
     [SerializeField]
-    private int hitPoints;
+    private int hitPoints; /// Amount of hit points each object will receive when hit by the bullet 
 
     [SerializeField]
-    private int cityHitPenalty;
+    private int cityHitPenalty; /// Point penalty for hitting the building(jet only)
 
     [SerializeField]
-    private int hitBonus;
+    private int hitBonus; /// Point bonus for hitting the enemy(jet only)
 
     [SerializeField]
-    private float comboMultiplier;
+    private float comboMultiplier; /// Multiplier used to stack combo(jet only)
 
     [SerializeField]
-    private BonusPenaltyList bonusPenaltyList;
+    private BonusPenaltyList bonusPenaltyList; /// Reference to list with bonuses and penalties
 
     [Header("Physics")]
 
     [SerializeField]
-    private float bulletSpeed;
+    private float bulletSpeed; /// Determines how fast bullet will move
 
     [SerializeField]
     [Range(1.5f,4f)]
-    private float bulletLifetime;
+    private float bulletLifetime; /// Determines how long bullet will remain on the scene before being destroyed(unless it hit something in meantime)
 
     Rigidbody rigidbody;
 
     [Header("Effects")]
     [SerializeField]
-    private GameObject cityHitEffect;
+    private GameObject cityHitEffect; /// Effect instantiated when building is hit
 
     [SerializeField]
-    private GameObject alienHitEffect;
+    private GameObject alienHitEffect; ///Visual effect instantiated when alien enemy is hit
     [SerializeField]
-    private AudioSource alienHit;
+    private AudioSource alienHit; /// Sound effect instantiated when alien enemy is hit
 
     [SerializeField]
-    private GameObject jetHitEffect;
+    private GameObject jetHitEffect; /// Visual effect instantiated when jet is hit
     [SerializeField]
-    private AudioSource jetHit;
+    private AudioSource jetHit; /// Sound effect instantiated when jet is hit
 
     [SerializeField]
-    private GameObject groundHitEffect;
+    private GameObject groundHitEffect; /// Visual effect instantiated when the ground is hit
 
     private GameObject effect;
 
@@ -60,7 +60,9 @@ public class Bullet : MonoBehaviour
     private bool isEnemyBullet = false;
 #endregion
 
-
+    /**
+    Method used for initializing the bullet, invoked when shot
+    */
     public void Init(Vector3 direction, GameObject sender)
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -197,6 +199,10 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    /**
+    Method that determines whether hit object is enemy's bullet. Used when enemies shoot their bullets so that the collision is ignored
+    return Returns true if the bullet belongs to enemy, false otherwise
+    */
     public bool IsEnemyBullet()
     {
         return isEnemyBullet;
