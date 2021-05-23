@@ -4,6 +4,10 @@ using System.ComponentModel;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
+
+/**
+Class responsible for the whole bullet mechanics. Stores data that is used when bullet hits a certain target.
+*/
 public class Bullet : MonoBehaviour
 {
     [Header("Hitting")]

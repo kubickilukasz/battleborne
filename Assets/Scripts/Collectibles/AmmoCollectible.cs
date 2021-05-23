@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
+/**
+Class responsible for storing data of an ammo collectible and performing certain actions when it's collected
+*/
 public class AmmoCollectible : MonoBehaviour
 {
 

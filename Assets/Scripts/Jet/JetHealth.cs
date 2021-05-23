@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(JetPoints))]
+/**
+Class that stores the data and performs actions referring to jet's health
+*/
 public class JetHealth : MonoBehaviour
 {
 

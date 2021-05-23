@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+Class responsible for the behaviour of the camera that follows the player
+*/
 public class CameraFollow : MonoBehaviour
 {
     [Header("Target")]

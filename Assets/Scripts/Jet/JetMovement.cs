@@ -7,6 +7,9 @@ using UnityEngine.Events;
 
 
 [RequireComponent(typeof(Rigidbody))]
+/**
+Class that stores data and performs actions reffering to jet's movement 
+*/
 public class JetMovement : MonoBehaviour
 {
 

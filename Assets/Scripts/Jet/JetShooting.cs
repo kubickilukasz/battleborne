@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+/**
+Class that stores the data and performs actions reffering jet's shooting ability
+*/
 public class JetShooting : MonoBehaviour
 {
 

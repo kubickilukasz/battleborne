@@ -4,6 +4,9 @@ using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Events;
 
+/**
+Class that stores the data and performs actions reffering to jet's points
+*/
 public class JetPoints : MonoBehaviour
 {
 

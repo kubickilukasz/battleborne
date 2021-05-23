@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "BonusPenaltyList", menuName = "battleborne/BonusPenaltyList", order = 0)]
+/**
+Class that stores data about all bonuses and penalties received after player's death
+*/
 public class BonusPenaltyList : ScriptableObject
 {
     private List<int> bonusesAndPenalties;

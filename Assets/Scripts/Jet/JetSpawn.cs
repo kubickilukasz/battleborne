@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+Class used for spawn point of the jet. Stores crucial data needed for other objects at the scene and spawns the jet when it's not existing anymore
+*/
 public class JetSpawn : MonoBehaviour
 {
     [SerializeField]
