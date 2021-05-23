@@ -11,24 +11,30 @@ public class JetShooting : MonoBehaviour
 
     [Header("Ammunition")]
     [SerializeField]
-    private float ammunition = 150f; /// Amount of jet's ammunition
+    /// Amount of jet's ammunition
+    private float ammunition = 150f; 
 
-    public float maxAmmo = 300f; /// Maximum amount of jet's ammunition
+    /// Maximum amount of jet's ammunition
+    public float maxAmmo = 300f;
 
     [Header("Bullet")]
     [SerializeField]
-    private GameObject bullet; /// Place for bullet's prefab
+    /// Place for bullet's prefab
+    private GameObject bullet;
 
     [SerializeField]
-    private float dirMultiplier; /// Multiplier for bullet's direction vector. Used to make it go further.
+    /// Multiplier for bullet's direction vector. Used to make it go further.
+    private float dirMultiplier;
 
     [SerializeField]
-    private AudioSource jetShot; /// Sound used when a shooting action is performed
+    /// Sound used when a shooting action is performed
+    private AudioSource jetShot;
 
     [Header("ShootingDelay")]
 
     [SerializeField]
-    private float maxDelay; /// Delay for shooting. Used so that bullets don't spawn too fast
+    /// Delay for shooting. Used so that bullets don't spawn too fast
+    private float maxDelay;
     
     private float delay = 0f;
 
@@ -75,7 +81,7 @@ public class JetShooting : MonoBehaviour
 
     /**
     Method stating whether jet is currently shooting or not
-    return Returns true if jet is shooting, false otherwise
+    @return Returns true if jet is shooting, false otherwise
     */
     public bool isShooting()
     {

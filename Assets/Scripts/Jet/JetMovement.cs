@@ -15,24 +15,30 @@ public class JetMovement : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField]
-    private float defaultSpeed; /// Default forwarding speed of the jet
+    /// Default forwarding speed of the jet
+    private float defaultSpeed;
     private float speed;
     [SerializeField]
-    private float maxSpeed; /// Max forwarding speed of the jet
+    /// Max forwarding speed of the jet
+    private float maxSpeed;
     
     [SerializeField]
-    private float horizontalTurn; /// Speed of horizontal turning
+    /// Speed of horizontal turning
+    private float horizontalTurn;
     
     [SerializeField] 
-    private float verticalTurn; /// Speed of vertical turning
+    /// Speed of vertical turning
+    private float verticalTurn;
 
     [SerializeField]
-    private AudioSource jetMovement; /// Sound of jet engines
+    /// Sound of jet engines
+    private AudioSource jetMovement; 
     
 
     [Header("Physics")]
     [SerializeField]
-    private float speedDelta; /// Delta of forwarding speed (increment for boosting)
+    /// Delta of forwarding speed (increment for boosting)
+    private float speedDelta;
 
     Rigidbody rigidbody;
 
@@ -41,7 +47,8 @@ public class JetMovement : MonoBehaviour
     private float timer = 0f;
     [Header("Fuel")]
     [SerializeField]
-    private float timerMax = 0.05f; /// Timer for ammo waste. This value prevents ammo amount from decreasing too fast
+    /// Timer for ammo waste. This value prevents ammo amount from decreasing too fast
+    private float timerMax = 0.05f; 
 
     #endregion
     private JetShooting fuel;
@@ -114,7 +121,7 @@ public class JetMovement : MonoBehaviour
 
     /**
     Method returning whether jet is currently boosting or not
-    return Returns true if jet is boosting, false otherwise
+    @return Returns true if jet is boosting, false otherwise
     */
     public bool IsBoosting()
     {

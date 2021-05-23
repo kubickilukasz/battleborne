@@ -9,6 +9,7 @@ Class used for storing data about amount of ammunition in an ammo collectible
 */
 public class AmmoData : ScriptableObject 
 {
-    public float ammo = 20f; ///Amount of ammunition in the collectible
+    ///Amount of ammunition in the collectible
+    public float ammo = 20f;
 }
 
