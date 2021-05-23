@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+* Class represents city creator system, which allow to put buildings * in editor
+*/
 [ExecuteInEditMode]
 public class CityCreator : MonoBehaviour
 {
+    /**
+    * Single connection with intersection
+    */
     [System.Serializable]
     public class Connection{
         public Transform self;
@@ -13,6 +19,9 @@ public class CityCreator : MonoBehaviour
         public float levelCompaction = 1f;
     }
 
+    /**
+    * Building and his position with offset
+    */
     [System.Serializable]
     public class Building{
         public GameObject prefab;
@@ -21,28 +30,52 @@ public class CityCreator : MonoBehaviour
         public Vector3 size;
     }
 
+    /**
+    * Random seed of city
+    */
     [SerializeField]
     int seed;
 
+    /**
+    * With of the road
+    */
     [SerializeField]
     float widthRoad = 5f;
 
+    /**
+    * Max angle which create connection with 2 intersections 
+    */
     [SerializeField]
     [Range(0,45)]
     float maxAngle = 15f;
 
+    /**
+    * Compaction of building
+    */
     [SerializeField]
     float compaction = 1f;
 
+    /**
+    * With of the road
+    */
     [SerializeField]
     float maxDistance = 30f;
 
+    /**
+    * Parent buildings in connections tree
+    */
     [SerializeField]
     Transform parentBuidlings;
 
+    /**
+    * List of aviable buidlings prefabs
+    */
     [SerializeField]
     List<Building> buidlings = new List<Building>();
 
+    /**
+    * Way prefab
+    */
     [SerializeField]
     Building way;
 
@@ -67,8 +100,11 @@ public class CityCreator : MonoBehaviour
         
     }
 
+    /**
+    * Delete buildings from scene
+    */
     [ContextMenu("Delete City")]
-    void deleteCreatedObjects()
+    void DeleteCreatedObjects()
     {
         foreach(GameObject ob in createdObjects)
         {
@@ -80,11 +116,14 @@ public class CityCreator : MonoBehaviour
         createdObjects.Clear();
     }
 
+    /**
+    * Create city on scene
+    */
     [ContextMenu("Create City")]
     void CreateCity()
     {
 
-        deleteCreatedObjects();
+        DeleteCreatedObjects();
 
         Random.InitState(seed);
         Transform [] tempTransforms = GetComponentsInChildren<Transform>();
@@ -97,6 +136,9 @@ public class CityCreator : MonoBehaviour
         }
     }
 
+    /**
+    * Search connections in scene and create list of connections
+    */
     void CreateConnections()
     {
         connections = new List<Connection>();
@@ -112,6 +154,9 @@ public class CityCreator : MonoBehaviour
 
     }
 
+    /**
+    * Create single connection
+    */
     Connection CreateConnection(List<Transform> transforms, Transform current)
     {
         List<Transform> children = new List<Transform>();
@@ -129,6 +174,9 @@ public class CityCreator : MonoBehaviour
         return connection;
     }
 
+    /**
+    * Instatiate prefabs on scene from connections
+    */
     void CreateRoads()
     {
         foreach(Connection c in connections)
@@ -160,6 +208,9 @@ public class CityCreator : MonoBehaviour
         }
     }
 
+    /**
+    * Spawn building on scene
+    */
     Vector3 SpawnRandomBuilding(Vector3 position, Quaternion rotation, Vector3 normal)
     {
         int r = Random.Range(0,buidlings.Count);
@@ -171,6 +222,9 @@ public class CityCreator : MonoBehaviour
         return buidlings[r].size;
     }
 
+    /**
+    * Put way prefab on scene
+    */
     void SpawnWay(Vector3 position, Quaternion rotation, Vector3 normal){
         Vector3 offset = way.offsetPosition;
         GameObject go = Instantiate(way.prefab, position, rotation, parentBuidlings) as GameObject;

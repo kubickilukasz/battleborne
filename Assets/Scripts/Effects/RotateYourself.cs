@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+* Simple component to rotate attached object
+*/
 public class RotateYourself : MonoBehaviour
 {
 

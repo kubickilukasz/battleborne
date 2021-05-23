@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/**
+Class responsible for states of games in UI system.
+*/
 public class StateGame : MonoBehaviour
 {
+    /**
+    Enum represents state of menu
+    */
     public enum StateMenu{
         Play,
         Paused,
@@ -13,19 +19,22 @@ public class StateGame : MonoBehaviour
     }
 
     [SerializeField]
-    StateMenu stateMenu = StateMenu.Play;
+    StateMenu stateMenu = StateMenu.Play; /// Current state of game
 
     [SerializeField]
-    float timeTransition = 1f;
+    float timeTransition = 1f; /// Time to change state
 
     [SerializeField]
-    public UnityEvent onChangeState;
+    public UnityEvent onChangeState; /// On change state event
 
     void Start()
     {
         UpdateState();
     }
 
+    /**
+    Update time scale, cursor visible, cursor lockstate depends of state of game 
+    */
     public void UpdateState(){
 
         switch(stateMenu){
@@ -53,24 +62,36 @@ public class StateGame : MonoBehaviour
 
     }
 
+    /**
+    Change to PlayState
+    */
     public void PlayState(){
         if(stateMenu != StateMenu.Play && stateMenu != StateMenu.GameOver){
             StartCoroutine(ChangeState(StateMenu.Play));
         }
     }
 
+    /**
+    Change to PausedState
+    */
     public void PausedState(){
         if(stateMenu != StateMenu.Paused && stateMenu != StateMenu.Respawn && stateMenu != StateMenu.GameOver){
             StartCoroutine(ChangeState(StateMenu.Paused));
         }
     }
 
+    /**
+    Change to RespawnState
+    */
     public void RespawnState(){
         if(stateMenu != StateMenu.Respawn && stateMenu != StateMenu.Paused && stateMenu != StateMenu.GameOver){
             StartCoroutine(ChangeState(StateMenu.Respawn));
         }
     }
 
+    /**
+    Change to GameOverState
+    */
     public void GameOverState(){
         if(stateMenu != StateMenu.GameOver){
             StartCoroutine(ChangeState(StateMenu.GameOver));
@@ -81,6 +102,9 @@ public class StateGame : MonoBehaviour
         return stateMenu;
     }
 
+    /**
+    Wait some time and change state
+    */
     IEnumerator ChangeState(StateMenu newState){
         yield return new WaitForSecondsRealtime(timeTransition);
         stateMenu = newState;

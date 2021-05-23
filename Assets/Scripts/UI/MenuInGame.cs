@@ -3,31 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/**
+Class responsible for control menus and UIs in game
+*/
 public class MenuInGame : MonoBehaviour
 {
     [SerializeField]
-    StateGame stateGame;
+    StateGame stateGame; /// Reference to StateGame
 
     [SerializeField]
-    RectTransform aim;
+    RectTransform aim; /// Reference to viewfinder UI object
 
     [SerializeField]
-    RectTransform menuInGame;
+    RectTransform menuInGame; /// Reference to paused menu UI object
 
     [SerializeField]
-    RectTransform cityHealthBar;
+    RectTransform cityHealthBar; /// Reference to UI object of health bar of city
 
     [SerializeField]
-    RectTransform points;
+    RectTransform points; /// Reference to UI object of points
 
     [SerializeField]
-    RectTransform combo;
+    RectTransform combo; /// Reference to UI object of showing combo
 
     [SerializeField]
-    RectTransform respawn;
+    RectTransform respawn; /// Reference to UI object of respawn
 
     [SerializeField]
-    RectTransform end;
+    RectTransform end; /// Reference to UI object of GameOver
 
     void Start()
     {
@@ -45,6 +48,9 @@ public class MenuInGame : MonoBehaviour
         }
     }
 
+    /**
+    Update active of UI objects depends of GameState 
+    */
     public void UpdateState(){
 
         switch(stateGame.GetStateMenu()){

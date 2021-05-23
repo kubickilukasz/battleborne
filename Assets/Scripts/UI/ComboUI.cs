@@ -4,19 +4,22 @@ using UnityEngine;
 using TMPro;
 using System.Text;
 
+/**
+Show information about combo 
+*/
 public class ComboUI : MonoBehaviour
 {
     [SerializeField]
-    TextMeshProUGUI text;
+    TextMeshProUGUI text; /// Reference to text information 
 
     [SerializeField]
-    JetSpawn jetSpawn;
+    JetSpawn jetSpawn; /// Reference to JetSpawn
 
     [SerializeField]
-    float speed = 2f;
+    float speed = 2f; /// Speed of shock of text 
 
     [SerializeField]
-    float scale = 1.2f;
+    float scale = 1.2f; /// Speed of shock of text 
 
     JetPoints jetPoints;
 
@@ -24,13 +27,11 @@ public class ComboUI : MonoBehaviour
 
     float state = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         state -= Time.deltaTime * speed;

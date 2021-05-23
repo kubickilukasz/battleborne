@@ -2,16 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+* Control trail effect on bullets
+*/
 public class BulletTrail : MonoBehaviour
 {
 
+    /**
+    * Scale time of trail
+    */
     [SerializeField]
     private float scaleTime;
 
+    /**
+    * Reference to TrailRenderer
+    */
     [SerializeField]
     private TrailRenderer trailRenderer;
 
-    // Ustawiane przez zewnętrzne skrypty
+    /**
+    * Speed of the trail
+    */
     private float speed;
 
     void Start()

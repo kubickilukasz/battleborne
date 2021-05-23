@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+* Represents marker of the boss
+*/
 public class BossComponentMarker : MonoBehaviour
 {
+
     [SerializeField]
     BossPart bossPart;
 

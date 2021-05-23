@@ -4,31 +4,39 @@ using UnityEngine;
 using TMPro;
 using System.Text;
 
+/**
+Show GameOver window
+*/
 public class EndUI : MonoBehaviour
 {
 
     [SerializeField]
-    JetSpawn jetSpawn;
+    JetSpawn jetSpawn; /// Reference to JetSpawn
 
     [SerializeField]
-    TextMeshProUGUI textM;
+    TextMeshProUGUI textM; /// Reference to text information
 
     [SerializeField]
-    StateGame stateGame;
+    StateGame stateGame; /// Reference to StateGame
 
     [SerializeField]
-    City city;
+    City city; /// Reference to City
 
     void Start(){
         stateGame.onChangeState.AddListener(View);
         city.cityDestroyedEvent.AddListener(GameOver);
     }
 
+    /**
+    Turn state game to GameOver
+    */
     public void GameOver(){
-        Debug.Log("fsadf");
         stateGame.GameOverState();
     }
 
+    /**
+    Show result of game
+    */
     public void View(){
         if(stateGame.GetStateMenu() == StateGame.StateMenu.GameOver){
             int currentScore = jetSpawn.GetPoints();

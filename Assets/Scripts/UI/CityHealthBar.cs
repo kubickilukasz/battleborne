@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/**
+Class responsible for showing information about health of city
+*/
 public class CityHealthBar : MonoBehaviour
 {
 
     [SerializeField]
-    City city;
+    City city; /// Reference to City
 
     [SerializeField]
-    Image cityHealthBar;
-
-    void Start()
-    {
-
-    }
+    Image cityHealthBar; /// Reference to image, which represents health bar
 
     void Update()
     {

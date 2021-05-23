@@ -5,34 +5,28 @@ using UnityEngine.UI;
 using TMPro;
 using System.Text;
 
+/**
+Class responsible for showing points in game
+*/
 public class ShowPoints : MonoBehaviour
 {
 
     [SerializeField]
-    TextMeshProUGUI text;
+    TextMeshProUGUI text; /// Reference to text information
 
     [SerializeField]
-    JetSpawn jetSpawn;
+    JetSpawn jetSpawn; /// Reference to JetSpawn
 
     [SerializeField]
-    float speed = 2f;
+    float speed = 2f; /// Speed of the shock points
 
     [SerializeField]
-    float scale = 1.2f;
+    float scale = 1.2f; /// Max shock size of text
 
     JetPoints jetPoints;
-
     float earlierPoints = 0;
-
     float state = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         state -= Time.deltaTime * speed;

@@ -4,19 +4,22 @@ using UnityEngine;
 using TMPro;
 using System.Text;
 
+/**
+Class responsible for respawn menu
+*/
 public class RespawnUI : MonoBehaviour
 {   
     [SerializeField]
-    StateGame stateGame;
+    StateGame stateGame; /// Reference to StateGame
 
     [SerializeField]
-    JetSpawn jetSpawn;
+    JetSpawn jetSpawn; /// Reference to JetSPawn
 
     [SerializeField]
-    TextMeshProUGUI text;
+    TextMeshProUGUI text; /// Reference to text info
 
     [SerializeField]
-    float timeToRespawn = 5f;  
+    float timeToRespawn = 5f;  /// Time to respawn jet
 
     float timer = 0;
     bool counting = false;
@@ -54,6 +57,9 @@ public class RespawnUI : MonoBehaviour
         }
     }
 
+    /**
+    Try respawn jet 
+    */
     public void Respawn(){
         if(!lockButton){
             counting = false;
@@ -62,6 +68,9 @@ public class RespawnUI : MonoBehaviour
         }
     }
 
+    /**
+    If state game was changed, check if it is Respawn state and try to countdown respawn 
+    */
     void OnChange()
     {
         if(stateGame.GetStateMenu() == StateGame.StateMenu.Respawn && counting == false)

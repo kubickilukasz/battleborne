@@ -4,24 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/**
+Class responsible for showing information about cross the board of map. If player don't turn back, jet will be destroyed.
+*/
 public class BorderInfo : MonoBehaviour
 {
     [SerializeField]
-    TextMeshProUGUI text;
+    TextMeshProUGUI text; /// Reference to text information
 
     [SerializeField]
-    InvisibleWall invisibleWall;
+    InvisibleWall invisibleWall; /// Refernece to InvisibleWall
 
     [SerializeField]
-    StateGame stateGame;
+    StateGame stateGame; /// Reference to StateGame to pause the game
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if(stateGame.GetStateMenu() == StateGame.StateMenu.Play){
@@ -31,10 +27,16 @@ public class BorderInfo : MonoBehaviour
         }
     }
 
+    /**
+    Show information about crossing the board
+    */
     public void ShowInfo(){
         text.gameObject.SetActive(true);
     }
-
+    
+    /**
+    Hide information about crossing the board
+    */
     public void HideInfo(){
         text.gameObject.SetActive(false);
     }

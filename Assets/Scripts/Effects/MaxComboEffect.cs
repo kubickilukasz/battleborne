@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+* Class create combo and shield effect
+*/
 public class MaxComboEffect : MonoBehaviour
 {
 
+    /**
+    * Reference to object, which represents combo effect
+    */
     [SerializeField]
     GameObject effect;
 

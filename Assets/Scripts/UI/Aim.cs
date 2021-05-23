@@ -3,52 +3,55 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/**
+Class responsible for controll viewfinder in play mode
+*/
 public class Aim : MonoBehaviour
 {
 
     [SerializeField]
-    JetSpawn jetSpawn;
+    JetSpawn jetSpawn; /// Reference to JetSpawn
 
     [SerializeField]
-    RectTransform leftAim;
+    RectTransform leftAim; /// Reference to left part of viewfinder
 
     [SerializeField]
-    RectTransform rightAim;
+    RectTransform rightAim; /// Reference to right part of viewfinder
 
     [SerializeField]
-    Image healthBar;
+    Image healthBar; /// Reference to image, which represents Health Bar
 
     [SerializeField]
-    Image ammoBar;
+    Image ammoBar; /// Reference to image, which represents Ammo Bar
 
     [Space()]
 
     [SerializeField]
-    float smooth;
+    float smooth; /// Smooth of viewfinder
 
     [SerializeField]
-    float maxSpeed;
+    float maxSpeed; /// Max speed of viewfinder
 
     [SerializeField]
-    float focusPosX = 70f;
+    float focusPosX = 70f; /// Position of X in focus mode
 
     [SerializeField]
-    float recoilPosX = 150f;
+    float recoilPosX = 150f; /// Position of X in recoil mode
 
     [SerializeField]
-    bool isFocusing = true;
+    bool isFocusing = true; /// Is viewfinder focusing
 
     [SerializeField]
-    float rangeRayToCalculateAim;
+    float rangeRayToCalculateAim; /// max range of ray to calculate position of viewfinder
 
     [SerializeField]
-    Camera jetCamera;
+    Camera jetCamera; /// Reference to Camera
 
     [SerializeField]
-    LayerMask maskForRay;
+    LayerMask maskForRay; /// Mask for ray to calculate position fo viewfinder
 
     [SerializeField]
-    float smoothOfAimRay;
+    float smoothOfAimRay; /// mooth of viewfinder
 
     float refCurrentVelocity;
     Vector3 tempPosition;
