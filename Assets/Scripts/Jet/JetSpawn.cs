@@ -8,17 +8,21 @@ Class used for spawn point of the jet. Stores crucial data needed for other obje
 public class JetSpawn : MonoBehaviour
 {
     [SerializeField]
-    private GameObject jetPrefab; /// Place for jet's prefab
+    /// Place for jet's prefab
+    private GameObject jetPrefab;
 
-    public GameObject jetReference; /// Reference to the current jet's object on the scene
+    /// Reference to the current jet's object on the scene
+    public GameObject jetReference;
 
     private int jetPoints;
 
     [SerializeField]
-    private int respawnPenalty; /// Point penalty given on each respawn
+    /// Point penalty given on each respawn
+    private int respawnPenalty;
 
     [SerializeField]
-    private BonusPenaltyList bonusPenaltyList; /// Reference to the list with bonuses and penalties received after dying
+    /// Reference to the list with bonuses and penalties received after dying
+    private BonusPenaltyList bonusPenaltyList;
 
     void LateUpdate()
     {

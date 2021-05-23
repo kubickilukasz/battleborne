@@ -9,23 +9,30 @@ public class CameraFollow : MonoBehaviour
 {
     [Header("Target")]
     [SerializeField]
-    private Transform target; ///Transform of an object that camera is going to follow
+    ///Transform of an object that camera is going to follow
+    private Transform target;
 
     [SerializeField]
-    private GameObject spawnPoint; ///Reference to the spawn point of the targer
+    ///Reference to the spawn point of the target
+    private GameObject spawnPoint;
 
     [Header("Camera Values")]
     [SerializeField]
-    private float smoothSpeed; ///Smoothing speed of the camera
+    ///Smoothing speed of the camera
+    private float smoothSpeed;
     [SerializeField]
-    private Vector3 offset; ///Distance from the target
+    ///Distance from the target
+    private Vector3 offset;
     [SerializeField]
-    private float rotSpeed; ///Camera rotation speed
+    ///Camera rotation speed
+    private float rotSpeed;
 
     [SerializeField]
-    private float fovDelta; ///Delta of the Field of View value, used while boosting the jet
+    ///Delta of the Field of View value, used while boosting the jet
+    private float fovDelta;
     [SerializeField]
-    private float maxFOV;  ///Maximum Field of View value that is allowed
+    ///Maximum Field of View value that is allowed
+    private float maxFOV;
 
     private float defaultFOV;
     private Vector3 velocity = Vector3.zero;

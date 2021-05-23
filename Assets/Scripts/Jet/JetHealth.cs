@@ -10,26 +10,32 @@ Class that stores the data and performs actions referring to jet's health
 public class JetHealth : MonoBehaviour
 {
 
+    /// Event invoked when jet is destroyed
     public UnityEvent onDestroyEvent;
 
     [Header("Jet Health")]
     [SerializeField]
-    private int health; /// Current amount of health of the jet
+    /// Current amount of health of the jet
+    private int health;
 
     [SerializeField]
-    private int maxHealth = 100; /// Maximum amount of health of the jet
+    /// Maximum amount of health of the jet
+    private int maxHealth = 100;
 
     private bool invincibility = false;
 
     [Header("Explosion")]
     [SerializeField]
-    private GameObject explosion; /// Explosion effect instantiated after dying
+    /// Explosion effect instantiated after dying
+    private GameObject explosion;
 
     [SerializeField]
-    private AudioSource kaboom; /// Sound effect for the explosion
+    /// Sound effect for the explosion
+    private AudioSource kaboom;
 
     [SerializeField]
-    private int explosionHitPoints; /// Amount of hit points dealt on explosion (to buildings, enemies)
+    /// Amount of hit points dealt on explosion (to buildings, enemies)
+    private int explosionHitPoints;
 
     private JetPoints combo;
 

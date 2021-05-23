@@ -10,7 +10,8 @@ public class AmmoCollectible : MonoBehaviour
 {
 
     [Header("AmmoData")]
-    public AmmoData ammoData; ///Serialized object containing data about the ammunition in this collectible
+    ///Serialized object containing data about the ammunition in this collectible
+    public AmmoData ammoData;
 
     
     void OnTriggerEnter(Collider other) 

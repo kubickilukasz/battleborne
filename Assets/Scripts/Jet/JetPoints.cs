@@ -10,25 +10,31 @@ Class that stores the data and performs actions reffering to jet's points
 public class JetPoints : MonoBehaviour
 {
 
-    public UnityEvent maxComboEvent; /// Event invoked when max combo amount has been reached
-    private bool maxComboEventInvoked = false; /// Indicator if the event has been invoked
+    /// Event invoked when max combo amount has been reached
+    public UnityEvent maxComboEvent;
 
-    public UnityEvent comboFinishEvent; /// Event invoked when combo has been reset
+    private bool maxComboEventInvoked = false;
+    /// Event invoked when combo has been reset
+    public UnityEvent comboFinishEvent;
 
     [Header("Points")]
     [SerializeField]
-    private int points; /// Points collected during the game
+    /// Points collected during the game
+    private int points;
 
     [Header("Combo")]
     [SerializeField]
-    private float maxCombo; /// Maximum combo amount
+    /// Maximum combo amount
+    private float maxCombo; 
 
     [SerializeField]
     [Range(1f,1.5f)]
-    private float defaultMultiplier; /// Combo multiplier
+    /// Combo multiplier
+    private float defaultMultiplier;
 
     [SerializeField]
-    private int comboBonus; /// Point bonus given while being in max combo state
+    /// Point bonus given while being in max combo state
+    private int comboBonus;
 
     private float combo = 0.0f;
 
@@ -36,12 +42,14 @@ public class JetPoints : MonoBehaviour
 
 #region Timer
     [SerializeField]
-    private float timerSeconds; /// Indicator for how long the max combo state should stay on
+    /// Indicator for how long the max combo state should stay on
+    private float timerSeconds;
 
     private float timer = 0.0f;
 
     [SerializeField]
-    private float comboResetTimerSeconds; /// Indicator for how long combo can remain unchanged before resetting (e.g user stops hitting enemies)
+    /// Indicator for how long combo can remain unchanged before resetting (e.g user stops hitting enemies)
+    private float comboResetTimerSeconds;
 
     private float comboTimer = 0.0f;
 #endregion
@@ -69,6 +77,7 @@ public class JetPoints : MonoBehaviour
 
     /**
     Method used for adding points to the current score
+    @param value Amount of received points
     */
     public void AddPoints(int value)
     {
@@ -80,6 +89,7 @@ public class JetPoints : MonoBehaviour
 
     /**
     Method used for decreasing points from the current score
+    @param value Amount of points to decrease
     */
     public void DecreasePoints(int value)
     {
@@ -90,6 +100,7 @@ public class JetPoints : MonoBehaviour
 
     /**
     Method used for combo stacking 
+    @param multiplier Combo multiplier to stack up
     */
     public void StackCombo(float multiplier)
     {
@@ -110,7 +121,7 @@ public class JetPoints : MonoBehaviour
 
     /**
     Method used for indicating whether max combo state is on or not
-    return Returns true if max combo state is on, false otherwise
+    @return Returns true if max combo state is on, false otherwise
     */
     public bool isMaxCombo()
     {
