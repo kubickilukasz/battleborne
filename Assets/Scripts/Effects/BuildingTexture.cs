@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /**
-* Every building get random texture on start scene
+* Every building gets random texture on start scene
 */
 public class BuildingTexture : MonoBehaviour
 {

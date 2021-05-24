@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /**
-* Control trail effect on bullets
+* Controls trail effect on bullets
 */
 public class BulletTrail : MonoBehaviour
 {

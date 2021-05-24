@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /**
-* Class create combo and shield effect
+* Class creates combo and shield effect
 */
 public class MaxComboEffect : MonoBehaviour
 {

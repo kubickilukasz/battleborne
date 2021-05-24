@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/**
+Class that represents the border of the map and performs certain actions when it's crossed
+*/
 public class InvisibleWall : MonoBehaviour
 {
 
-    public UnityEvent onJetExitEvent; /// Event invoked when jet leaves the area 
-    public UnityEvent onJetEnterEvent; /// Event invoked when jet enters the area
+    /// Event invoked when jet leaves the area
+    public UnityEvent onJetExitEvent; 
+    /// Event invoked when jet enters the area
+    public UnityEvent onJetEnterEvent;
 
 #region Timer
     [SerializeField]
-    private float timerSeconds; /// Amount of seconds for the selfdestruction countdown
+    /// Amount of seconds for the selfdestruction countdown
+    private float timerSeconds;
 
     private float timer = 0.0f;
 #endregion

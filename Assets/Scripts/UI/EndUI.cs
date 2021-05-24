@@ -5,7 +5,7 @@ using TMPro;
 using System.Text;
 
 /**
-Show GameOver window
+Shows GameOver window
 */
 public class EndUI : MonoBehaviour
 {

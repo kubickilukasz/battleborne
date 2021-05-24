@@ -123,7 +123,7 @@ public class Bullet : MonoBehaviour
         }
         else if(colliderTag == "Alien")
         {
-            if(colliderTag != senderTag)
+            if(colliderTag != senderTag && !isEnemyBullet)
             {
                 AIEnemy enemy = other.GetComponent<AIEnemy>();
                 if(enemy != null)

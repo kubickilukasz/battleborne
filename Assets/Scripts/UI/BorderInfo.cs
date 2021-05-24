@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 /**
-Class responsible for showing information about cross the board of map. If player don't turn back, jet will be destroyed.
+Class responsible for showing information about crossing the board of map. If player doesn't turn back, jet will be destroyed.
 */
 public class BorderInfo : MonoBehaviour
 {

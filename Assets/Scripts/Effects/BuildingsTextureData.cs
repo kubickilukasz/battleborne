@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /**
-* Data, which have several texture to choose in random
+* Data, which has several textures to choose from in random order
 */
 [CreateAssetMenu(fileName = "BuildingsTexture", menuName = "Buildings/Textures", order = 1)]
 public class BuildingsTextureData : ScriptableObject

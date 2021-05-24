@@ -5,7 +5,7 @@ using TMPro;
 using System.Text;
 
 /**
-Show information about combo 
+Shows information about combo 
 */
 public class ComboUI : MonoBehaviour
 {
